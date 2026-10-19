@@ -1,0 +1,13 @@
+{
+  "status": "rascunho",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg"
+  ],
+  "legenda": "Este post foi publicado sem eu abrir o Instagram.\n\nHoje meus posts nascem numa conversa com o Claude. Eu digo o tema e dou o contexto real. Ele pesquisa, escreve, desenha os cards e me avisa o que eu preciso confirmar.\n\nQuando está do jeito que eu quero, escrevo \"publica\". Uma automação no GitHub manda tudo pela API oficial da Meta e em cerca de um minuto está no ar.\n\nSem \"publica\", nada sai. A IA faz o volume, a decisão continua minha.\n\nO que você automatizaria primeiro?\n\n#inteligenciaartificial #claude #automacao #produtividade #instagram"
+}
