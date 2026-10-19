@@ -1,0 +1,49 @@
+name: Publicar no Instagram
+
+on:
+  push:
+    branches: [main]
+    paths: ["posts/**/post.json"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Só validar, sem publicar"
+        type: boolean
+        default: false
+
+concurrency:
+  group: publicar-instagram
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests==2.32.3
+
+      - name: Publicar posts aprovados
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v23.0' }}
+          MEDIA_BASE_URL: https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ github.sha }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+        run: python scripts/publicar.py
+
+      - name: Gravar status no repositório
+        if: always() && inputs.dry_run != true
+        run: |
+          git config user.name "publicador-instagram"
+          git config user.email "actions@users.noreply.github.com"
+          git add posts
+          git diff --cached --quiet || git commit -m "status: atualiza posts publicados"
+          git push
