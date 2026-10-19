@@ -2,6 +2,10 @@
 
 Este repositório publica no Instagram pessoal do Roque (@roquecneto). Publicar é público e irreversível.
 
+## Visual dos posts
+
+Todo carrossel segue o design system "Roque Neto Posts" (https://claude.ai/artifact/3GzondSYQ8WUUTXMx3sq3w): leia o `project/README.md` dele antes de montar os cards. Ele define a série (e a cor) por assunto, os modelos de card e as regras de texto.
+
 ## Regra principal
 
 Só faça push de um post com `"status": "aprovado"` quando o Roque tiver dito, no chat e para aquele post específico, que é para publicar. Aprovação de um post não vale para outro. Na dúvida, deixe `rascunho` e pergunte.
