@@ -1,0 +1,28 @@
+name: Testar conexão com o Instagram
+
+# Só lê o perfil. Não publica nada.
+
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/testar-conexao.yml"]
+  workflow_dispatch:
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ler perfil e limite de publicação
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          V: ${{ vars.IG_API_VERSION || 'v23.0' }}
+        run: |
+          set -e
+          me=$(curl -s "https://graph.instagram.com/$V/me?fields=user_id,username,account_type&access_token=$IG_ACCESS_TOKEN")
+          echo "$me" | jq 'del(.id)'
+          echo "$me" | jq -e '.username' >/dev/null || { echo "Token inválido"; exit 1; }
+          uid=$(echo "$me" | jq -r '.user_id')
+          if [ "$uid" != "$IG_USER_ID" ]; then echo "IG_USER_ID não bate com o token"; exit 1; fi
+          curl -s "https://graph.instagram.com/$V/$IG_USER_ID/content_publishing_limit?fields=quota_usage,config&access_token=$IG_ACCESS_TOKEN" | jq .
+          echo "Conexão OK"
