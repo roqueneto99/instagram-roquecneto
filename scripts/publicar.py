@@ -60,18 +60,24 @@ def _aguardar_pronto(container_id, limite_s=300):
     raise ErroPost(f"container {container_id} não ficou pronto em {limite_s}s")
 
 
-def _aquecer(url, tentativas=8):
-    """Baixa a imagem do CDN antes da Meta, para ela não pegar o cache frio.
-    Se a Meta não consegue baixar a tempo, responde "Only photo or video can be accepted"."""
-    for i in range(tentativas):
-        try:
-            r = requests.get(url, timeout=30)
-            if r.status_code == 200 and r.headers.get("content-type", "").startswith("image/"):
-                return
-        except requests.RequestException:
-            pass
+def _url_ok(url):
+    try:
+        r = requests.get(url, timeout=30)
+        return r.status_code == 200 and r.headers.get("content-type", "").startswith("image/")
+    except requests.RequestException:
+        return False
+
+
+def _escolher_url(bases, caminho, rodadas=6):
+    """Testa cada servidor de imagens e devolve o primeiro que entrega o JPEG.
+    Se a Meta não consegue baixar, responde "Only photo or video can be accepted"."""
+    for i in range(rodadas):
+        for base in bases:
+            url = f"{base}/{caminho}"
+            if _url_ok(url):
+                return url
         time.sleep(10)
-    raise ErroPost(f"imagem não ficou acessível no CDN: {url}")
+    raise ErroPost(f"imagem inacessível em todos os servidores: {caminho}")
 
 
 def _criar_item(ig, tentativas=3, **params):
@@ -102,11 +108,9 @@ def validar(pasta, post):
 
 def publicar(pasta, post):
     ig = os.environ["IG_USER_ID"]
-    base = os.environ["MEDIA_BASE_URL"].rstrip("/")
+    bases = [b.strip().rstrip("/") for b in os.environ["MEDIA_BASE_URL"].split(",") if b.strip()]
     rel = pasta.relative_to(RAIZ).as_posix()
-    urls = [f"{base}/{rel}/{nome}" for nome in post["imagens"]]
-    for url in urls:
-        _aquecer(url)
+    urls = [_escolher_url(bases, f"{rel}/{nome}") for nome in post["imagens"]]
 
     if len(urls) == 1:
         criacao = _criar_item(ig, image_url=urls[0], caption=post["legenda"])
