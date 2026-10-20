@@ -60,6 +60,30 @@ def _aguardar_pronto(container_id, limite_s=300):
     raise ErroPost(f"container {container_id} não ficou pronto em {limite_s}s")
 
 
+def _aquecer(url, tentativas=8):
+    """Baixa a imagem do CDN antes da Meta, para ela não pegar o cache frio.
+    Se a Meta não consegue baixar a tempo, responde "Only photo or video can be accepted"."""
+    for i in range(tentativas):
+        try:
+            r = requests.get(url, timeout=30)
+            if r.status_code == 200 and r.headers.get("content-type", "").startswith("image/"):
+                return
+        except requests.RequestException:
+            pass
+        time.sleep(10)
+    raise ErroPost(f"imagem não ficou acessível no CDN: {url}")
+
+
+def _criar_item(ig, tentativas=3, **params):
+    for i in range(tentativas):
+        try:
+            return _api("POST", f"{ig}/media", **params)["id"]
+        except ErroPost as e:
+            if "Only photo or video" not in str(e) or i == tentativas - 1:
+                raise
+            time.sleep(20)
+
+
 def validar(pasta, post):
     imagens = post.get("imagens") or []
     legenda = post.get("legenda", "")
@@ -81,14 +105,15 @@ def publicar(pasta, post):
     base = os.environ["MEDIA_BASE_URL"].rstrip("/")
     rel = pasta.relative_to(RAIZ).as_posix()
     urls = [f"{base}/{rel}/{nome}" for nome in post["imagens"]]
+    for url in urls:
+        _aquecer(url)
 
     if len(urls) == 1:
-        criacao = _api("POST", f"{ig}/media", image_url=urls[0], caption=post["legenda"])["id"]
+        criacao = _criar_item(ig, image_url=urls[0], caption=post["legenda"])
     else:
         filhos = []
         for url in urls:
-            cid = _api("POST", f"{ig}/media", image_url=url, is_carousel_item="true")["id"]
-            filhos.append(cid)
+            filhos.append(_criar_item(ig, image_url=url, is_carousel_item="true"))
         for cid in filhos:
             _aguardar_pronto(cid)
         criacao = _api("POST", f"{ig}/media", media_type="CAROUSEL",
