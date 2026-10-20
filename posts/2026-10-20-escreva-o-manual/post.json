@@ -1,0 +1,14 @@
+{
+  "status": "rascunho",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg"
+  ],
+  "legenda": "Se você explicou a mesma coisa para a IA duas vezes, já era hora de escrever um manual.\n\nA IA não lembra como você gosta das coisas de uma conversa para outra. Então toda vez é contexto, passo a passo, cuidados. E cada resultado sai de um jeito.\n\nO que eu faço: transformo a tarefa num manual de instruções que ela lê antes de começar. No Claude isso se chama skill. É só texto, em português comum, sem programar.\n\nO meu de auditoria de anúncios tem 104 linhas. Hoje eu peço \"audita as campanhas do último mês\" e ele faz o resto, inclusive mandar um segundo agente conferir cada número antes de chegar em mim.\n\nQual tarefa você explica toda semana?\n\n#inteligenciaartificial #claude #produtividade #automacao #ia"
+}
