@@ -1,5 +1,5 @@
 {
-  "status": "rascunho",
+  "status": "aprovado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -9,5 +9,6 @@
     "06.jpg",
     "07.jpg"
   ],
-  "legenda": "Quando peço uma coisa para a IA, quase nunca peço uma resposta. Peço quatro.\n\nCom uma só, vem a versão mais óbvia e eu fico ajustando. Com quatro lado a lado, eu descubro o que queria. Às vezes algo que nem sabia pedir.\n\nO visual destes posts saiu assim. Pedi para misturar referências de Apple, Nvidia e Tesla e mostrar opções aplicadas ao mesmo post. Escolhi a quarta.\n\nO truque é exigir contraste: uma segura, uma ousada, uma simples e uma que eu não esperaria. Senão vêm quatro versões da mesma ideia.\n\nQual decisão sua merecia quatro opções? Me conta nos comentários.\n\n#inteligenciaartificial #ia #produtividade #claude #tecnologia"
+  "legenda": "Quando peço uma coisa para a IA, quase nunca peço uma resposta. Peço quatro.\n\nCom uma só, vem a versão mais óbvia e eu fico ajustando. Com quatro lado a lado, eu descubro o que queria. Às vezes algo que nem sabia pedir.\n\nO visual destes posts saiu assim. Pedi para misturar referências de Apple, Nvidia e Tesla e mostrar opções aplicadas ao mesmo post. Escolhi a quarta.\n\nO truque é exigir contraste: uma segura, uma ousada, uma simples e uma que eu não esperaria. Senão vêm quatro versões da mesma ideia.\n\nQual decisão sua merecia quatro opções? Me conta nos comentários.\n\n#inteligenciaartificial #ia #produtividade #claude #tecnologia",
+  "agendado_para": "2026-10-21T09:00:00-03:00"
 }
