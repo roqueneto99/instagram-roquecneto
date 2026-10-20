@@ -108,6 +108,10 @@ def main():
         post = json.loads(arquivo.read_text(encoding="utf-8"))
         if post.get("status") != "aprovado":
             continue
+        quando = post.get("agendado_para")
+        if quando and datetime.fromisoformat(quando) > datetime.now(timezone.utc):
+            print(f"> {pasta.name}: agendado para {quando}, ainda não")
+            continue
         print(f"> {pasta.name}")
         try:
             validar(pasta, post)

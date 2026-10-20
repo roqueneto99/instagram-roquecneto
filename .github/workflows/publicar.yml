@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths: ["posts/**/post.json"]
+  schedule:
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -36,7 +38,7 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v23.0' }}
           MEDIA_BASE_URL: https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ github.sha }}
-          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+          DRY_RUN: ${{ inputs.dry_run == true && '1' || '0' }}
         run: python scripts/publicar.py
 
       - name: Gravar status no repositório

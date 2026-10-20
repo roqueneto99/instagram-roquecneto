@@ -21,6 +21,8 @@ Nada vai ao ar sem `status: "aprovado"`. Um post com status `publicando` ou `pub
 }
 ```
 
+Para agendar, acrescente `"agendado_para": "2026-10-20T09:00:00-03:00"`. A Action roda a cada 15 minutos e publica o post aprovado quando a hora chegar (o GitHub pode atrasar alguns minutos).
+
 Status possíveis: `rascunho`, `aprovado`, `publicando`, `publicado`, `erro` (com o campo `erro` explicando). Para tentar de novo depois de um erro, volte para `aprovado`.
 
 ## Configuração (uma vez só)
