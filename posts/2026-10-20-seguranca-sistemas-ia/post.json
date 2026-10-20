@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -10,5 +10,8 @@
     "07.jpg",
     "08.jpg"
   ],
-  "legenda": "Construir um sistema com IA ficou fácil. Proteger, não.\n\nHoje dá para fazer um CRM, um portal de clientes ou um cadastro em uma tarde, só pedindo. Funciona, tem tela bonita, tem login. O problema é o que não aparece: quem pode ver o quê, onde ficam as senhas, o que acontece quando alguém tenta burlar.\n\nEnquanto roda só no seu computador, o risco é seu. Quando vai para a internet, qualquer pessoa pode tentar entrar. E se tem dado de cliente, um vazamento vira problema de LGPD, de confiança e de responsabilidade.\n\nMinha recomendação: use IA à vontade para protótipo e ferramenta interna. Mas se você não entende de segurança de sistemas, não publique nada aberto ao público sem um profissional avaliar antes. A IA ajuda a achar problemas, mas não substitui essa revisão.\n\nVocê já colocou na internet algo feito com IA?\n\n#inteligenciaartificial #ia #segurancadainformacao #lgpd #tecnologia #claude"
+  "legenda": "Construir um sistema com IA ficou fácil. Proteger, não.\n\nHoje dá para fazer um CRM, um portal de clientes ou um cadastro em uma tarde, só pedindo. Funciona, tem tela bonita, tem login. O problema é o que não aparece: quem pode ver o quê, onde ficam as senhas, o que acontece quando alguém tenta burlar.\n\nEnquanto roda só no seu computador, o risco é seu. Quando vai para a internet, qualquer pessoa pode tentar entrar. E se tem dado de cliente, um vazamento vira problema de LGPD, de confiança e de responsabilidade.\n\nMinha recomendação: use IA à vontade para protótipo e ferramenta interna. Mas se você não entende de segurança de sistemas, não publique nada aberto ao público sem um profissional avaliar antes. A IA ajuda a achar problemas, mas não substitui essa revisão.\n\nVocê já colocou na internet algo feito com IA?\n\n#inteligenciaartificial #ia #segurancadainformacao #lgpd #tecnologia #claude",
+  "media_id": "18129584266693820",
+  "link": "https://www.instagram.com/p/DeuJZmTEYpM/",
+  "publicado_em": "2026-10-20T15:23:50+00:00"
 }
