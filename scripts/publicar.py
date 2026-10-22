@@ -4,6 +4,11 @@ Roda dentro da GitHub Action. Para cada posts/<slug>/post.json com
 status "aprovado", cria os containers na API do Instagram, publica e
 grava de volta o status "publicado" com o id e o link do post.
 
+Tipos (campo "tipo" do post.json):
+  carrossel (padrão)  "imagens": lista de JPEGs, "legenda"
+  story               "video": um MP4 vertical de até 60 s (ou "imagens" com um JPEG)
+  reels               "video": um MP4 vertical, "legenda"
+
 Variáveis de ambiente:
   IG_USER_ID       id da conta profissional do Instagram
   IG_ACCESS_TOKEN  token de longa duração (instagram_business_content_publish)
@@ -60,24 +65,26 @@ def _aguardar_pronto(container_id, limite_s=300):
     raise ErroPost(f"container {container_id} não ficou pronto em {limite_s}s")
 
 
-def _url_ok(url):
+def _url_ok(url, tipos):
     try:
-        r = requests.get(url, timeout=30)
-        return r.status_code == 200 and r.headers.get("content-type", "").startswith("image/")
+        r = requests.get(url, timeout=60)
+        return r.status_code == 200 and r.headers.get("content-type", "").startswith(tipos)
     except requests.RequestException:
         return False
 
 
 def _escolher_url(bases, caminho, rodadas=6):
-    """Testa cada servidor de imagens e devolve o primeiro que entrega o JPEG.
-    Se a Meta não consegue baixar, responde "Only photo or video can be accepted"."""
+    """Testa cada servidor e devolve o primeiro que entrega o arquivo com o tipo certo
+    (image/ para JPEG, video/ para MP4). Se a Meta não consegue baixar, ela responde
+    "Only photo or video can be accepted"."""
+    tipos = ("video/",) if caminho.lower().endswith(".mp4") else ("image/",)
     for i in range(rodadas):
         for base in bases:
             url = f"{base}/{caminho}"
-            if _url_ok(url):
+            if _url_ok(url, tipos):
                 return url
         time.sleep(10)
-    raise ErroPost(f"imagem inacessível em todos os servidores: {caminho}")
+    raise ErroPost(f"arquivo inacessível em todos os servidores: {caminho}")
 
 
 def _criar_item(ig, tentativas=3, **params):
@@ -91,8 +98,24 @@ def _criar_item(ig, tentativas=3, **params):
 
 
 def validar(pasta, post):
-    imagens = post.get("imagens") or []
+    tipo = post.get("tipo", "carrossel")
     legenda = post.get("legenda", "")
+    if tipo not in ("carrossel", "story", "reels"):
+        raise ErroPost(f"tipo desconhecido: {tipo}")
+    if tipo in ("story", "reels") and post.get("video"):
+        nome = post["video"]
+        if not nome.lower().endswith(".mp4"):
+            raise ErroPost(f"{nome}: vídeo precisa ser MP4")
+        if not (pasta / nome).is_file():
+            raise ErroPost(f"{nome} não existe na pasta")
+        if len(legenda) > LIMITE_LEGENDA:
+            raise ErroPost(f"legenda com {len(legenda)} caracteres, limite {LIMITE_LEGENDA}")
+        return
+    if tipo == "reels":
+        raise ErroPost("reels precisa do campo video")
+    imagens = post.get("imagens") or []
+    if tipo == "story" and len(imagens) != 1:
+        raise ErroPost("story de imagem precisa de exatamente 1 JPEG")
     if not 1 <= len(imagens) <= 10:
         raise ErroPost(f"precisa de 1 a 10 imagens, tem {len(imagens)}")
     for nome in imagens:
@@ -110,6 +133,26 @@ def publicar(pasta, post):
     ig = os.environ["IG_USER_ID"]
     bases = [b.strip().rstrip("/") for b in os.environ["MEDIA_BASE_URL"].split(",") if b.strip()]
     rel = pasta.relative_to(RAIZ).as_posix()
+    tipo = post.get("tipo", "carrossel")
+
+    if tipo in ("story", "reels"):
+        if post.get("video"):
+            url = _escolher_url(bases, f"{rel}/{post['video']}")
+            params = {"media_type": "STORIES" if tipo == "story" else "REELS", "video_url": url}
+        else:
+            url = _escolher_url(bases, f"{rel}/{post['imagens'][0]}")
+            params = {"media_type": "STORIES", "image_url": url}
+        if tipo == "reels":
+            params.update(caption=post.get("legenda", ""), share_to_feed="true")
+        criacao = _criar_item(ig, **params)
+        _aguardar_pronto(criacao, limite_s=900)
+        media_id = _api("POST", f"{ig}/media_publish", creation_id=criacao)["id"]
+        try:
+            link = _api("GET", media_id, fields="permalink").get("permalink")
+        except ErroPost:
+            link = None
+        return media_id, link or f"https://www.instagram.com/stories/roquecneto/{media_id}/"
+
     urls = [_escolher_url(bases, f"{rel}/{nome}") for nome in post["imagens"]]
 
     if len(urls) == 1:
