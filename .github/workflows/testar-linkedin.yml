@@ -1,0 +1,20 @@
+name: Testar conexão com o LinkedIn
+
+# Só lê o perfil. Não publica nada.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ler perfil
+        env:
+          LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
+        run: |
+          set -e
+          r=$(curl -s -H "Authorization: Bearer $LINKEDIN_TOKEN" https://api.linkedin.com/v2/userinfo)
+          echo "$r" | jq '{name, given_name, locale}'
+          echo "$r" | jq -e '.sub' >/dev/null || { echo "Token inválido ou sem escopo openid/profile"; exit 1; }
+          echo "Conexão OK"

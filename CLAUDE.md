@@ -21,6 +21,15 @@ Só faça push de um post com `"status": "aprovado"` quando o Roque tiver dito, 
 3. Acompanhe com `gh run watch` ou `gh run list --workflow publicar.yml`.
 4. Faça `git pull` e leia o `post.json`: se `publicado`, mande o link ao Roque; se `erro`, explique o campo `erro` e só volte para `aprovado` com o ok dele.
 
+## LinkedIn
+
+Todo post também vai para o perfil pessoal do Roque no LinkedIn, salvo se ele disser "só no Instagram".
+- No "publica", além do `status` do Instagram, ponha `"linkedin": {"status": "aprovado"}` no `post.json` (com `agendado_para` se houver horário).
+- Texto do LinkedIn: use `"linkedin": {"texto": ...}` quando a legenda do Instagram não servir (até 3.000 caracteres, sem travessão longo). Mostre esse texto ao Roque antes.
+- Carrossel vira post de documento (PDF); vídeo vira vídeo nativo; story do Instagram vai como vídeo.
+- Status e link do LinkedIn ficam dentro do bloco `linkedin`. Mesmas regras: nunca mexa em `publicado` ou `publicando`.
+- O token (`LINKEDIN_TOKEN`) vence a cada 60 dias; renovar pelo gerador de tokens do app "Publicador Roque Neto" no portal de desenvolvedores.
+
 ## Nunca
 
 - Nunca altere um post `publicado` ou `publicando`.

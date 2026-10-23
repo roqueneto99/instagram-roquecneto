@@ -1,4 +1,4 @@
-name: Publicar no Instagram
+name: Publicar no Instagram e no LinkedIn
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install requests==2.32.3
+      - run: pip install requests==2.32.3 pillow==11.3.0
 
       - name: Publicar posts aprovados
         env:
@@ -40,6 +40,14 @@ jobs:
           MEDIA_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }},https://cdn.jsdelivr.net/gh/${{ github.repository }}@${{ github.sha }}
           DRY_RUN: ${{ inputs.dry_run == true && '1' || '0' }}
         run: python scripts/publicar.py
+
+      - name: Publicar no LinkedIn
+        if: always()
+        env:
+          LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
+          LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION }}
+          DRY_RUN: ${{ inputs.dry_run == true && '1' || '0' }}
+        run: python scripts/publicar_linkedin.py
 
       - name: Gravar status no repositório
         if: always() && inputs.dry_run != true
