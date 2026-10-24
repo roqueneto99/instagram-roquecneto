@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -13,7 +13,13 @@
   "legenda": "Quase todo mundo erra nisso quando usa IA. E a culpa não é da ferramenta.\n\nOs cinco erros mais comuns:\n1. Pergunta vaga. \"Me ajuda com meu currículo\" rende resposta genérica. Diga para qual vaga e o que você quer receber.\n2. Aceitar a primeira resposta. Ela é um rascunho. Peça mais curto, mais informal, outra opção.\n3. Não dar contexto. Diga quem você é, quem vai ler e para quê.\n4. Confiar em número sem conferir. A IA erra com a maior confiança do mundo. Peça a fonte.\n5. Colar dado sensível. CPF, cartão, senha e dado de cliente ficam de fora.\n\nResposta boa vem de pergunta boa.\n\nQual desses você já cometeu?\n\n#inteligenciaartificial #ia #dicas #produtividade #tecnologia",
   "agendado_para": "2026-10-24T10:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-10-24T10:00:00-03:00"
-  }
+    "status": "publicado",
+    "agendado_para": "2026-10-24T10:00:00-03:00",
+    "urn": "urn:li:ugcPost:7519745321711820800",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7519745321711820800/",
+    "publicado_em": "2026-10-24T13:03:15+00:00"
+  },
+  "media_id": "17899795620676100",
+  "link": "https://www.instagram.com/p/De4Meldlla9/",
+  "publicado_em": "2026-10-24T13:03:13+00:00"
 }
