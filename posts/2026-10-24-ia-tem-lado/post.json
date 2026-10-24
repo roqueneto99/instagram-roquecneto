@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "A IA tem lado? Fiz o teste.\n\nDepois da checagem do debate, veio a crítica: e se a IA errar? Errar todo mundo erra. A pergunta que importa é se o erro tem lado.\n\nEntão escondi os nomes. Lula e Flávio viraram Candidato A e Candidato B, e quatro modelos de IA julgaram as 95 frases. Depois troquei os rótulos e repeti tudo três vezes. Foram 24 rodadas e 2.280 julgamentos.\n\nResultado: trocar o nome muda o selo tanto quanto simplesmente rodar de novo. É ruído, não lado. Os quatro modelos concordaram em 79 das 95 frases, e o placar ficou empatado em todos eles.\n\nTambém achei onde eu errei: em 10 frases os quatro modelos discordaram da minha primeira checagem, para os dois lados. Está no card 7, junto com os limites do teste.\n\nQue outro teste você faria pra pegar viés numa IA?\n\n#inteligenciaartificial #ia #checagem #dados #tecnologia #eleicoes2026",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7519834396309471232",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7519834396309471232/",
+    "publicado_em": "2026-10-24T18:57:12+00:00"
+  },
+  "media_id": "18076084301585585",
+  "link": "https://www.instagram.com/p/De40-_DmqLN/",
+  "publicado_em": "2026-10-24T18:57:10+00:00"
 }
