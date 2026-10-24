@@ -1,5 +1,5 @@
 {
-  "status": "rascunho",
+  "status": "aprovado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -10,5 +10,8 @@
     "07.jpg",
     "08.jpg"
   ],
-  "legenda": "Mesmo debate, placares opostos. Em qual acreditar?\n\nJuntei o que cada um divulgou. Conforme a fonte, Lula vai de 0% a 24% de frases falsas, e Flávio vai de 8% a 53%. Os fatos são os mesmos. O que muda é quais frases cada um escolheu checar, e a maioria não explica essa escolha.\n\nAntes de acreditar em qualquer placar, faça 4 perguntas: mostra cada frase com a fonte? Explica como escolheu as frases? Testou se tem viés? Mostra onde errou?\n\nO diferencial da minha checagem não é ter acertado tudo. É explicar o número: cada frase com fonte, 24 rodadas com os nomes escondidos para medir viés e os erros publicados. E deixei um card só para os pontos fracos, porque fui eu que escolhi os critérios.\n\nQual das 4 perguntas você nunca tinha feito?\n\n#checagem #inteligenciaartificial #ia #dados #eleicoes2026 #tecnologia"
+  "legenda": "Mesmo debate, placares opostos. Em qual acreditar?\n\nJuntei o que cada um divulgou. Conforme a fonte, Lula vai de 0% a 24% de frases falsas, e Flávio vai de 8% a 53%. Os fatos são os mesmos. O que muda é quais frases cada um escolheu checar, e a maioria não explica essa escolha.\n\nAntes de acreditar em qualquer placar, faça 4 perguntas: mostra cada frase com a fonte? Explica como escolheu as frases? Testou se tem viés? Mostra onde errou?\n\nO diferencial da minha checagem não é ter acertado tudo. É explicar o número: cada frase com fonte, 24 rodadas com os nomes escondidos para medir viés e os erros publicados. E deixei um card só para os pontos fracos, porque fui eu que escolhi os critérios.\n\nQual das 4 perguntas você nunca tinha feito?\n\n#checagem #inteligenciaartificial #ia #dados #eleicoes2026 #tecnologia",
+  "linkedin": {
+    "status": "aprovado"
+  }
 }
