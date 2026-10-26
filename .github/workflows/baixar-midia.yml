@@ -1,0 +1,32 @@
+name: Baixar mídia de posts publicados
+
+# Só lê a API do Instagram e grava as imagens em midia/. Não publica nada.
+
+on:
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: "IDs dos posts, separados por espaço"
+        required: true
+
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests==2.32.3
+      - name: Baixar
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_API_VERSION: ${{ vars.IG_API_VERSION || 'v23.0' }}
+        run: python scripts/baixar_midia.py ${{ inputs.ids }}
+      - name: Gravar
+        run: |
+          git config user.name "publicador-instagram"
+          git config user.email "actions@users.noreply.github.com"
+          git add midia
+          git commit -m "midia: imagens de posts publicados" || echo "nada novo"
+          git pull --rebase -q origin main
+          git push
