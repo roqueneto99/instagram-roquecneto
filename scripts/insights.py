@@ -39,6 +39,7 @@ def main():
     medias = get(url, **params).get("data", [])
     for m in medias:
         linha = {
+            "id": m["id"],
             "data": m["timestamp"][:10],
             "tipo": m.get("media_product_type") or m.get("media_type"),
             "inicio": (m.get("caption") or "").split("\n")[0][:70],
