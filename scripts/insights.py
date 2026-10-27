@@ -32,7 +32,7 @@ def insights(media_id):
 
 
 def main():
-    conta = get(UID, fields="username,followers_count,media_count")
+    conta = get(UID, fields="username,name,biography,website,followers_count,follows_count,media_count")
     print("CONTA " + json.dumps(conta, ensure_ascii=False))
     url = f"{UID}/media"
     params = {"fields": "id,caption,media_type,media_product_type,timestamp,permalink,like_count,comments_count", "limit": 50}
