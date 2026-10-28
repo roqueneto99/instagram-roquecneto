@@ -1,5 +1,5 @@
 {
-  "status": "rascunho",
+  "status": "aprovado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -9,5 +9,8 @@
     "06.jpg",
     "07.jpg"
   ],
-  "legenda": "A IA agora te manda mensagem primeiro.\n\nA novidade da semana: no dia 21, a Anthropic lançou o Claude Duet. Em vez de esperar você abrir o chat, ele acompanha seu e-mail e sua agenda, manda um resumo toda manhã, aponta o que precisa de atenção e resolve tarefas em segundo plano. Pode até fazer compras, com cartão de uso único.\n\nOs freios: ele pede sua aprovação antes de pagar, assinar, apagar ou enviar mensagem, e algumas ações ficam bloqueadas mesmo com aprovação. Por enquanto é uma versão de teste, só nos EUA e por lista de espera.\n\nNão é só ela: a Meta lançou o seu assistente pessoal em setembro, e outras empresas estão no mesmo caminho. A pergunta deixou de ser o que a IA sabe. Passou a ser o que você deixa ela fazer.\n\nVocê deixaria uma IA agir no seu nome? Até onde?\n\n#inteligenciaartificial #ia #tecnologia #noticias #agentesdeia"
+  "legenda": "A IA agora te manda mensagem primeiro.\n\nA novidade da semana: no dia 21, a Anthropic lançou o Claude Duet. Em vez de esperar você abrir o chat, ele acompanha seu e-mail e sua agenda, manda um resumo toda manhã, aponta o que precisa de atenção e resolve tarefas em segundo plano. Pode até fazer compras, com cartão de uso único.\n\nOs freios: ele pede sua aprovação antes de pagar, assinar, apagar ou enviar mensagem, e algumas ações ficam bloqueadas mesmo com aprovação. Por enquanto é uma versão de teste, só nos EUA e por lista de espera.\n\nNão é só ela: a Meta lançou o seu assistente pessoal em setembro, e outras empresas estão no mesmo caminho. A pergunta deixou de ser o que a IA sabe. Passou a ser o que você deixa ela fazer.\n\nVocê deixaria uma IA agir no seu nome? Até onde?\n\n#inteligenciaartificial #ia #tecnologia #noticias #agentesdeia",
+  "linkedin": {
+    "status": "aprovado"
+  }
 }
