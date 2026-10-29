@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "Quem vende melhor? A conversa mostra.\n\nFizemos isso com um time de vendas: em vez de o gestor ler algumas conversas de WhatsApp quando sobra tempo, a IA leu todas as do mês, com os mesmos critérios para todo mundo.\n\nComo funciona:\n1. Exportar as conversas do período, sem nome e telefone dos clientes.\n2. Definir o que é um bom atendimento: respondeu rápido, entendeu antes de oferecer, tratou a objeção, fechou com próximo passo, voltou em quem sumiu.\n3. A IA lê e avalia cada conversa, guardando os trechos.\n4. Sai um relatório do time e um por pessoa.\n\nO resultado vai direto para o 1:1 e para o treinamento: feedback com exemplo real, não com impressão. E as melhores respostas do próprio time viram material.\n\nCuidados: conversa de cliente é dado pessoal, então anonimize. Avise o time do que está sendo analisado. E quem avalia a pessoa é o gestor, não a IA.\n\nQuantas conversas do seu time ninguém nunca leu?\n\n#inteligenciaartificial #ia #vendas #gestao #atendimento",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7521364640698830848",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7521364640698830848/",
+    "publicado_em": "2026-10-29T00:17:50+00:00"
+  },
+  "media_id": "18177032761451122",
+  "link": "https://www.instagram.com/p/DfDs2m1Gal1/",
+  "publicado_em": "2026-10-29T00:17:48+00:00"
 }
