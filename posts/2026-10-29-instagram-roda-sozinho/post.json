@@ -1,0 +1,18 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ],
+  "legenda": "Meu Instagram roda sozinho. Este post também.\n\nEu mando o tema, a IA pesquisa, monta os cards no meu visual e escreve a legenda. Eu reviso, aprovo e ele sai no horário marcado, aqui e no LinkedIn. Depois ela lê os números e me conta o que funcionou.\n\nNão escrevi uma linha de código. Fui pedindo, e ela montou cada parte.\n\nO que continua comigo: o tema, a aprovação e a conversa com vocês.\n\nQual tarefa do seu trabalho segue sempre o mesmo caminho?\n\n#inteligenciaartificial #ia #automacao #produtividade #claude",
+  "linkedin": {
+    "status": "aprovado"
+  }
+}
