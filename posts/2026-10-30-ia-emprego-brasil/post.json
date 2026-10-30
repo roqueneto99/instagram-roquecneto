@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "erro",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -14,7 +14,11 @@
   "legenda": "A IA chegou ao trabalho no Brasil. O emprego não sumiu. Mas algo mudou.\n\nNos EUA, pesquisadores de Stanford viram jovens sendo menos contratados nas funções que a IA já faz. Fui ver se isso acontece aqui: cruzei 11 milhões de entrevistas da PNAD Contínua, 142,7 milhões de contratações do Novo CAGED e o índice de exposição à IA da OIT, de 2019 a 2026.\n\nTrês coisas me surpreenderam.\nA queda de 10,8% no emprego de escritório, que muita gente atribui à IA, já acontecia antes do ChatGPT. Era a volta da pandemia.\nA contratação de jovens nas funções expostas não caiu. O que subiu foi a saída: jovem sai, outro entra, a vaga fica.\nCom os agentes, em 2025, o salário por hora começou a cair nessas funções, principalmente entre os informais.\n\nA vaga continua lá. O que está em jogo é o valor da hora de quem faz o que a IA já faz.\n\nNa sua área, você já sente isso?\n\n#inteligenciaartificial #mercadodetrabalho #economia #futurodotrabalho #ia #dados",
   "agendado_para": "2026-10-30T08:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-10-30T08:00:00-03:00"
-  }
+    "status": "publicado",
+    "agendado_para": "2026-10-30T08:00:00-03:00",
+    "urn": "urn:li:ugcPost:7521889422037127170",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7521889422037127170/",
+    "publicado_em": "2026-10-30T11:03:08+00:00"
+  },
+  "erro": "17841400496533075/media_publish: Media ID is not available"
 }
