@@ -97,6 +97,18 @@ def _criar_item(ig, tentativas=3, **params):
             time.sleep(20)
 
 
+def _publicar_container(ig, criacao, tentativas=5):
+    """A Meta às vezes responde "Media ID is not available" logo depois de o container
+    ficar pronto. Espera e tenta de novo."""
+    for i in range(tentativas):
+        try:
+            return _api("POST", f"{ig}/media_publish", creation_id=criacao)["id"]
+        except ErroPost as e:
+            if "not available" not in str(e) or i == tentativas - 1:
+                raise
+            time.sleep(30)
+
+
 def validar(pasta, post):
     tipo = post.get("tipo", "carrossel")
     legenda = post.get("legenda", "")
@@ -146,7 +158,7 @@ def publicar(pasta, post):
             params.update(caption=post.get("legenda", ""), share_to_feed="true")
         criacao = _criar_item(ig, **params)
         _aguardar_pronto(criacao, limite_s=900)
-        media_id = _api("POST", f"{ig}/media_publish", creation_id=criacao)["id"]
+        media_id = _publicar_container(ig, criacao)
         try:
             link = _api("GET", media_id, fields="permalink").get("permalink")
         except ErroPost:
@@ -167,7 +179,7 @@ def publicar(pasta, post):
                        children=",".join(filhos), caption=post["legenda"])["id"]
 
     _aguardar_pronto(criacao)
-    media_id = _api("POST", f"{ig}/media_publish", creation_id=criacao)["id"]
+    media_id = _publicar_container(ig, criacao)
     link = _api("GET", media_id, fields="permalink").get("permalink")
     return media_id, link
 

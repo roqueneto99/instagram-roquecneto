@@ -1,5 +1,5 @@
 {
-  "status": "erro",
+  "status": "aprovado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -19,6 +19,5 @@
     "urn": "urn:li:ugcPost:7521889422037127170",
     "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7521889422037127170/",
     "publicado_em": "2026-10-30T11:03:08+00:00"
-  },
-  "erro": "17841400496533075/media_publish: Media ID is not available"
+  }
 }
