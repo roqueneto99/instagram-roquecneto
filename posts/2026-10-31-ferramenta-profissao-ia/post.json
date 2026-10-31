@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "Quanto a IA mexe na sua profissão? Fiz uma ferramenta para você descobrir.\n\nPeguei o índice da Organização Internacional do Trabalho, que dá uma nota de 0 a 100 para 427 profissões e 3.265 tarefas, traduzi tudo para o português e coloquei numa página simples. Você digita a sua profissão e vê a nota, tarefa por tarefa.\n\nNo topo estão as profissões de texto e tela, como auxiliar administrativo e marketing. Na base, quem trabalha com corpo e cuidado, como enfermeiros e pedreiros. E no meio tem surpresa: advogado, por exemplo, fica em 36.\n\nA nota não diz se você vai perder o emprego. Diz o que dá para passar para a IA. Por isso, no fim, o Claude monta um plano com as 3 tarefas em que ela já te ajuda nesta semana.\n\nO link está na bio. É grátis.\n\nComenta aqui a sua profissão que eu te respondo com a nota.\n\n#inteligenciaartificial #ia #mercadodetrabalho #carreira #futurodotrabalho #produtividade",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7522390054732771328",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7522390054732771328/",
+    "publicado_em": "2026-10-31T20:12:28+00:00"
+  },
+  "media_id": "18038960105889962",
+  "link": "https://www.instagram.com/p/DfK_KUsCS5v/",
+  "publicado_em": "2026-10-31T20:12:27+00:00"
 }
