@@ -1,0 +1,390 @@
+<title>IA na Prática: Ferramentas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Michroma&display=swap">
+<style>
+/* Layout: painel de instrumento escuro do perfil RN; uma coluna estreita, leitura de celular primeiro. */
+:root{
+  --bg:#050506; --sf:#111114; --sf2:#18181c; --ln:#232328; --ink:#f5f5f7; --dim:#5a5a62; --mut:#a1a1a8;
+  --cor:#a594ff; --cor-ink:#0b0716; --ia:#36d6e7;
+  --b0:#3a3a42; --b1:#6d6a86; --b2:#a594ff; --b3:#ff8a3d;
+  --sans:"Geist","Helvetica Neue",Arial,sans-serif; --wide:"Michroma","Eurostile","Arial Black",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#f6f5f9; --sf:#ffffff; --sf2:#f0eef6; --ln:#e2dfeb; --ink:#121116; --dim:#a7a4b3; --mut:#5c5968;
+  --cor:#5b45d6; --cor-ink:#ffffff; --ia:#0a8fa0; --b0:#d4d1de; --b1:#9c97b5; --b2:#5b45d6; --b3:#d9601a; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#f6f5f9; --sf:#ffffff; --sf2:#f0eef6; --ln:#e2dfeb; --ink:#121116; --dim:#a7a4b3; --mut:#5c5968;
+  --cor:#5b45d6; --cor-ink:#ffffff; --ia:#0a8fa0; --b0:#d4d1de; --b1:#9c97b5; --b2:#5b45d6; --b3:#d9601a; color-scheme:light}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--cor)}
+.rot{font-family:var(--wide);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.tag{display:inline-flex;align-items:center;gap:10px}
+.tag b{font-family:var(--wide);font-weight:400;font-size:12px;letter-spacing:.12em;background:var(--cor);color:var(--cor-ink);padding:5px 14px 5px 9px;clip-path:polygon(0 0,100% 0,calc(100% - 9px) 100%,0 100%)}
+header.topo{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+nav.abas{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:22px 0 8px;padding-bottom:2px}nav.abas::-webkit-scrollbar{display:none}
+nav.abas a{flex:none;white-space:nowrap;font-size:14px;font-weight:600;text-decoration:none;color:var(--mut);border:1px solid var(--ln);border-radius:99px;padding:7px 13px;display:inline-flex;gap:7px;align-items:center}
+nav.abas a[aria-current="page"]{color:var(--ink);border-color:var(--cor);background:color-mix(in srgb,var(--cor) 14%,transparent)}
+nav.abas a small{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+h1{font-size:clamp(34px,8vw,54px);line-height:1.02;letter-spacing:-.04em;margin:22px 0 12px;text-wrap:balance;font-weight:700}
+h1 .d{color:var(--dim)}
+.lead{color:var(--mut);font-size:17px;max-width:60ch;margin:0}
+.busca{position:relative;margin:26px 0 8px}
+.busca input{width:100%;font:500 18px var(--sans);color:var(--ink);background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:16px 18px 16px 48px;outline:none}
+.busca input:focus{border-color:var(--cor);box-shadow:0 0 0 4px color-mix(in srgb,var(--cor) 22%,transparent)}
+.busca svg{position:absolute;left:17px;top:19px;width:20px;height:20px;stroke:var(--mut)}
+.sug{position:absolute;z-index:5;left:0;right:0;top:calc(100% + 6px);background:var(--sf);border:1px solid var(--ln);border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.sug button{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--ln);padding:12px 16px;cursor:pointer}
+.sug button:last-child{border-bottom:0}
+.sug button:hover,.sug button.on{background:var(--sf2)}
+.sug span.n{font-variant-numeric:tabular-nums;color:var(--mut);font-size:14px;white-space:nowrap}
+.atalhos{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.atalhos button{font:500 14px var(--sans);color:var(--mut);background:none;border:1px dashed var(--ln);border-radius:99px;padding:6px 12px;cursor:pointer}
+.atalhos button:hover{color:var(--ink);border-color:var(--mut)}
+
+.res{margin-top:28px;display:grid;gap:14px}
+.painel{background:var(--sf);border:1px solid var(--ln);border-radius:24px;padding:24px}
+.ocup{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.ocup h2{font-size:24px;line-height:1.15;letter-spacing:-.02em;margin:0;text-wrap:balance;min-width:0}
+.exemplo{font-size:12px;color:var(--mut);border:1px solid var(--ln);border-radius:99px;padding:2px 9px}
+.leitura{display:flex;align-items:flex-end;gap:16px;margin:18px 0 6px;flex-wrap:wrap}
+.num{font-size:clamp(96px,26vw,148px);line-height:.8;font-weight:300;letter-spacing:-.07em;font-variant-numeric:tabular-nums}
+.num-l{display:grid;gap:6px;padding-bottom:6px}
+.grau{display:inline-block;font-weight:700;font-size:18px;color:var(--cor)}
+.regua{position:relative;height:44px;margin:22px 0 6px}
+.regua .fx{position:absolute;inset:16px 0 auto 0;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--b0),var(--b1) 40%,var(--b2) 60%,var(--b3))}
+.regua .mk{position:absolute;top:6px;width:4px;height:30px;background:var(--ink);border-radius:2px;transform:translateX(-2px);box-shadow:0 0 0 3px var(--sf)}
+.regua .esc{position:absolute;inset:auto 0 -6px 0;display:flex;justify-content:space-between;font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+.fatos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.fato{border-top:1px solid var(--ln);padding-top:10px;min-width:0}
+.fato b{display:block;font-size:26px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.fato span{font-size:13px;color:var(--mut)}
+.explica{color:var(--mut);margin:18px 0 0;max-width:62ch}
+
+.tarefas{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.tarefas li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:start}
+.tarefas .sc{font-variant-numeric:tabular-nums;font-weight:600;font-size:18px;text-align:right}
+.tarefas .tx{min-width:0}
+.tarefas .bar{height:6px;border-radius:99px;background:var(--sf2);margin-top:7px;overflow:hidden}
+.tarefas .bar i{display:block;height:100%;border-radius:99px}
+.faixa{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-left:6px}
+.legenda{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mut);margin-top:6px}
+.legenda i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+.claude{border:1px solid color-mix(in srgb,var(--cor) 45%,var(--ln));background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 10%,var(--sf)),var(--sf))}
+.claude h3{font-size:21px;letter-spacing:-.02em;margin:6px 0 6px;text-wrap:balance}
+.claude p{color:var(--mut);margin:0 0 14px;max-width:60ch}
+.acoes{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font:600 15px var(--sans);border-radius:12px;padding:12px 16px;border:1px solid var(--ln);background:var(--sf2);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn.p{background:var(--cor);border-color:var(--cor);color:var(--cor-ink)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn:focus-visible,.busca input:focus-visible,nav.abas a:focus-visible{outline:2px solid var(--ia);outline-offset:2px}
+.saida{margin-top:16px;border-top:1px solid var(--ln);padding-top:14px;min-width:0}
+.saida .md h4{font-size:16px;margin:16px 0 6px}
+.saida .md p{color:var(--ink);margin:0 0 10px}
+.saida .md ul,.saida .md ol{margin:0 0 12px;padding-left:20px}
+.saida .md li{margin-bottom:6px}
+.saida .md blockquote{margin:6px 0 12px;padding:10px 12px;border-left:3px solid var(--cor);background:var(--sf2);border-radius:0 10px 10px 0;white-space:pre-wrap}
+.pensando{color:var(--mut);font-style:italic}
+.nota{font-size:13px;color:var(--mut)}
+.pedido{white-space:pre-wrap;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:12px;font-size:14px;color:var(--mut);max-height:150px;overflow:auto;margin:0 0 12px}
+
+.breve{display:grid;gap:14px;margin-top:26px}
+.breve .painel h2{font-size:22px;margin:8px 0}
+.breve .painel p{color:var(--mut);margin:0}
+.cta{display:grid;gap:8px}
+.cta p{margin:0;color:var(--mut)}
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--ln);font-size:13px;color:var(--mut);display:grid;gap:8px}
+footer p{margin:0;max-width:70ch}
+@media (max-width:520px){.fatos{grid-template-columns:1fr 1fr}.fatos .fato:last-child{grid-column:1/-1}.painel{padding:18px;border-radius:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="topo">
+    <span class="tag"><b>RN</b><span class="rot">IA na prática · ferramentas</span></span>
+    <a class="rot" href="https://www.instagram.com/roquecneto/" target="_blank" rel="noopener" style="text-decoration:none">@roquecneto</a>
+  </header>
+
+  <nav class="abas" aria-label="Ferramentas">
+    <a href="#profissao" data-aba="profissao">Sua profissão e a IA</a>
+    <a href="#semana" data-aba="semana">Raio-x da semana <small>em breve</small></a>
+    <a href="#pedido" data-aba="pedido">Monte seu pedido <small>em breve</small></a>
+    <a href="#biblioteca" data-aba="biblioteca">Pedidos por profissão <small>em breve</small></a>
+  </nav>
+
+  <!-- FERRAMENTA 1: profissão -->
+  <section id="v-profissao">
+    <h1><span class="d">Quanto a IA mexe</span><br>na sua profissão?</h1>
+    <p class="lead">Digite sua ocupação e veja, tarefa por tarefa, o que a IA generativa já consegue fazer, segundo o índice da Organização Internacional do Trabalho.</p>
+
+    <div class="busca" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="cb">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" placeholder="Ex.: contador, advogado, professor, vendedor" aria-label="Sua ocupação" aria-controls="sug">
+      <div class="sug" id="sug" role="listbox" hidden></div>
+    </div>
+    <div class="atalhos" id="atalhos" aria-label="Exemplos"></div>
+
+    <div class="res" id="res" aria-live="polite"></div>
+  </section>
+
+  <section id="v-semana" hidden>
+    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Raio-x da sua semana</h2>
+      <p>Você conta o que faz numa semana normal. A ferramenta mostra quanto tempo a IA pode devolver e entrega um pedido pronto para cada tarefa.</p></div>
+      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+  </section>
+  <section id="v-pedido" hidden>
+    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Monte seu pedido</h2>
+      <p>Você diz o que precisa, a ferramenta transforma num pedido completo para a IA e explica por que cada parte importa.</p></div>
+      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+  </section>
+  <section id="v-biblioteca" hidden>
+    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Pedidos prontos por profissão</h2>
+      <p>Advogado, contador, vendedor, gestor, RH: os pedidos que eu usaria no lugar de cada um, para copiar e colar.</p></div>
+      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+  </section>
+
+  <footer>
+    <div class="painel cta">
+      <span class="rot">Quer ir além</span>
+      <p>Eu mostro usos reais de IA no trabalho toda semana no <a href="https://www.instagram.com/roquecneto/" target="_blank" rel="noopener">@roquecneto</a>. Para aprender a fundo, conheça o <a href="https://bsspce.com.br/pos-graduacao-e-mba/mba-inteligencia-artificial-para-negocios-na-pratica/?utm_source=instagram&amp;utm_medium=ferramenta&amp;utm_campaign=inp-perfil-roque&amp;utm_content=ferramenta-profissao" target="_blank" rel="noopener">MBA em IA para Negócios da BSSP</a>.</p>
+    </div>
+    <p><b>Fonte:</b> Gmyrek, Berg, Kamiński, Konopczyński, Ładna, Nafradi, Rosłaniec e Troszyński (2025), <i>Generative AI and Jobs: A Refined Global Index of Occupational Exposure</i>, OIT, Working Paper 140, licença CC BY 4.0. Ocupações e tarefas da ISCO-08, traduzidas para o português por Roque Neto.</p>
+    <p><b>Como ler:</b> a nota mostra o potencial técnico da IA generativa em fazer as tarefas da ocupação (0 a 100). Não é previsão de demissão: na maior parte das profissões, a IA muda o trabalho em vez de eliminá-lo.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+"use strict";
+const MBA = "https://bsspce.com.br/pos-graduacao-e-mba/mba-inteligencia-artificial-para-negocios-na-pratica/?utm_source=instagram&utm_medium=ferramenta&utm_campaign=inp-perfil-roque&utm_content=ferramenta-profissao";
+const GRAUS = {
+  4:{nome:"Exposição muito alta", txt:"Quase todas as tarefas desta ocupação podem ser feitas, em boa parte, pela IA generativa. É onde o trabalho mais vai mudar: quem aprende a delegar para a IA e revisar o resultado ganha muito tempo."},
+  3:{nome:"Exposição alta", txt:"Boa parte das tarefas já pode ser feita com IA, mas algumas continuam dependendo de você. O ganho está em passar para a IA o que é repetitivo e ficar com o julgamento e o relacionamento."},
+  2:{nome:"Exposição moderada", txt:"A ocupação mistura tarefas que a IA faz bem com outras que ela não alcança. Vale identificar as primeiras e começar por elas."},
+  1:{nome:"Exposição baixa", txt:"A maior parte do trabalho segue fora do alcance da IA, mas existem tarefas específicas, quase sempre de papelada e informação, em que ela já ajuda bastante."},
+  0:{nome:"Exposição mínima", txt:"A IA toca poucas tarefas desta ocupação e com intensidade moderada. O impacto deve vir mais nas partes administrativas do que no trabalho principal."},
+  "-1":{nome:"Não exposta", txt:"As tarefas desta ocupação dependem de presença, corpo ou cuidado direto, que a IA generativa não executa. A IA pode ajudar em volta (agenda, orçamento, comunicação), mas não no centro do trabalho."}
+};
+const FAIXAS = [
+  {min:.75, nome:"Alta", cor:"var(--b3)"},
+  {min:.5, nome:"Média", cor:"var(--b2)"},
+  {min:.25, nome:"Baixa", cor:"var(--b1)"},
+  {min:0, nome:"Muito baixa", cor:"var(--b0)"}
+];
+const faixa = s => FAIXAS.find(f => s >= f.min);
+const ATALHOS = ["2411","2611","4110","5223","2512","2330"];
+const EXEMPLO = "2411";
+
+const $ = s => document.querySelector(s);
+const norm = s => (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const fmt = n => String(Math.round(n*100));
+let DADOS = null, ORD = [], atual = null, sample = null, ctl = null;
+
+function el(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs||{})){
+    if (k === "class") e.className = v; else if (k === "html") e.innerHTML = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v != null) e.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+
+/* ---------- abas ---------- */
+const ABAS = ["profissao","semana","pedido","biblioteca"];
+function rota(){
+  const h = location.hash.slice(1);
+  let aba = ABAS.includes(h) ? h : "profissao";
+  const m = /^o(\d{4})$/.exec(h);
+  for (const a of ABAS) $("#v-"+a).hidden = a !== aba;
+  document.querySelectorAll("nav.abas a").forEach(a => { if (a.dataset.aba !== aba) a.removeAttribute("aria-current"); else a.setAttribute("aria-current","page"); });
+  if (m && DADOS) mostrar(m[1], false);
+}
+window.addEventListener("hashchange", rota);
+
+/* ---------- busca ---------- */
+function buscar(q){
+  q = norm(q).trim();
+  if (q.length < 2) return [];
+  const palavras = q.split(/\s+/);
+  const res = [];
+  for (const o of DADOS){
+    const alvo = o._n;
+    let pts = 0;
+    if (norm(o.t).startsWith(q)) pts += 50;
+    for (const b of o.b) { const nb = norm(b); if (nb === q) pts += 80; else if (nb.startsWith(q)) pts += 40; }
+    if (palavras.every(p => alvo.includes(p))) pts += 20;
+    if (pts) res.push([pts, o]);
+  }
+  return res.sort((a,b) => b[0]-a[0] || b[1].m - a[1].m).slice(0,7).map(r => r[1]);
+}
+let ativo = -1;
+function pintarSug(lista){
+  const box = $("#sug"); box.innerHTML = ""; ativo = -1;
+  $("#cb").setAttribute("aria-expanded", lista.length ? "true" : "false");
+  box.hidden = !lista.length;
+  lista.forEach((o,i) => box.append(el("button",{type:"button",role:"option",id:"op"+i,onclick:()=>escolher(o.c)},
+    el("span",{}, o.t), el("span",{class:"n"}, fmt(o.m)+"/100"))));
+  if ($("#q").value.trim().length >= 2 && !lista.length){
+    box.hidden = false;
+    box.append(el("div",{style:"padding:12px 16px;color:var(--mut)"},"Nada encontrado. Tente outro nome, como \"vendedor\" ou \"analista\"."));
+  }
+}
+function escolher(c){ $("#q").value = ""; pintarSug([]); location.hash = "o"+c; }
+$("#q").addEventListener("input", e => pintarSug(buscar(e.target.value)));
+$("#q").addEventListener("keydown", e => {
+  const bs = [...$("#sug").querySelectorAll("button")];
+  if (!bs.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault(); ativo = (ativo + (e.key === "ArrowDown" ? 1 : -1) + bs.length) % bs.length;
+    bs.forEach((b,i) => b.classList.toggle("on", i === ativo)); $("#q").setAttribute("aria-activedescendant","op"+ativo);
+  } else if (e.key === "Enter"){ e.preventDefault(); (bs[ativo] || bs[0]).click(); }
+  else if (e.key === "Escape"){ pintarSug([]); }
+});
+document.addEventListener("click", e => { if (!$("#cb").contains(e.target)) { $("#sug").hidden = true; } });
+
+/* ---------- resultado ---------- */
+function percentil(o){ const abaixo = ORD.filter(x => x.m < o.m).length; return Math.round(100*abaixo/ORD.length); }
+
+function mostrar(c, exemplo){
+  const o = DADOS.find(x => x.c === c); if (!o) return;
+  atual = o; if (ctl) ctl.abort();
+  const g = GRAUS[o.g], pct = percentil(o);
+  const tarefas = o.k.map(([s,t]) => ({s,t})).sort((a,b) => b.s - a.s);
+  const altas = tarefas.filter(t => t.s >= .5).length;
+  const dif = o.m - o.m23;
+  const res = $("#res"); res.innerHTML = "";
+
+  res.append(el("div",{class:"painel"},
+    el("div",{class:"ocup"}, el("h2",{}, o.t), exemplo ? el("span",{class:"exemplo"},"exemplo") : null),
+    el("div",{class:"leitura"},
+      el("div",{class:"num","aria-label":"Nota "+fmt(o.m)+" de 100"}, fmt(o.m)),
+      el("div",{class:"num-l"}, el("span",{class:"rot"},"de 100"), el("span",{class:"grau"}, g.nome))),
+    el("div",{class:"regua","aria-hidden":"true"}, el("div",{class:"fx"}), el("div",{class:"mk",style:`left:${Math.min(99.5,Math.max(.5,o.m*100))}%`}),
+      el("div",{class:"esc"}, el("span",{},"0"), el("span",{},"25"), el("span",{},"50"), el("span",{},"75"), el("span",{},"100"))),
+    el("div",{class:"fatos"},
+      el("div",{class:"fato"}, el("b",{}, `${altas} de ${tarefas.length}`), el("span",{},"tarefas com exposição média ou alta")),
+      el("div",{class:"fato"}, el("b",{}, pct+"%"), el("span",{},"das ocupações estão abaixo desta")),
+      el("div",{class:"fato"}, el("b",{}, (dif>=0?"+":"−")+Math.abs(Math.round(dif*100))), el("span",{},"pontos desde o índice de 2023"))),
+    el("p",{class:"explica"}, g.txt)
+  ));
+
+  const ul = el("ul",{class:"tarefas"});
+  for (const t of tarefas){
+    const f = faixa(t.s);
+    ul.append(el("li",{}, el("span",{class:"sc"}, fmt(t.s)),
+      el("div",{class:"tx"}, el("span",{}, t.t), el("span",{class:"faixa",style:`color:${f.cor}`}, f.nome),
+        el("div",{class:"bar"}, el("i",{style:`width:${Math.max(3,t.s*100)}%;background:${f.cor}`})))));
+  }
+  res.append(el("div",{class:"painel"}, el("span",{class:"rot"},"Tarefa por tarefa"),
+    el("div",{class:"legenda"}, ...[...FAIXAS].reverse().map(f => el("span",{}, el("i",{style:`background:${f.cor}`}), f.nome))), ul));
+
+  res.append(blocoClaude(o, tarefas));
+}
+
+function pedidoPlano(o, tarefas){
+  const lista = tarefas.map(t => `- (${fmt(t.s)}/100) ${t.t}`).join("\n");
+  return `Sou ${o.t.toLowerCase()} no Brasil. Segundo o índice da OIT (2025), minha ocupação tem nota ${fmt(o.m)} de 100 de exposição à IA generativa. Estas são as tarefas da ocupação, com a nota de cada uma:\n${lista}\n\nMonte para mim um plano prático, em português do Brasil, sem jargão:\n1. As 3 tarefas em que a IA pode me ajudar já nesta semana. Para cada uma: o que a IA faz, o que continua comigo e um pedido pronto para eu copiar e colar, entre aspas.\n2. As 2 habilidades que mais vão valer na minha profissão daqui para frente, considerando o que a IA não faz bem.\n3. Um cuidado importante ao usar IA nessa profissão (sigilo, erro, responsabilidade).\nSeja direto e use títulos curtos. Não use travessão longo.`;
+}
+
+/* Versão curta para o link "Abrir no Claude": links longos quebram em alguns navegadores. */
+function pedidoLink(o, tarefas){
+  const base = t => `Sou ${o.t.toLowerCase()} no Brasil. Pelo índice da OIT, minha ocupação tem nota ${fmt(o.m)}/100 de exposição à IA generativa. Tarefas mais expostas:\n${t}\n\nMe dê: 1) as 3 tarefas em que a IA me ajuda já nesta semana, cada uma com um pedido pronto para copiar; 2) 2 habilidades para fortalecer; 3) um cuidado ao usar IA na minha profissão. Português do Brasil, direto.`;
+  let n = Math.min(6, tarefas.length), txt;
+  do { txt = base(tarefas.slice(0,n).map(t => "- "+t.t).join("\n")); n--; } while (encodeURIComponent(txt).length > 3200 && n > 1);
+  return txt;
+}
+
+function blocoClaude(o, tarefas){
+  const pedido = pedidoPlano(o, tarefas);
+  const saida = el("div",{class:"saida",hidden:""});
+  const box = el("div",{class:"painel claude"},
+    el("span",{class:"rot"},"Próximo passo"),
+    el("h3",{},"Transforme o resultado num plano para você"),
+    el("p",{},"O Claude lê as tarefas da sua profissão e devolve as 3 em que a IA ajuda já nesta semana, com um pedido pronto para cada uma."));
+  const acoes = el("div",{class:"acoes"});
+  const abrir = el("a",{class:"btn",href:"https://claude.ai/new?q="+encodeURIComponent(pedidoLink(o, tarefas)),target:"_blank",rel:"noopener"},"Abrir no Claude");
+  const copiar = el("button",{class:"btn",type:"button",onclick:async e => {
+    try { await navigator.clipboard.writeText(pedido); e.target.textContent = "Pedido copiado"; }
+    catch { ver.hidden = false; const r = document.createRange(); r.selectNodeContents(ver); getSelection().removeAllRanges(); getSelection().addRange(r); e.target.textContent = "Selecione e copie o texto"; }
+  }},"Copiar pedido");
+  const ver = el("pre",{class:"pedido",hidden:""}, pedido);
+  if (sample){
+    const gerar = el("button",{class:"btn p",type:"button"},"Gerar meu plano aqui");
+    const parar = el("button",{class:"btn",type:"button",hidden:""},"Parar");
+    gerar.onclick = async () => {
+      ctl = new AbortController(); const sinal = ctl.signal;
+      saida.hidden = false; saida.innerHTML = ""; const md = el("div",{class:"md"}, el("p",{class:"pensando"},"Pensando no seu plano..."));
+      saida.append(md); gerar.disabled = true; parar.hidden = false;
+      try{
+        await sample(pedido, { signal:sinal, onText: ({text}) => { md.innerHTML = markdown(text); } });
+        saida.append(el("p",{class:"nota"},"Gerado pelo Claude na sua conta. Confira antes de usar e adapte ao seu caso."));
+      } catch(e){
+        const msgs = { not_granted:"Você não permitiu o uso do Claude nesta página. Use o botão Abrir no Claude.",
+          sampling_disabled:"O Claude não está disponível na sua conta aqui. Use o botão Abrir no Claude.",
+          rate_limited:"Muitos pedidos agora. Tente de novo em alguns minutos ou use Abrir no Claude.",
+          session_expired:"Sua sessão do Claude expirou. Entre de novo e tente outra vez." };
+        if (e && e.code === "cancelled") { if (!e.text) saida.hidden = true; }
+        else {
+          if (e && e.text && e.code !== "refused") md.innerHTML = markdown(e.text); else md.innerHTML = "";
+          saida.append(el("p",{class:"nota"}, msgs[e && e.code] || "Não deu certo desta vez. Tente de novo ou use Abrir no Claude."));
+          if (e && ["not_granted","sampling_disabled","not_declared","capability_disabled"].includes(e.code)) gerar.remove();
+        }
+      } finally { gerar.disabled = false; parar.hidden = true; }
+    };
+    parar.onclick = () => ctl && ctl.abort();
+    acoes.append(gerar, parar, abrir, copiar);
+  } else {
+    acoes.append(el("a",{class:"btn p",href:abrir.href,target:"_blank",rel:"noopener"},"Montar meu plano no Claude"), copiar);
+    box.append(el("p",{class:"nota",style:"margin:0 0 12px"},"Abre o Claude com o pedido já escrito. Se você não tem conta, dá para criar de graça."));
+  }
+  box.append(acoes, ver, saida);
+  return box;
+}
+
+/* Markdown mínimo e seguro: só títulos, listas, negrito e citações. */
+function markdown(src){
+  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const inl = s => esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>");
+  let html = "", lista = null;
+  const fechar = () => { if (lista){ html += `</${lista}>`; lista = null; } };
+  for (const linha of src.replace(/\u2014/g,",").split("\n")){
+    const l = linha.trimEnd();
+    let m;
+    if (!l.trim()){ fechar(); continue; }
+    if ((m = /^#{1,6}\s+(.*)/.exec(l))){ fechar(); html += `<h4>${inl(m[1])}</h4>`; }
+    else if ((m = /^\s*[-*•]\s+(.*)/.exec(l))){ if (lista !== "ul"){ fechar(); html += "<ul>"; lista = "ul"; } html += `<li>${inl(m[1])}</li>`; }
+    else if ((m = /^\s*\d+[.)]\s+(.*)/.exec(l))){ if (lista !== "ol"){ fechar(); html += "<ol>"; lista = "ol"; } html += `<li>${inl(m[1])}</li>`; }
+    else if ((m = /^>\s?(.*)/.exec(l))){ fechar(); html += `<blockquote>${inl(m[1])}</blockquote>`; }
+    else { fechar(); html += `<p>${inl(l)}</p>`; }
+  }
+  fechar(); return html;
+}
+
+/* ---------- carga ---------- */
+async function iniciar(){
+  try{
+    const r = await fetch("dados.json"); DADOS = (await r.json()).o;
+  } catch(e){
+    $("#res").innerHTML = '<div class="painel">Não consegui carregar os dados. Recarregue a página.</div>'; return;
+  }
+  for (const o of DADOS) o._n = norm(o.t + " " + o.b.join(" "));
+  ORD = DADOS;
+  const at = $("#atalhos");
+  for (const c of ATALHOS){ const o = DADOS.find(x => x.c === c); if (o) at.append(el("button",{type:"button",onclick:()=>escolher(c)}, o.b[0] || o.t)); }
+  const m = /^o(\d{4})$/.exec(location.hash.slice(1));
+  mostrar(m ? m[1] : EXEMPLO, !m);
+  rota();
+}
+(async () => {
+  try { if (window.claude && claude.use) sample = await claude.use("sample"); } catch { sample = null; }
+  if (atual) mostrar(atual.c, !/^#o\d{4}$/.test(location.hash));
+})();
+iniciar();
+})();
+</script>
