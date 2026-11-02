@@ -1,9 +1,12 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "tipo": "story",
   "imagens": [
     "01.jpg"
   ],
   "legenda": "",
-  "agendado_para": "2026-11-02T12:30:00-03:00"
+  "agendado_para": "2026-11-02T12:30:00-03:00",
+  "media_id": "18112964030581872",
+  "link": "https://www.instagram.com/stories/roquecneto/4021633205103162297",
+  "publicado_em": "2026-11-02T16:14:28+00:00"
 }
