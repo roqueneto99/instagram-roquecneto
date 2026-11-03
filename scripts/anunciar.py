@@ -83,7 +83,8 @@ def modelo_do_conjunto(adset):
     if not ads:
         raise ErroAnuncio(f"conjunto {adset} não tem anúncio para servir de modelo")
     # prefere um anúncio que não foi criado por este script (é o modelo original)
-    ads.sort(key=lambda a: (a["name"].startswith(PREFIXO), a.get("created_time", "")))
+    ads.sort(key=lambda a: (a["name"].startswith(PREFIXO), a.get("effective_status") != "ACTIVE",
+                            a.get("created_time", "")))
     cr = ads[0].get("creative", {})
     spec = cr.get("object_story_spec", {})
     page_id = spec.get("page_id") or cr.get("object_id")
@@ -196,8 +197,17 @@ def listar():
     print("NEGÓCIOS", m)
 
 
+def modelos():
+    """Mostra, para cada conjunto do anuncios.json, o modelo que o script vai copiar (só leitura)."""
+    for apelido, alvo in CONFIG["conjuntos"].items():
+        m = modelo_do_conjunto(alvo["id"])
+        print(f"MODELO {apelido}: página={m['page_id']} ig={m['ig_id']} botão={m['cta']} "
+              f"link={m['link']} url_tags={m['url_tags']} (de: {m['ads'][0]['name']})")
+
+
 if __name__ == "__main__":
     if sys.argv[1:] == ["listar"]:
         listar()
+        modelos()
     else:
         main()
