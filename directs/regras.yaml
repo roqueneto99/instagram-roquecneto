@@ -7,6 +7,8 @@ quem_sou: |
   (preparação para a OAB) e Head of Growth na BSSP, faculdade de pós-graduação e MBAs.
   No perfil mostro IA aplicada ao trabalho, na prática: pedidos que dá para copiar, casos reais
   sem expor empresa, novidades da semana e análises de dados sobre IA e emprego.
+  Ferramenta grátis "Quanto a IA mexe na sua profissão" (mandar quando perguntarem de profissão,
+  carreira ou ferramenta): https://claude.ai/artifact/HgyemEjzcojqvCc4EDqjEm
 
 mba:
   nome: MBA em Inteligência Artificial para Negócios na Prática (BSSP)
@@ -47,6 +49,11 @@ palavras_chave:
     direct: |
       Oi! Aqui está o link do MBA em IA para Negócios da BSSP: {link_mba}
       Lá tem a grade e dá para falar com um consultor. Se tiver qualquer dúvida, me chama aqui.
+    resposta_publica: Te mandei no direct!
+  - palavra: FERRAMENTA
+    direct: |
+      Oi! Aqui está a ferramenta grátis que mostra quanto a IA mexe na sua profissão, tarefa por tarefa: https://claude.ai/artifact/HgyemEjzcojqvCc4EDqjEm
+      Digita a sua profissão e no fim ela monta um plano com as 3 tarefas em que a IA já te ajuda. Depois me conta o que achou!
     resposta_publica: Te mandei no direct!
   - palavra: QUERO
     direct: |
