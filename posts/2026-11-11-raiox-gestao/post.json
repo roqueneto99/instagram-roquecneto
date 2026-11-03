@@ -12,5 +12,12 @@
   "agendado_para": "2026-11-11T12:00:00-03:00",
   "linkedin": {
     "status": "rascunho"
+  },
+  "anuncio": {
+    "status": "rascunho",
+    "conjuntos": [
+      "profissionais",
+      "lembranca"
+    ]
   }
 }
