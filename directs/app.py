@@ -409,6 +409,30 @@ def historico(_=Depends(autenticar)):
     return _pagina("Histórico", corpo)
 
 
+PRIVACIDADE = """<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Política de privacidade · Atendente @roquecneto</title>
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;line-height:1.6;color:#111}h1{font-size:24px}h2{font-size:18px;margin-top:28px}</style></head><body>
+<h1>Política de privacidade do atendente de mensagens do @roquecneto</h1>
+<p>Última atualização: 3 de novembro de 2026.</p>
+<p>Este aplicativo é usado só pela conta @roquecneto no Instagram para organizar e responder mensagens diretas e comentários enviados à própria conta.</p>
+<h2>Quais dados usamos</h2>
+<p>Quando você manda uma mensagem ou comenta em um post do @roquecneto, recebemos pelo Instagram o seu identificador na plataforma, nome de usuário, nome público e o texto enviado.</p>
+<h2>Para que usamos</h2>
+<p>Para sugerir e enviar respostas às suas mensagens e comentários. O texto pode ser processado por um serviço de inteligência artificial (Anthropic) apenas para redigir a resposta. Não vendemos, não compartilhamos para publicidade e não usamos os dados para outra finalidade.</p>
+<h2>Por quanto tempo guardamos</h2>
+<p>O histórico fica guardado enquanto for útil para continuar a conversa, por no máximo 12 meses.</p>
+<h2>Seus direitos e exclusão de dados</h2>
+<p>Você pode pedir acesso, correção ou exclusão das suas mensagens a qualquer momento mandando uma mensagem para @roquecneto no Instagram com a palavra EXCLUIR. Atendemos em até 15 dias, conforme a Lei Geral de Proteção de Dados (LGPD).</p>
+<h2>Contato</h2>
+<p>Roque Neto, pelo Instagram @roquecneto.</p>
+</body></html>"""
+
+
+@app.get("/privacidade", response_class=HTMLResponse)
+def privacidade():
+    return PRIVACIDADE
+
+
 @app.get("/saude")
 def saude():
     return {"ok": True, "modo": db.get("modo"), "token_renovado": db.get("ig_token_renovado")}
