@@ -2,6 +2,11 @@ name: Listar anúncios (só leitura)
 
 on:
   workflow_dispatch:
+    inputs:
+      teste_media_id:
+        description: "Se preenchido, cria um anúncio PAUSADO com esse post em cada conjunto e apaga (não gasta)"
+        type: string
+        default: ""
 
 jobs:
   listar:
@@ -16,3 +21,8 @@ jobs:
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
         run: python scripts/anunciar.py listar
+      - name: Teste de criação (pausado e apagado)
+        if: inputs.teste_media_id != ''
+        env:
+          META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
+        run: python scripts/anunciar.py teste "${{ inputs.teste_media_id }}"

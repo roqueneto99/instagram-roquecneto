@@ -87,7 +87,8 @@ def modelo_do_conjunto(adset):
                             a.get("created_time", "")))
     cr = ads[0].get("creative", {})
     spec = cr.get("object_story_spec", {})
-    page_id = spec.get("page_id") or cr.get("object_id")
+    page_id = spec.get("page_id") or cr.get("object_id") or \
+        (cr.get("effective_object_story_id") or "").split("_")[0] or CONFIG.get("page_id")
     ig_id = spec.get("instagram_user_id") or cr.get("instagram_user_id")
     link, cta = None, None
     for bloco in ("link_data", "video_data"):
@@ -104,9 +105,10 @@ def modelo_do_conjunto(adset):
             "ads": ads, "bruto": cr}
 
 
-def criar_anuncio(slug, media_id, apelido, dry):
+def criar_anuncio(slug, media_id, apelido, dry, teste=False):
     adset = conjunto_id(apelido)
     m = modelo_do_conjunto(adset)
+    m["link"] = CONFIG["conjuntos"][apelido].get("link") or m["link"]
     if not m["page_id"] or not m["ig_id"]:
         raise ErroAnuncio(f"não achei página ou conta do Instagram no modelo do conjunto {apelido}")
     criativo = {
@@ -117,6 +119,10 @@ def criar_anuncio(slug, media_id, apelido, dry):
     }
     if m["link"]:
         criativo["call_to_action"] = {"type": m["cta"] or "LEARN_MORE", "value": {"link": m["link"]}}
+    elif m["cta"] == "VIEW_INSTAGRAM_PROFILE":
+        criativo["call_to_action"] = {"type": "VIEW_INSTAGRAM_PROFILE"}
+    elif m["cta"]:
+        raise ErroAnuncio(f"conjunto {apelido} pede botão {m['cta']} mas não tem link (ponha 'link' em anuncios.json)")
     if m["url_tags"]:
         criativo["url_tags"] = m["url_tags"]
     if dry:
@@ -134,6 +140,14 @@ def criar_anuncio(slug, media_id, apelido, dry):
                 raise
             print(f"    criativo ainda não aceito ({e}); tentando de novo em 60 s")
             time.sleep(60)
+    if teste:
+        # cria pausado (não gasta nada), confere e apaga
+        ad = _api("POST", f"{conta}/ads", name=f"teste · apagar · {apelido}", adset_id=adset,
+                  creative={"creative_id": cr["id"]}, status="PAUSED")
+        print(f"    TESTE ok em {apelido}: criativo {cr['id']} anúncio {ad['id']} {criativo}")
+        _api("POST", ad["id"], status="DELETED")
+        print("    anúncio de teste apagado")
+        return ad["id"]
     ad = _api("POST", f"{conta}/ads", name=f"{PREFIXO}{slug}", adset_id=adset,
               creative={"creative_id": cr["id"]}, status="ACTIVE")
 
@@ -211,5 +225,14 @@ if __name__ == "__main__":
     if sys.argv[1:] == ["listar"]:
         listar()
         modelos()
+    elif sys.argv[1:2] == ["teste"]:
+        erros = 0
+        for apelido in CONFIG["conjuntos"]:
+            try:
+                criar_anuncio("teste", sys.argv[2], apelido, False, teste=True)
+            except ErroAnuncio as e:
+                erros += 1
+                print(f"    TESTE ERRO em {apelido}: {e}")
+        sys.exit(1 if erros else 0)
     else:
         main()
