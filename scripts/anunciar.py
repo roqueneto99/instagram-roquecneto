@@ -79,7 +79,7 @@ def modelo_do_conjunto(adset):
     """Pega página, conta do Instagram, botão e link de um anúncio que já existe no conjunto."""
     ads = _lista(f"{adset}/ads", fields="id,name,effective_status,created_time,"
                  "creative{object_story_spec,instagram_user_id,call_to_action_type,"
-                 "asset_feed_spec,url_tags,object_id}")
+                 "asset_feed_spec,url_tags,object_id,link_url,object_type,source_instagram_media_id,effective_object_story_id}")
     if not ads:
         raise ErroAnuncio(f"conjunto {adset} não tem anúncio para servir de modelo")
     # prefere um anúncio que não foi criado por este script (é o modelo original)
@@ -100,7 +100,8 @@ def modelo_do_conjunto(adset):
         link = urls[0].get("website_url") if urls else None
     cta = cta or cr.get("call_to_action_type")
     return {"page_id": page_id, "ig_id": ig_id or CONFIG.get("instagram_user_id"),
-            "link": link, "cta": cta, "url_tags": cr.get("url_tags"), "ads": ads}
+            "link": link or cr.get("link_url"), "cta": cta, "url_tags": cr.get("url_tags"),
+            "ads": ads, "bruto": cr}
 
 
 def criar_anuncio(slug, media_id, apelido, dry):
@@ -203,6 +204,7 @@ def modelos():
         m = modelo_do_conjunto(alvo["id"])
         print(f"MODELO {apelido}: página={m['page_id']} ig={m['ig_id']} botão={m['cta']} "
               f"link={m['link']} url_tags={m['url_tags']} (de: {m['ads'][0]['name']})")
+        print("BRUTO", json.dumps(m["bruto"], ensure_ascii=False))
 
 
 if __name__ == "__main__":
