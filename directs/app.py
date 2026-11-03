@@ -414,13 +414,14 @@ def saude():
 
 
 @app.get("/painel/config", response_class=HTMLResponse)
-def config(_=Depends(autenticar)):
+def config(aviso: int = 0, _=Depends(autenticar)):
     def tem(v):
         return "ok" if os.environ.get(v) else "faltando"
     itens = ["IG_ACCESS_TOKEN", "IG_USER_ID", "APP_SECRET", "VERIFY_TOKEN", "ANTHROPIC_API_KEY", "PAINEL_URL", "NTFY_TOPIC"]
     lista = "".join(f"<div>{v}: <b>{tem(v)}</b></div>" for v in itens)
     renov = _hora(db.get("ig_token_renovado")) or "ainda não"
-    corpo = f"""<h2>Ajustes</h2><div class="card">{lista}<p class="meta">Token renovado pela última vez: {renov}</p></div>
+    enviado = '<div class="card"><b>Aviso de teste enviado.</b> Se não chegou no celular, confira no app ntfy se o tópico assinado é ' + _e(os.environ.get("NTFY_TOPIC", "")) + '.</div>' if aviso else ""
+    corpo = f"""<h2>Ajustes</h2>{enviado}<div class="card">{lista}<p class="meta">Token renovado pela última vez: {renov}</p></div>
 <div class="card"><b>Ligar os avisos da Meta</b><p class="meta">Rode uma vez, depois de configurar o webhook no painel da Meta.</p>
 <form method="post" action="/painel/config/assinar"><button class="p">Assinar mensagens e comentários</button></form></div>
 <div class="card"><b>Testar aviso no celular</b><form method="post" action="/painel/config/aviso"><button>Mandar aviso de teste</button></form></div>"""
@@ -441,4 +442,4 @@ def assinar(_=Depends(autenticar)):
 @app.post("/painel/config/aviso")
 def aviso_teste(_=Depends(autenticar)):
     avisar("Teste do atendente de directs", "Se chegou no celular, os avisos estão funcionando.")
-    return RedirectResponse("/painel/config", 303)
+    return RedirectResponse("/painel/config?aviso=1", 303)
