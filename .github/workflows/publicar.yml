@@ -54,7 +54,7 @@ jobs:
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run == true && '1' || '0' }}
-        run: python scripts/anunciar.py
+        run: python -u scripts/anunciar.py
 
       - name: Gravar status no repositório
         if: always() && inputs.dry_run != true

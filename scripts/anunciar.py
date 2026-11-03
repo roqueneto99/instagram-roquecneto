@@ -136,7 +136,7 @@ def criar_anuncio(slug, media_id, apelido, dry, teste=False):
             cr = _api("POST", f"{conta}/adcreatives", **criativo)
             break
         except ErroAnuncio as e:
-            if time.time() - inicio > ESPERA_MIDIA_S:
+            if teste or time.time() - inicio > ESPERA_MIDIA_S:
                 raise
             print(f"    criativo ainda não aceito ({e}); tentando de novo em 60 s")
             time.sleep(60)

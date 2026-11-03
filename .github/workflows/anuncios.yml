@@ -20,9 +20,9 @@ jobs:
       - name: Campanhas, conjuntos e anúncios
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
-        run: python scripts/anunciar.py listar
+        run: python -u scripts/anunciar.py listar
       - name: Teste de criação (pausado e apagado)
         if: inputs.teste_media_id != ''
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
-        run: python scripts/anunciar.py teste "${{ inputs.teste_media_id }}"
+        run: python -u scripts/anunciar.py teste "${{ inputs.teste_media_id }}"
