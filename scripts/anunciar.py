@@ -197,8 +197,17 @@ def main():
     sys.exit(1 if falhas else 0)
 
 
+def validade_token():
+    t = os.environ["META_ADS_TOKEN"]
+    d = _api("GET", "debug_token", input_token=t).get("data", {})
+    exp = d.get("expires_at") or d.get("data_access_expires_at")
+    quando = datetime.fromtimestamp(exp, timezone.utc).isoformat() if d.get("expires_at") else "não vence"
+    print(f"TOKEN válido={d.get('is_valid')} vence={quando} escopos={d.get('scopes')}")
+
+
 def listar():
     """Mostra campanhas, conjuntos e anúncios da conta (só leitura), para preencher anuncios.json."""
+    validade_token()
     conta = CONFIG["conta"]
     for c in _lista(f"{conta}/campaigns", fields="id,name,objective,effective_status"):
         print(f"CAMPANHA {c['name']} | {c['id']} | {c['objective']} | {c['effective_status']}")
