@@ -1,0 +1,15 @@
+{
+  "status": "rascunho",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg"
+  ],
+  "legenda": "Tira uma foto e a IA faz a conta. Funciona na cozinha e no mercado.\n\nTrês usos que eu testo no dia a dia:\n\n1. Foto da geladeira ou do armário: a IA diz o que está acabando e sugere pratos com o que tem.\n2. Foto de dois pacotes no mercado: ela calcula qual sai mais barato por quilo ou por litro e mostra a conta.\n3. Foto do rótulo: ela explica em palavras simples se tem muito açúcar ou sal.\n\nOs pedidos estão nos cards 3, 4 e 5. Funciona no app do ChatGPT, do Claude ou do Gemini.\n\nA IA pode ler um preço errado, então confira a etiqueta. E remédio é com a bula e o médico.\n\nSalva para usar amanhã e manda pra quem faz as compras da casa.\n\n#supermercado #economiadomestica #dicasdecasa #inteligenciaartificial #listadecompras",
+  "agendado_para": "2026-11-14T12:00:00-03:00"
+}
