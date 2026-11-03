@@ -26,6 +26,7 @@ import meta
 
 log = logging.getLogger("directs")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.getLogger("httpx").setLevel(logging.WARNING)  # a URL das chamadas leva o token: não pode ir para o log
 
 app = FastAPI(title="Directs @roquecneto", docs_url=None, redoc_url=None)
 basic = HTTPBasic()
