@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -13,14 +13,25 @@
   "legenda": "82% das profissões de escritório têm pelo menos uma de 5 atividades em que a IA generativa mais chega.\n\nCruzei o índice da OIT de 2025: 233 profissões e 1.816 tarefas, classificadas uma a uma. As 5 mais expostas são escrever documentos, registrar cadastros, analisar números, atender dúvidas e pesquisar. Notas de 43 a 53, numa escala de 0 a 100. Trabalho presencial fica em 23.\n\nO achado que mais me chamou a atenção: advogado, contador, RH e médico têm em comum pesquisar e escrever. No médico, a tarefa mais exposta não é atender, é pesquisar e divulgar resultados.\n\nA nota mede exposição da tarefa, não chance de perder o emprego. Serve para saber o que dá para testar com IA nesta semana. Deixei 3 pedidos prontos no carrossel.\n\nManda pra um colega de outra área e vê se bate. Qual dessas 5 atividades mais ocupa a sua semana?\n\n#inteligenciaartificial #mercadodetrabalho #produtividade #economia #carreira",
   "agendado_para": "2026-11-04T12:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-11-04T12:00:00-03:00"
+    "status": "publicado",
+    "agendado_para": "2026-11-04T12:00:00-03:00",
+    "urn": "urn:li:ugcPost:7523771187093630976",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7523771187093630976/",
+    "publicado_em": "2026-11-04T15:40:36+00:00"
   },
   "anuncio": {
-    "status": "aprovado",
+    "status": "criado",
     "conjuntos": [
       "profissionais",
       "engajados"
-    ]
-  }
+    ],
+    "anuncios": {
+      "profissionais": "120252768544770706",
+      "engajados": "120252768546760706"
+    },
+    "criado_em": "2026-11-04T15:41:01+00:00"
+  },
+  "media_id": "18082101758401845",
+  "link": "https://www.instagram.com/p/DfUzOsxFP_F/",
+  "publicado_em": "2026-11-04T15:40:34+00:00"
 }
