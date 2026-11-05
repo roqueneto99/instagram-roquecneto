@@ -20,6 +20,26 @@
     "engajamento": {
       "nome": "Profissionais formados · BR · 25-50 · engajamento",
       "id": "120252773273960706"
+    },
+    "prof_contador": {
+      "nome": "Raio-X · contadores",
+      "id": "120252786356050706",
+      "rotacao": true
+    },
+    "prof_advogado": {
+      "nome": "Raio-X · advogados",
+      "id": "120252786356350706",
+      "rotacao": true
+    },
+    "prof_rh": {
+      "nome": "Raio-X · RH",
+      "id": "120252786356800706",
+      "rotacao": true
+    },
+    "prof_gestao": {
+      "nome": "Raio-X · gestores",
+      "id": "120252786357290706",
+      "rotacao": true
     }
   },
   "page_id": "112825373722677",
