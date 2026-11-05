@@ -230,8 +230,31 @@ def modelos():
         print("BRUTO", json.dumps(m["bruto"], ensure_ascii=False))
 
 
+def desempenho():
+    """Resultados por conjunto (dia a dia) e por posicionamento, só leitura."""
+    conta = CONFIG["conta"]
+    campos = "adset_name,spend,impressions,reach,frequency,clicks,cpm,actions"
+    for periodo in ({"since": "2026-10-26", "until": "2026-11-04"},):
+        for linha in _lista(f"{conta}/insights", level="adset", fields=campos, time_range=periodo,
+                            time_increment=1):
+            acoes = {a["action_type"]: a["value"] for a in linha.get("actions", [])}
+            print("DIA", linha["date_start"], "|", linha["adset_name"], "| R$", linha["spend"],
+                  "| imp", linha["impressions"], "| alc", linha["reach"], "|", json.dumps(acoes))
+        for linha in _lista(f"{conta}/insights", level="adset", fields=campos, time_range=periodo,
+                            breakdowns="publisher_platform,platform_position"):
+            acoes = {a["action_type"]: a["value"] for a in linha.get("actions", [])}
+            print("POS", linha["adset_name"], "|", linha["publisher_platform"], linha["platform_position"],
+                  "| R$", linha["spend"], "| imp", linha["impressions"], "|", json.dumps(acoes))
+        for linha in _lista(f"{conta}/insights", level="adset", fields=campos, time_range=periodo,
+                            breakdowns="age"):
+            acoes = {a["action_type"]: a["value"] for a in linha.get("actions", [])}
+            print("IDADE", linha["adset_name"], "|", linha["age"], "| R$", linha["spend"], "|", json.dumps(acoes))
+
+
 if __name__ == "__main__":
-    if sys.argv[1:] == ["listar"]:
+    if sys.argv[1:] == ["desempenho"]:
+        desempenho()
+    elif sys.argv[1:] == ["listar"]:
         listar()
         modelos()
     elif sys.argv[1:2] == ["teste"]:

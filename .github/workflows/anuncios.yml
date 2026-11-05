@@ -3,6 +3,10 @@ name: Listar anúncios (só leitura)
 on:
   workflow_dispatch:
     inputs:
+      desempenho:
+        description: "Mostrar resultados por conjunto, dia e posicionamento"
+        type: boolean
+        default: false
       teste_media_id:
         description: "Se preenchido, cria um anúncio PAUSADO com esse post em cada conjunto e apaga (não gasta)"
         type: string
@@ -20,7 +24,8 @@ jobs:
       - name: Campanhas, conjuntos e anúncios
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
-        run: python -u scripts/anunciar.py listar
+        run: |
+          if [ "${{ inputs.desempenho }}" = "true" ]; then python -u scripts/anunciar.py desempenho; else python -u scripts/anunciar.py listar; fi
       - name: Teste de criação (pausado e apagado)
         if: inputs.teste_media_id != ''
         env:
