@@ -26,7 +26,8 @@ def so_instagram(adset_id):
     t = A._api("GET", adset_id, fields="name,targeting")
     alvo = t["targeting"]
     for chave in ("facebook_positions", "messenger_positions", "audience_network_positions",
-                  "whatsapp_positions", "threads_positions", "device_platforms"):
+                  "whatsapp_positions", "threads_positions", "device_platforms",
+                  "targeting_optimization"):
         alvo.pop(chave, None)
     alvo.update(POSICOES)
     A._api("POST", adset_id, targeting=alvo)
