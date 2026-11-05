@@ -142,8 +142,32 @@ def profissoes(media_contador):
     print("IDS", json.dumps(ids))
 
 
+CARGOS = {
+    "120252786356050706": ["110927205602254", "339651256100614", "114306391919613", "133532123326775",
+                           "137885909578558", "113171825383590", "111518682231513"],
+    "120252786356350706": ["127978847249423", "149331845136451", "141538732533559"],
+    "120252786356800706": ["109288552422516", "126583970748257", "129270633781678", "138800332806611"],
+    "120252786357290706": ["137453372957907", "134779459890064", "143530962334045", "151145811576881",
+                           "197683560270688"],
+}
+
+
+def cargos():
+    """Pedido do Roque em 05/11: conjuntos por profissão só com cargo declarado."""
+    for adset, ids in CARGOS.items():
+        t = dict(IG)
+        t["work_positions"] = [{"id": i} for i in ids]
+        A._api("POST", adset, targeting=t)
+        nome = A._api("GET", adset, fields="name")["name"]
+        est = A._api("GET", f"{adset}/delivery_estimate", optimization_goal="POST_ENGAGEMENT").get("data", [{}])[0]
+        print(f"CARGO {nome}: público estimado {est.get('estimate_mau_lower_bound')} a "
+              f"{est.get('estimate_mau_upper_bound')}")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["profissoes"]:
+    if sys.argv[1:2] == ["cargos"]:
+        cargos()
+    elif sys.argv[1:2] == ["profissoes"]:
         profissoes(sys.argv[2])
     else:
         main()
