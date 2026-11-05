@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,15 +11,27 @@
   "legenda": "Contador tem nota 51 de 100 de exposição à IA generativa, e a tarefa mais exposta é preparar as demonstrações financeiras (65).\n\nPeguei o índice da OIT e olhei tarefa por tarefa. Custeio (60) e orientar a diretoria sobre estoque, vendas e produtividade (56) vêm logo atrás. Auditoria (43) e investigação de fraude (42) ficam no fim da lista.\n\nNo carrossel tem um pedido pronto para o primeiro rascunho das notas explicativas, a partir do balancete. E três cuidados: nada de dado que identifique o cliente, conferir norma vigente e lembrar que a assinatura é sua.\n\nExposição não é substituição. É onde a IA já ajuda.\n\nQual tarefa do seu dia você passaria primeiro?\n\nManda pro seu amigo contador.\n\n#contabilidade #contador #contabilidadeconsultiva #inteligenciaartificial #ianacontabilidade",
   "agendado_para": "2026-11-05T12:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-11-05T12:00:00-03:00"
+    "status": "publicado",
+    "agendado_para": "2026-11-05T12:00:00-03:00",
+    "urn": "urn:li:ugcPost:7524134384405213184",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524134384405213184/",
+    "publicado_em": "2026-11-05T15:43:49+00:00"
   },
   "anuncio": {
-    "status": "aprovado",
+    "status": "criado",
     "conjuntos": [
       "profissionais",
       "engajamento",
       "lembranca"
-    ]
-  }
+    ],
+    "anuncios": {
+      "profissionais": "120252785484170706",
+      "engajamento": "120252785484820706",
+      "lembranca": "120252785485620706"
+    },
+    "criado_em": "2026-11-05T15:44:19+00:00"
+  },
+  "media_id": "17994555593855772",
+  "link": "https://www.instagram.com/p/DfXYZEoFF_H/",
+  "publicado_em": "2026-11-05T15:43:47+00:00"
 }
