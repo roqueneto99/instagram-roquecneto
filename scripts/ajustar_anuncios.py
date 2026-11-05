@@ -164,8 +164,16 @@ def cargos():
               f"{est.get('estimate_mau_upper_bound')}")
 
 
+def orcamento(adset, centavos):
+    A._api("POST", adset, daily_budget=int(centavos))
+    d = A._api("GET", adset, fields="name,daily_budget,effective_status")
+    print(f"ORCAMENTO {d['name']}: R${int(d['daily_budget']) / 100:.2f}/dia ({d['effective_status']})")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["cargos"]:
+    if sys.argv[1:2] == ["orcamento"]:
+        orcamento(sys.argv[2], sys.argv[3])
+    elif sys.argv[1:2] == ["cargos"]:
         cargos()
     elif sys.argv[1:2] == ["profissoes"]:
         profissoes(sys.argv[2])
