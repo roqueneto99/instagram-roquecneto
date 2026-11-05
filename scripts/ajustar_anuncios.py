@@ -16,7 +16,7 @@ SEGUIDORES = {
     "polos": "120252624993030706",
 }
 POSICOES = {"publisher_platforms": ["instagram"],
-            "instagram_positions": ["stream", "reels", "explore", "explore_home"]}
+            "instagram_positions": ["stream", "reels", "explore_home"]}
 NOME_CAMP = "RN · Seguidores · Engajamento (teste A/B)"
 NOME_CONJ = "Profissionais formados · BR · 25-50 · engajamento"
 MEDIA_APURACAO = "18082101758401845"
