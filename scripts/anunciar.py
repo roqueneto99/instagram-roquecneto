@@ -251,8 +251,28 @@ def desempenho():
             print("IDADE", linha["adset_name"], "|", linha["age"], "| R$", linha["spend"], "|", json.dumps(acoes))
 
 
+def busca(termos):
+    """Mostra o direcionamento atual dos conjuntos e procura opções de público (só leitura)."""
+    for apelido, alvo in CONFIG["conjuntos"].items():
+        t = _api("GET", alvo["id"], fields="name,targeting")
+        print("ALVO", apelido, json.dumps(t["targeting"], ensure_ascii=False))
+    conta = CONFIG["conta"]
+    for termo in termos.split(","):
+        termo = termo.strip()
+        for tipo in ("adinterest", "adworkposition", "adeducationmajor", "adworkemployer"):
+            for r in _api("GET", "search", type=tipo, q=termo, locale="pt_BR", limit=8).get("data", []):
+                print("OPCAO", tipo, "|", termo, "|", r.get("id"), "|", r.get("name"), "|",
+                      r.get("audience_size_lower_bound"), "-", r.get("audience_size_upper_bound"),
+                      "|", r.get("path"))
+        for r in _api("GET", f"{conta}/targetingsearch", q=termo, limit=10).get("data", []):
+            print("OPCAO busca |", termo, "|", r.get("id"), "|", r.get("name"), "|", r.get("type"), "|",
+                  r.get("audience_size_lower_bound"), "-", r.get("audience_size_upper_bound"))
+
+
 if __name__ == "__main__":
-    if sys.argv[1:] == ["desempenho"]:
+    if sys.argv[1:2] == ["busca"]:
+        busca(sys.argv[2])
+    elif sys.argv[1:] == ["desempenho"]:
         desempenho()
     elif sys.argv[1:] == ["listar"]:
         listar()

@@ -3,6 +3,10 @@ name: Listar anúncios (só leitura)
 on:
   workflow_dispatch:
     inputs:
+      busca:
+        description: "Termos separados por vírgula para procurar públicos (só leitura)"
+        type: string
+        default: ""
       desempenho:
         description: "Mostrar resultados por conjunto, dia e posicionamento"
         type: boolean
@@ -25,7 +29,7 @@ jobs:
         env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
         run: |
-          if [ "${{ inputs.desempenho }}" = "true" ]; then python -u scripts/anunciar.py desempenho; else python -u scripts/anunciar.py listar; fi
+          if [ -n "${{ inputs.busca }}" ]; then python -u scripts/anunciar.py busca "${{ inputs.busca }}"; elif [ "${{ inputs.desempenho }}" = "true" ]; then python -u scripts/anunciar.py desempenho; else python -u scripts/anunciar.py listar; fi
       - name: Teste de criação (pausado e apagado)
         if: inputs.teste_media_id != ''
         env:
