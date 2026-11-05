@@ -2,6 +2,11 @@ name: Ajuste de anúncios (04/11)
 
 on:
   workflow_dispatch:
+    inputs:
+      args:
+        description: "Argumentos (vazio = ajuste de 04/11)"
+        type: string
+        default: ""
 
 jobs:
   ajustar:
@@ -14,4 +19,4 @@ jobs:
       - run: pip install requests==2.32.3
       - env:
           META_ADS_TOKEN: ${{ secrets.META_ADS_TOKEN }}
-        run: python -u scripts/ajustar_anuncios.py
+        run: python -u scripts/ajustar_anuncios.py ${{ inputs.args }}

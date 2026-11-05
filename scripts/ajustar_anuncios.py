@@ -73,5 +73,77 @@ def main():
     print("CONJ_ENG", conj)
 
 
+IG = {"publisher_platforms": ["instagram"], "instagram_positions": ["stream", "reels", "explore_home"],
+      "geo_locations": {"countries": ["BR"], "location_types": ["home", "recent"]},
+      "age_min": 25, "age_max": 55,
+      "targeting_automation": {"advantage_audience": 0}}
+PROFISSOES = {
+    "prof_contador": ("Raio-X · contadores", {
+        "interests": ["6003138589139", "6003389795312"],
+        "work_positions": ["110927205602254", "339651256100614", "114306391919613", "133532123326775",
+                           "113171825383590", "111518682231513"]}),
+    "prof_advogado": ("Raio-X · advogados", {
+        "interests": ["6003392101554", "6003283840779", "6002867987022"],
+        "work_positions": ["127978847249423", "107762792579901"]}),
+    "prof_rh": ("Raio-X · RH", {
+        "interests": ["6003069499982"],
+        "work_positions": ["109288552422516", "126583970748257", "129270633781678", "102010339879775"]}),
+    "prof_gestao": ("Raio-X · gestores", {
+        "interests": ["6003230008188"],
+        "work_positions": ["137453372957907", "134779459890064", "143530962334045", "110463695647944"]}),
+}
+
+
+def alvo_prof(spec):
+    t = dict(IG)
+    t["flexible_spec"] = [{k: [{"id": i} for i in v] for k, v in spec.items()}]
+    return t
+
+
+def profissoes(media_contador):
+    camps = A._lista(f"{CONTA}/campaigns", fields="id,name")
+    camp = next(c["id"] for c in camps if c["name"] == NOME_CAMP)
+    existentes = {c["name"]: c["id"] for c in A._lista(f"{camp}/adsets", fields="id,name")}
+    ids = {}
+    for apelido, (nome, spec) in PROFISSOES.items():
+        if nome in existentes:
+            ids[apelido] = existentes[nome]
+            continue
+        alvo = alvo_prof(spec)
+        try:
+            ids[apelido] = A._api("POST", f"{CONTA}/adsets", name=nome, campaign_id=camp, daily_budget=600,
+                                  billing_event="IMPRESSIONS", optimization_goal="POST_ENGAGEMENT",
+                                  destination_type="ON_POST", bid_strategy="LOWEST_COST_WITHOUT_CAP",
+                                  targeting=alvo, status="PAUSED")["id"]
+        except A.ErroAnuncio as e:
+            print(f"  {nome}: cargo recusado ({e}); tentando só com interesses")
+            spec = {"interests": spec["interests"]}
+            ids[apelido] = A._api("POST", f"{CONTA}/adsets", name=nome, campaign_id=camp, daily_budget=600,
+                                  billing_event="IMPRESSIONS", optimization_goal="POST_ENGAGEMENT",
+                                  destination_type="ON_POST", bid_strategy="LOWEST_COST_WITHOUT_CAP",
+                                  targeting=alvo_prof(spec), status="PAUSED")["id"]
+        print(f"conjunto criado (pausado): {nome} {ids[apelido]}")
+    for apelido, i in ids.items():
+        est = A._api("GET", f"{i}/delivery_estimate", optimization_goal="POST_ENGAGEMENT").get("data", [{}])[0]
+        print(f"PROF {apelido} {i} público estimado: {est.get('estimate_mau_lower_bound')} a "
+              f"{est.get('estimate_mau_upper_bound')}")
+    # contador já publicado: cria o anúncio agora e liga
+    c = ids["prof_contador"]
+    if not A._lista(f"{c}/ads", fields="id"):
+        cr = A._api("POST", f"{CONTA}/adcreatives", name="auto · 2026-11-05-raiox-contador · prof",
+                    object_id="112825373722677", instagram_user_id="17841400496533075",
+                    source_instagram_media_id=media_contador)["id"]
+        ad = A._api("POST", f"{CONTA}/ads", name="auto · 2026-11-05-raiox-contador", adset_id=c,
+                    creative={"creative_id": cr}, status="ACTIVE")["id"]
+        print(f"anúncio do Raio-X contador criado: {ad}")
+    A._api("POST", c, status="ACTIVE")
+    A._api("POST", SEGUIDORES["polos"], status="PAUSED")
+    print("Raio-X · contadores ligado; Polos corporativos pausado (orçamento passa para cá)")
+    print("IDS", json.dumps(ids))
+
+
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:2] == ["profissoes"]:
+        profissoes(sys.argv[2])
+    else:
+        main()

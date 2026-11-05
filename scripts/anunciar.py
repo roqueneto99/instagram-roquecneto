@@ -81,7 +81,9 @@ def modelo_do_conjunto(adset):
                  "creative{object_story_spec,instagram_user_id,call_to_action_type,"
                  "asset_feed_spec,url_tags,object_id,link_url,object_type,source_instagram_media_id,effective_object_story_id}")
     if not ads:
-        raise ErroAnuncio(f"conjunto {adset} não tem anúncio para servir de modelo")
+        # conjunto novo, sem anúncio ainda: usa a página e a conta do anuncios.json, sem botão
+        return {"page_id": CONFIG["page_id"], "ig_id": CONFIG["instagram_user_id"], "link": None,
+                "cta": None, "url_tags": None, "ads": [], "bruto": {}}
     # prefere um anúncio que não foi criado por este script (é o modelo original)
     ads.sort(key=lambda a: (a["name"].startswith(PREFIXO), a.get("effective_status") != "ACTIVE",
                             a.get("created_time", "")))
@@ -150,6 +152,15 @@ def criar_anuncio(slug, media_id, apelido, dry, teste=False):
         return ad["id"]
     ad = _api("POST", f"{conta}/ads", name=f"{PREFIXO}{slug}", adset_id=adset,
               creative={"creative_id": cr["id"]}, status="ACTIVE")
+
+    # conjuntos por profissão: só um roda por vez; o novo liga e os outros da rotação pausam
+    if CONFIG["conjuntos"][apelido].get("rotacao"):
+        _api("POST", adset, status="ACTIVE")
+        print(f"    conjunto {apelido} ligado")
+        for outro, alvo in CONFIG["conjuntos"].items():
+            if outro != apelido and alvo.get("rotacao") and alvo.get("id"):
+                _api("POST", alvo["id"], status="PAUSED")
+                print(f"    conjunto {outro} pausado (rotação)")
 
     # pausa os anúncios antigos: todos os manuais e os automáticos além dos MANTER mais novos
     ativos = [a for a in m["ads"] if a.get("effective_status") in
