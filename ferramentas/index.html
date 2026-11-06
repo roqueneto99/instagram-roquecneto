@@ -96,6 +96,28 @@ h1 .d{color:var(--dim)}
 .breve{display:grid;gap:14px;margin-top:26px}
 .breve .painel h2{font-size:22px;margin:8px 0}
 .breve .painel p{color:var(--mut);margin:0}
+/* Raio-x da semana */
+.semana{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--ln)}
+.semana li{display:grid;grid-template-columns:24px minmax(0,1fr) 68px;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--ln)}
+.semana li.off .tx{color:var(--mut)}
+.semana input[type=checkbox]{width:22px;height:22px;margin:2px 0 0;accent-color:var(--cor);cursor:pointer}
+.semana label{cursor:pointer;min-width:0}
+.semana .meta{display:block;font-size:13px;color:var(--mut);margin-top:4px;font-variant-numeric:tabular-nums}
+.semana .meta b{color:var(--ink);font-weight:600}
+.semana li.off .meta b{color:var(--mut)}
+.horas{display:grid;gap:3px;justify-items:end}
+.horas input{width:68px;font:600 17px var(--sans);font-variant-numeric:tabular-nums;color:var(--ink);background:var(--sf2);border:1px solid var(--ln);border-radius:10px;padding:8px 10px;text-align:right;outline:none}
+.horas input:focus{border-color:var(--cor)}
+.horas input:disabled{opacity:.45}
+.horas span{font-size:11px;color:var(--dim);letter-spacing:.04em}
+.cenarios{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}
+.cenario{border:1px solid var(--ln);border-radius:16px;padding:14px 16px;min-width:0}
+.cenario.o{border-color:color-mix(in srgb,var(--cor) 55%,var(--ln))}
+.cenario b{display:block;font-size:34px;font-weight:300;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1.1}
+.cenario span{font-size:13px;color:var(--mut)}
+.conta{font-size:14px;color:var(--mut);background:var(--sf2);border-radius:12px;padding:12px 14px;margin:16px 0 0}
+.num .ate{font-size:.3em;font-weight:400;letter-spacing:0;color:var(--mut);margin:0 .25em;vertical-align:.25em}
+.semana-topo{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .cta{display:grid;gap:8px}
 .cta p{margin:0;color:var(--mut)}
 footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--ln);font-size:13px;color:var(--mut);display:grid;gap:8px}
@@ -112,7 +134,7 @@ footer p{margin:0;max-width:70ch}
 
   <nav class="abas" aria-label="Ferramentas">
     <a href="#profissao" data-aba="profissao">Sua profissão e a IA</a>
-    <a href="#semana" data-aba="semana">Raio-x da semana <small>em breve</small></a>
+    <a href="#semana" data-aba="semana">Raio-x da semana</a>
     <a href="#pedido" data-aba="pedido">Monte seu pedido <small>em breve</small></a>
     <a href="#biblioteca" data-aba="biblioteca">Pedidos por profissão <small>em breve</small></a>
   </nav>
@@ -133,9 +155,17 @@ footer p{margin:0;max-width:70ch}
   </section>
 
   <section id="v-semana" hidden>
-    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Raio-x da sua semana</h2>
-      <p>Você conta o que faz numa semana normal. A ferramenta mostra quanto tempo a IA pode devolver e entrega um pedido pronto para cada tarefa.</p></div>
-      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+    <h1><span class="d">Quanto tempo a IA</span><br>devolve na sua semana?</h1>
+    <p class="lead">Escolha sua profissão, marque o que você faz numa semana normal e quantas horas vai em cada tarefa. A página calcula as horas que a IA pode te devolver e o Claude escreve um pedido pronto para cada uma.</p>
+
+    <div class="busca" role="combobox" aria-expanded="false" aria-haspopup="listbox" id="cb2">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q2" type="search" autocomplete="off" placeholder="Ex.: contador, advogado, professor, vendedor" aria-label="Sua ocupação" aria-controls="sug2">
+      <div class="sug" id="sug2" role="listbox" hidden></div>
+    </div>
+    <div class="atalhos" id="atalhos2" aria-label="Exemplos"></div>
+
+    <div class="res" id="res2" aria-live="polite"></div>
   </section>
   <section id="v-pedido" hidden>
     <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Monte seu pedido</h2>
@@ -183,7 +213,7 @@ const EXEMPLO = "2411";
 const $ = s => document.querySelector(s);
 const norm = s => (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const fmt = n => String(Math.round(n*100));
-let DADOS = null, ORD = [], atual = null, sample = null, ctl = null;
+let DADOS = null, ORD = [], atual = null, sample = null, sem = null;
 
 function el(tag, attrs, ...kids){
   const e = document.createElement(tag);
@@ -199,11 +229,12 @@ function el(tag, attrs, ...kids){
 const ABAS = ["profissao","semana","pedido","biblioteca"];
 function rota(){
   const h = location.hash.slice(1);
-  let aba = ABAS.includes(h) ? h : "profissao";
-  const m = /^o(\d{4})$/.exec(h);
+  const m = /^o(\d{4})$/.exec(h), s = /^s(\d{4})$/.exec(h);
+  let aba = ABAS.includes(h) ? h : s ? "semana" : "profissao";
   for (const a of ABAS) $("#v-"+a).hidden = a !== aba;
   document.querySelectorAll("nav.abas a").forEach(a => { if (a.dataset.aba !== aba) a.removeAttribute("aria-current"); else a.setAttribute("aria-current","page"); });
   if (m && DADOS) mostrar(m[1], false);
+  if (s && DADOS && (!sem || sem.o.c !== s[1])) montarSemana(s[1], false);
 }
 window.addEventListener("hashchange", rota);
 
@@ -223,37 +254,43 @@ function buscar(q){
   }
   return res.sort((a,b) => b[0]-a[0] || b[1].m - a[1].m).slice(0,7).map(r => r[1]);
 }
-let ativo = -1;
-function pintarSug(lista){
-  const box = $("#sug"); box.innerHTML = ""; ativo = -1;
-  $("#cb").setAttribute("aria-expanded", lista.length ? "true" : "false");
-  box.hidden = !lista.length;
-  lista.forEach((o,i) => box.append(el("button",{type:"button",role:"option",id:"op"+i,onclick:()=>escolher(o.c)},
-    el("span",{}, o.t), el("span",{class:"n"}, fmt(o.m)+"/100"))));
-  if ($("#q").value.trim().length >= 2 && !lista.length){
-    box.hidden = false;
-    box.append(el("div",{style:"padding:12px 16px;color:var(--mut)"},"Nada encontrado. Tente outro nome, como \"vendedor\" ou \"analista\"."));
+/* A mesma busca serve às duas abas: cada uma tem seu campo e decide o que fazer com a escolha. */
+function montarBusca(cb, q, sug, prefixo, aoEscolher){
+  let ativo = -1;
+  function pintar(lista){
+    const box = $(sug); box.innerHTML = ""; ativo = -1;
+    $(cb).setAttribute("aria-expanded", lista.length ? "true" : "false");
+    box.hidden = !lista.length;
+    lista.forEach((o,i) => box.append(el("button",{type:"button",role:"option",id:prefixo+i,onclick:()=>escolher(o.c)},
+      el("span",{}, o.t), el("span",{class:"n"}, fmt(o.m)+"/100"))));
+    if ($(q).value.trim().length >= 2 && !lista.length){
+      box.hidden = false;
+      box.append(el("div",{style:"padding:12px 16px;color:var(--mut)"},"Nada encontrado. Tente outro nome, como \"vendedor\" ou \"analista\"."));
+    }
   }
+  function escolher(c){ $(q).value = ""; pintar([]); aoEscolher(c); }
+  $(q).addEventListener("input", e => pintar(buscar(e.target.value)));
+  $(q).addEventListener("keydown", e => {
+    const bs = [...$(sug).querySelectorAll("button")];
+    if (!bs.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+      e.preventDefault(); ativo = (ativo + (e.key === "ArrowDown" ? 1 : -1) + bs.length) % bs.length;
+      bs.forEach((b,i) => b.classList.toggle("on", i === ativo)); $(q).setAttribute("aria-activedescendant",prefixo+ativo);
+    } else if (e.key === "Enter"){ e.preventDefault(); (bs[ativo] || bs[0]).click(); }
+    else if (e.key === "Escape"){ pintar([]); }
+  });
+  document.addEventListener("click", e => { if (!$(cb).contains(e.target)) { $(sug).hidden = true; } });
+  return escolher;
 }
-function escolher(c){ $("#q").value = ""; pintarSug([]); location.hash = "o"+c; }
-$("#q").addEventListener("input", e => pintarSug(buscar(e.target.value)));
-$("#q").addEventListener("keydown", e => {
-  const bs = [...$("#sug").querySelectorAll("button")];
-  if (!bs.length) return;
-  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
-    e.preventDefault(); ativo = (ativo + (e.key === "ArrowDown" ? 1 : -1) + bs.length) % bs.length;
-    bs.forEach((b,i) => b.classList.toggle("on", i === ativo)); $("#q").setAttribute("aria-activedescendant","op"+ativo);
-  } else if (e.key === "Enter"){ e.preventDefault(); (bs[ativo] || bs[0]).click(); }
-  else if (e.key === "Escape"){ pintarSug([]); }
-});
-document.addEventListener("click", e => { if (!$("#cb").contains(e.target)) { $("#sug").hidden = true; } });
+const escolher = montarBusca("#cb","#q","#sug","op", c => { location.hash = "o"+c; });
+const escolherSemana = montarBusca("#cb2","#q2","#sug2","sp", c => { location.hash = "s"+c; });
 
 /* ---------- resultado ---------- */
 function percentil(o){ const abaixo = ORD.filter(x => x.m < o.m).length; return Math.round(100*abaixo/ORD.length); }
 
 function mostrar(c, exemplo){
   const o = DADOS.find(x => x.c === c); if (!o) return;
-  atual = o; if (ctl) ctl.abort();
+  atual = o; if (CTL.profissao) CTL.profissao.abort();
   const g = GRAUS[o.g], pct = percentil(o);
   const tarefas = o.k.map(([s,t]) => ({s,t})).sort((a,b) => b.s - a.s);
   const altas = tarefas.filter(t => t.s >= .5).length;
@@ -301,30 +338,46 @@ function pedidoLink(o, tarefas){
 }
 
 function blocoClaude(o, tarefas){
-  const pedido = pedidoPlano(o, tarefas);
+  return caixaClaude({
+    chave:"profissao",
+    titulo:"Transforme o resultado num plano para você",
+    texto:"O Claude lê as tarefas da sua profissão e devolve as 3 em que a IA ajuda já nesta semana, com um pedido pronto para cada uma.",
+    gerar:"Gerar meu plano aqui", semSample:"Montar meu plano no Claude", pensando:"Pensando no seu plano...",
+    pedido:() => pedidoPlano(o, tarefas), link:() => pedidoLink(o, tarefas)
+  });
+}
+
+/* Caixa do Claude usada pelas abas: gera aqui com a conta de quem abre (sample) ou abre o claude.ai com o pedido. */
+const CTL = {};
+function caixaClaude(cfg){
   const saida = el("div",{class:"saida",hidden:""});
   const box = el("div",{class:"painel claude"},
     el("span",{class:"rot"},"Próximo passo"),
-    el("h3",{},"Transforme o resultado num plano para você"),
-    el("p",{},"O Claude lê as tarefas da sua profissão e devolve as 3 em que a IA ajuda já nesta semana, com um pedido pronto para cada uma."));
+    el("h3",{}, cfg.titulo),
+    el("p",{}, cfg.texto));
   const acoes = el("div",{class:"acoes"});
-  const abrir = el("a",{class:"btn",href:"https://claude.ai/new?q="+encodeURIComponent(pedidoLink(o, tarefas)),target:"_blank",rel:"noopener"},"Abrir no Claude");
+  const urlLink = () => "https://claude.ai/new?q="+encodeURIComponent(cfg.link());
+  const abrir = el("a",{class:"btn",href:urlLink(),target:"_blank",rel:"noopener",onclick:e => { e.currentTarget.href = urlLink(); }},"Abrir no Claude");
+  const ver = el("pre",{class:"pedido",hidden:""});
   const copiar = el("button",{class:"btn",type:"button",onclick:async e => {
+    const pedido = cfg.pedido(); ver.textContent = pedido;
     try { await navigator.clipboard.writeText(pedido); e.target.textContent = "Pedido copiado"; }
     catch { ver.hidden = false; const r = document.createRange(); r.selectNodeContents(ver); getSelection().removeAllRanges(); getSelection().addRange(r); e.target.textContent = "Selecione e copie o texto"; }
   }},"Copiar pedido");
-  const ver = el("pre",{class:"pedido",hidden:""}, pedido);
   if (sample){
-    const gerar = el("button",{class:"btn p",type:"button"},"Gerar meu plano aqui");
+    const gerar = el("button",{class:"btn p",type:"button"}, cfg.gerar);
     const parar = el("button",{class:"btn",type:"button",hidden:""},"Parar");
     gerar.onclick = async () => {
-      ctl = new AbortController(); const sinal = ctl.signal;
-      saida.hidden = false; saida.innerHTML = ""; const md = el("div",{class:"md"}, el("p",{class:"pensando"},"Pensando no seu plano..."));
+      const pedido = cfg.pedido();
+      if (CTL[cfg.chave]) CTL[cfg.chave].abort();
+      const ctl = CTL[cfg.chave] = new AbortController(); const sinal = ctl.signal;
+      saida.hidden = false; saida.innerHTML = ""; const md = el("div",{class:"md"}, el("p",{class:"pensando"}, cfg.pensando));
       saida.append(md); gerar.disabled = true; parar.hidden = false;
       try{
         await sample(pedido, { signal:sinal, onText: ({text}) => { md.innerHTML = markdown(text); } });
         saida.append(el("p",{class:"nota"},"Gerado pelo Claude na sua conta. Confira antes de usar e adapte ao seu caso."));
       } catch(e){
+        if (CTL[cfg.chave] !== ctl && e && e.code === "cancelled") return;
         const msgs = { not_granted:"Você não permitiu o uso do Claude nesta página. Use o botão Abrir no Claude.",
           sampling_disabled:"O Claude não está disponível na sua conta aqui. Use o botão Abrir no Claude.",
           rate_limited:"Muitos pedidos agora. Tente de novo em alguns minutos ou use Abrir no Claude.",
@@ -337,14 +390,126 @@ function blocoClaude(o, tarefas){
         }
       } finally { gerar.disabled = false; parar.hidden = true; }
     };
-    parar.onclick = () => ctl && ctl.abort();
+    parar.onclick = () => CTL[cfg.chave] && CTL[cfg.chave].abort();
     acoes.append(gerar, parar, abrir, copiar);
   } else {
-    acoes.append(el("a",{class:"btn p",href:abrir.href,target:"_blank",rel:"noopener"},"Montar meu plano no Claude"), copiar);
+    abrir.className = "btn p"; abrir.textContent = cfg.semSample;
+    acoes.append(abrir, copiar);
     box.append(el("p",{class:"nota",style:"margin:0 0 12px"},"Abre o Claude com o pedido já escrito. Se você não tem conta, dá para criar de graça."));
   }
   box.append(acoes, ver, saida);
   return box;
+}
+
+/* ---------- raio-x da semana ---------- */
+/* Conta: horas × nota da tarefa × fator. O fator desconta o tempo de pedir, revisar e corrigir. */
+const FATOR = { cons:.3, otim:.5 };
+/* Horas iniciais. 0 = tarefa desmarcada. O contador abre como exemplo com uma semana plausível. */
+const HORAS_EXEMPLO = { "2411":[4,8,8,4,0,5,3,0] };
+const HORAS_PADRAO = [6,6,5,4,4,3];
+const MAX_MARCADAS = 6;
+const h1 = n => (Math.round(n*10)/10).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1});
+const hInt = n => String(Math.round(n));
+
+function montarSemana(c, exemplo){
+  const o = DADOS.find(x => x.c === c); if (!o) return;
+  if (CTL.semana) CTL.semana.abort();
+  const base = HORAS_EXEMPLO[c];
+  sem = { o, exemplo, itens: o.k.map(([s,t],i) => {
+    const h = base ? base[i] : (i < MAX_MARCADAS ? HORAS_PADRAO[i] : 0);
+    return { s, t, on: h > 0, h: h > 0 ? h : 2 };
+  }) };
+  pintarSemana();
+}
+
+function contaSemana(){
+  const on = sem.itens.filter(i => i.on && i.h > 0);
+  const horas = on.reduce((a,i) => a + i.h, 0);
+  const exp = on.reduce((a,i) => a + i.h*i.s, 0);
+  return { on, horas, cons: exp*FATOR.cons, otim: exp*FATOR.otim };
+}
+
+function pintarSemana(){
+  const { o, itens, exemplo } = sem;
+  const res = $("#res2"); res.innerHTML = "";
+  const total = el("div",{class:"painel"});
+  const ul = el("ul",{class:"semana"});
+  const metas = [];
+  itens.forEach((it, i) => {
+    const id = "t"+i;
+    const meta = el("span",{class:"meta"});
+    const cx = el("input",{type:"checkbox",id, "aria-describedby":id+"m"}); cx.checked = it.on;
+    const hr = el("input",{type:"number",inputmode:"decimal",min:"0",max:"60",step:"0.5",value:String(it.h),"aria-label":"Horas por semana: "+it.t});
+    hr.disabled = !it.on;
+    const li = el("li",{class:it.on ? "" : "off"}, cx,
+      el("label",{for:id,class:"tx"}, it.t, meta),
+      el("div",{class:"horas"}, hr, el("span",{},"h/semana")));
+    meta.id = id+"m";
+    cx.addEventListener("change", () => { it.on = cx.checked; hr.disabled = !it.on; li.className = it.on ? "" : "off"; atualizar(); });
+    hr.addEventListener("input", () => { const v = parseFloat(hr.value.replace(",", ".")); it.h = isFinite(v) ? Math.min(60, Math.max(0, v)) : 0; atualizar(); });
+    metas.push([meta, it]);
+    ul.append(li);
+  });
+
+  function atualizar(){
+    for (const [meta, it] of metas){
+      meta.innerHTML = "";
+      meta.append("Nota " + fmt(it.s) + "/100");
+      if (it.on && it.h > 0) meta.append(" · devolve ", el("b",{}, h1(it.h*it.s*FATOR.cons) + " a " + h1(it.h*it.s*FATOR.otim) + " h"));
+    }
+    const c = contaSemana();
+    total.innerHTML = "";
+    total.append(
+      el("div",{class:"ocup"}, el("h2",{}, o.t), exemplo ? el("span",{class:"exemplo"},"exemplo") : null),
+      el("div",{class:"leitura"},
+        el("div",{class:"num","aria-label":`De ${hInt(c.cons)} a ${hInt(c.otim)} horas por semana`}, ...(hInt(c.cons) === hInt(c.otim) ? [hInt(c.cons)] : [hInt(c.cons), el("span",{class:"ate"},"a"), hInt(c.otim)])),
+        el("div",{class:"num-l"}, el("span",{class:"rot"},"horas por semana"), el("span",{class:"grau"},"que a IA pode devolver"))),
+      el("div",{class:"cenarios"},
+        el("div",{class:"cenario"}, el("span",{},"Conservador (fator 0,3)"), el("b",{}, h1(c.cons)+" h"), el("span",{}, c.horas ? `${Math.round(100*c.cons/c.horas)}% das horas marcadas` : "marque uma tarefa")),
+        el("div",{class:"cenario o"}, el("span",{},"Otimista (fator 0,5)"), el("b",{}, h1(c.otim)+" h"), el("span",{}, c.horas ? `${Math.round(100*c.otim/c.horas)}% das horas marcadas` : "marque uma tarefa"))),
+      el("div",{class:"fatos"},
+        el("div",{class:"fato"}, el("b",{}, h1(c.horas)+" h"), el("span",{},"marcadas na semana")),
+        el("div",{class:"fato"}, el("b",{}, `${c.on.length} de ${itens.length}`), el("span",{},"tarefas marcadas")),
+        el("div",{class:"fato"}, el("b",{}, `${hInt(c.cons*4)} a ${hInt(c.otim*4)} h`), el("span",{},"num mês de 4 semanas"))),
+      el("p",{class:"conta"}, "Como a conta funciona: para cada tarefa, horas × nota da OIT × fator de economia. A nota diz quanto da tarefa a IA generativa consegue fazer. O fator desconta o tempo que você ainda gasta pedindo, revisando e corrigindo: 0,3 no cenário conservador (a IA faz um rascunho e você refaz bastante) e 0,5 no otimista (você já sabe pedir e só ajusta). É uma estimativa, não uma promessa.")
+    );
+  }
+  atualizar();
+
+  res.append(total,
+    el("div",{class:"painel"},
+      el("div",{class:"semana-topo"}, el("span",{class:"rot"},"Sua semana"), el("span",{class:"nota"},"Marque o que você faz e ajuste as horas")),
+      ul),
+    caixaClaude({
+      chave:"semana",
+      titulo:"Um pedido pronto para cada tarefa",
+      texto:"O Claude lê as tarefas que você marcou e escreve um pedido para copiar e colar em cada uma, dizendo o que mandar junto e o que conferir na resposta.",
+      gerar:"Gerar meus pedidos", semSample:"Abrir no Claude", pensando:"Escrevendo seus pedidos...",
+      pedido:() => pedidoSemana(), link:() => pedidoSemanaLink()
+    }));
+}
+
+function pedidoSemana(){
+  const c = contaSemana(), o = sem.o;
+  if (!c.on.length) return `Sou ${o.t.toLowerCase()} no Brasil. Me ajude a descobrir em quais tarefas da minha semana a IA pode me ajudar e escreva um pedido pronto para cada uma. Português do Brasil, sem travessão longo.`;
+  const lista = c.on.map((i,n) => `${n+1}. ${i.t} (${h1(i.h)} h por semana, nota ${fmt(i.s)}/100 de exposição à IA)`).join("\n");
+  return `Sou ${o.t.toLowerCase()} no Brasil. Numa semana normal, faço estas tarefas (horas por semana e nota do índice da OIT de exposição à IA generativa):\n${lista}\n\nPara CADA tarefa, na mesma ordem, escreva:\n- um título curto com o nome da tarefa;\n- um pedido pronto para eu copiar e colar numa IA, entre aspas, em primeira pessoa, com espaços como [cliente] ou [período] onde eu preencho os meus dados;\n- o que eu preciso mandar junto (arquivo, planilha, texto);\n- o que eu devo conferir na resposta antes de usar.\nNo fim, diga por qual tarefa começar nesta semana e por quê, em duas frases. Lembre que dados de clientes não devem ir para a IA sem autorização. Português do Brasil, direto, sem jargão e sem travessão longo.`;
+}
+
+/* Versão curta para o link: abaixo de ~3.000 caracteres codificados, cortando o texto das tarefas e, se precisar, a lista. */
+function pedidoSemanaLink(){
+  const c = contaSemana(), o = sem.o;
+  const base = t => `Sou ${o.t.toLowerCase()} no Brasil. Tarefas da minha semana:\n${t}\n\nPara cada tarefa, escreva um pedido pronto para eu copiar numa IA (com [espaços] para meus dados), o que mandar junto e o que conferir na resposta. Diga por qual começar. Português do Brasil, direto.`;
+  if (!c.on.length) return base("(ainda não escolhi)");
+  const itens = [...c.on].sort((a,b) => b.h*b.s - a.h*a.s);
+  for (const corte of [140, 90, 60]){
+    for (let n = itens.length; n >= 1; n--){
+      const txt = base(itens.slice(0,n).map(i => "- " + (i.t.length > corte ? i.t.slice(0,corte).replace(/\s+\S*$/,"") + "..." : i.t)).join("\n"));
+      if (encodeURIComponent(txt).length <= 2900) return txt;
+      if (corte !== 60 && n <= Math.min(4, itens.length)) break;
+    }
+  }
+  return base("- " + itens[0].t.slice(0,60));
 }
 
 /* Markdown mínimo e seguro: só títulos, listas, negrito e citações. */
@@ -377,13 +542,17 @@ async function iniciar(){
   ORD = DADOS;
   const at = $("#atalhos");
   for (const c of ATALHOS){ const o = DADOS.find(x => x.c === c); if (o) at.append(el("button",{type:"button",onclick:()=>escolher(c)}, o.b[0] || o.t)); }
-  const m = /^o(\d{4})$/.exec(location.hash.slice(1));
+  const at2 = $("#atalhos2");
+  for (const c of ATALHOS){ const o = DADOS.find(x => x.c === c); if (o) at2.append(el("button",{type:"button",onclick:()=>escolherSemana(c)}, o.b[0] || o.t)); }
+  const m = /^o(\d{4})$/.exec(location.hash.slice(1)), s = /^s(\d{4})$/.exec(location.hash.slice(1));
   mostrar(m ? m[1] : EXEMPLO, !m);
+  montarSemana(s ? s[1] : EXEMPLO, !s);
   rota();
 }
 (async () => {
   try { if (window.claude && claude.use) sample = await claude.use("sample"); } catch { sample = null; }
   if (atual) mostrar(atual.c, !/^#o\d{4}$/.test(location.hash));
+  if (sem) pintarSemana();
 })();
 iniciar();
 })();
