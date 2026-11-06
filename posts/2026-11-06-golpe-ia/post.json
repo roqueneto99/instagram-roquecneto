@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,5 +11,8 @@
     "08.jpg"
   ],
   "legenda": "Recebeu uma mensagem estranha? Cola na IA e pergunta se é golpe.\n\n\"Oi, mãe, troquei de número.\" \"Compra suspeita no seu cartão.\" \"Sua encomenda está retida.\" Todas pedem pressa.\n\nComo fazer:\n1. Abra o app de IA que você tiver no celular.\n2. Copie a mensagem (ou tire um print).\n3. Cole com o pedido: \"Ela tem cara de golpe? Me explica em palavras simples o que parece suspeito e o que eu devo fazer.\"\n\nA IA ajuda a desconfiar, mas não garante nada. Nunca clique no link, nunca passe senha ou código. Na dúvida, ligue você para a pessoa ou para o número oficial do banco, que fica atrás do cartão.\n\nManda para o grupo da família. Pode poupar alguém de um prejuízo.\n\n#golpe #golpedopix #inteligenciaartificial #iadiaadia",
-  "agendado_para": "2026-11-06T12:00:00-03:00"
+  "agendado_para": "2026-11-06T12:00:00-03:00",
+  "media_id": "18107391146576038",
+  "link": "https://www.instagram.com/p/DfZ9FVMIAaU/",
+  "publicado_em": "2026-11-06T15:42:53+00:00"
 }
