@@ -182,8 +182,20 @@ def problemas(*ids):
     print("EST", json.dumps(est, ensure_ascii=False)[:800])
 
 
+def copiar(origem, destino, quebrado, nome):
+    """Recria um anúncio bloqueado usando o criativo de um anúncio que está rodando."""
+    cr = A._api("GET", origem, fields="creative{id}")["creative"]["id"]
+    ad = A._api("POST", f"{CONTA}/ads", name=nome, adset_id=destino, creative={"creative_id": cr},
+                status="ACTIVE")["id"]
+    A._api("POST", quebrado, status="DELETED")
+    d = A._api("GET", ad, fields="name,effective_status")
+    print(f"COPIA {nome}: novo {ad} ({d['effective_status']}), bloqueado {quebrado} apagado")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["problemas"]:
+    if sys.argv[1:2] == ["copiar"]:
+        copiar(*sys.argv[2:6])
+    elif sys.argv[1:2] == ["problemas"]:
         problemas(*sys.argv[2:])
     elif sys.argv[1:2] == ["orcamento"]:
         orcamento(sys.argv[2], sys.argv[3])
