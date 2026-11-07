@@ -173,8 +173,13 @@ def orcamento(adset, centavos):
 def problemas(*ids):
     for i in ids:
         d = A._api("GET", i, fields="name,effective_status,configured_status,issues_info,ad_review_feedback,"
-                   "learning_stage_info,recommendations")
+                   "recommendations")
         print("DIAG", json.dumps(d, ensure_ascii=False)[:1500])
+    c = "120252786356050706"
+    d = A._api("GET", c, fields="name,effective_status,issues_info,learning_stage_info,targeting")
+    print("CONJ", json.dumps(d, ensure_ascii=False)[:1500])
+    est = A._api("GET", f"{c}/delivery_estimate", optimization_goal="POST_ENGAGEMENT")
+    print("EST", json.dumps(est, ensure_ascii=False)[:800])
 
 
 if __name__ == "__main__":
