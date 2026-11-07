@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,16 +11,29 @@
   "legenda": "Advogado tem nota 36 de 100 de exposição à IA generativa, e a tarefa mais exposta é avaliar o caso e montar estratégia e argumentos (56).\n\nPeguei o índice da OIT e olhei tarefa por tarefa. Redigir contratos e pareceres (46) e pesquisar lei e jurisprudência (40) vêm em seguida. Defender o cliente em juízo (30) fica entre as menos expostas.\n\nNo carrossel tem um pedido para organizar os argumentos a partir dos fatos, sem nomes. É ponto de partida para pensar o caso, não peça pronta. A IA pode inventar jurisprudência: confira cada citação na fonte.\n\nExposição não é substituição. É onde a IA já ajuda.\n\nEm qual tarefa você já testou?\n\nManda pro seu amigo advogado.\n\n#advocacia #advogado #direito #inteligenciaartificial #iajuridica",
   "agendado_para": "2026-11-07T12:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-11-07T12:00:00-03:00"
+    "status": "publicado",
+    "agendado_para": "2026-11-07T12:00:00-03:00",
+    "urn": "urn:li:ugcPost:7524858945061060608",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7524858945061060608/",
+    "publicado_em": "2026-11-07T15:42:57+00:00"
   },
   "anuncio": {
-    "status": "aprovado",
+    "status": "criado",
     "conjuntos": [
       "profissionais",
       "engajamento",
       "lembranca",
       "prof_advogado"
-    ]
-  }
+    ],
+    "anuncios": {
+      "profissionais": "120252814762730706",
+      "engajamento": "120252814763090706",
+      "lembranca": "120252814763190706",
+      "prof_advogado": "120252814763660706"
+    },
+    "criado_em": "2026-11-07T15:43:40+00:00"
+  },
+  "media_id": "17915810316506963",
+  "link": "https://www.instagram.com/p/Dfch4gbG_QW/",
+  "publicado_em": "2026-11-07T15:42:56+00:00"
 }
