@@ -194,7 +194,7 @@ def copiar(origem, destino, quebrado, nome):
 
 INTERESSES_EXTRA = {
     "120252786356050706": {"interests": ["6003389795312"]},                       # contabilidade financeira
-    "120252786356350706": {"interests": ["6003283840779", "6003392101554"]},      # direito tributário, advogado
+    "120252786356350706": {"interests": ["6003283840779"]},                       # direito tributário
     "120252786356800706": {"interests": ["6003069499982"],                        # gestão de RH
                            "education_majors": ["109288552422516"]},
 }
