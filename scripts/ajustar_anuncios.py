@@ -170,8 +170,17 @@ def orcamento(adset, centavos):
     print(f"ORCAMENTO {d['name']}: R${int(d['daily_budget']) / 100:.2f}/dia ({d['effective_status']})")
 
 
+def problemas(*ids):
+    for i in ids:
+        d = A._api("GET", i, fields="name,effective_status,configured_status,issues_info,ad_review_feedback,"
+                   "learning_stage_info,recommendations")
+        print("DIAG", json.dumps(d, ensure_ascii=False)[:1500])
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["orcamento"]:
+    if sys.argv[1:2] == ["problemas"]:
+        problemas(*sys.argv[2:])
+    elif sys.argv[1:2] == ["orcamento"]:
         orcamento(sys.argv[2], sys.argv[3])
     elif sys.argv[1:2] == ["cargos"]:
         cargos()
