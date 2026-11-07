@@ -192,8 +192,33 @@ def copiar(origem, destino, quebrado, nome):
     print(f"COPIA {nome}: novo {ad} ({d['effective_status']}), bloqueado {quebrado} apagado")
 
 
+INTERESSES_EXTRA = {
+    "120252786356050706": {"interests": ["6003389795312"]},                       # contabilidade financeira
+    "120252786356350706": {"interests": ["6003283840779", "6003392101554"]},      # direito tributário, advogado
+    "120252786356800706": {"interests": ["6003069499982"],                        # gestão de RH
+                           "education_majors": ["109288552422516"]},
+}
+
+
+def cargos_mais_interesse():
+    """Pedido de 06/11: cargo declarado OU um interesse bem específico da profissão (o só-cargo não entregou)."""
+    for adset, extra in INTERESSES_EXTRA.items():
+        bloco = {"work_positions": [{"id": i} for i in CARGOS[adset]]}
+        for k, v in extra.items():
+            bloco[k] = [{"id": i} for i in v]
+        t = dict(IG)
+        t["flexible_spec"] = [bloco]
+        A._api("POST", adset, targeting=t)
+        nome = A._api("GET", adset, fields="name")["name"]
+        est = A._api("GET", f"{adset}/delivery_estimate", optimization_goal="POST_ENGAGEMENT").get("data", [{}])[0]
+        print(f"CARGO+ {nome}: público estimado {est.get('estimate_mau_lower_bound')} a "
+              f"{est.get('estimate_mau_upper_bound')}")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["copiar"]:
+    if sys.argv[1:2] == ["cargos2"]:
+        cargos_mais_interesse()
+    elif sys.argv[1:2] == ["copiar"]:
         copiar(*sys.argv[2:6])
     elif sys.argv[1:2] == ["problemas"]:
         problemas(*sys.argv[2:])
