@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,5 +11,8 @@
     "08.jpg"
   ],
   "legenda": "A conta de luz subiu? Tira uma foto e pede para a IA explicar.\n\nEla traduz as partes que mais confundem: quanto você gastou em kWh, qual foi a bandeira do mês e quanto da conta é imposto.\n\nComo fazer:\n1. Abra o app de IA que você tiver no celular.\n2. Tire uma foto da conta, reta e com boa luz.\n3. Mande com o pedido: \"Me explica em palavras simples: quanto eu gastei em kWh, qual foi a bandeira e quanto é imposto.\"\n\nQuer saber por que subiu? Mande a conta deste mês e a do mês passado e pergunte o que mudou.\n\nUm cuidado: dobre a parte de cima antes da foto. A IA não precisa do seu CPF, nome ou endereço.\n\nManda para o grupo da família. Sempre tem alguém reclamando da conta.\n\n#contadeluz #energia #inteligenciaartificial #iadiaadia",
-  "agendado_para": "2026-11-08T12:00:00-03:00"
+  "agendado_para": "2026-11-08T12:00:00-03:00",
+  "media_id": "18080421236733080",
+  "link": "https://www.instagram.com/p/DffGstWGz8e/",
+  "publicado_em": "2026-11-08T15:43:06+00:00"
 }
