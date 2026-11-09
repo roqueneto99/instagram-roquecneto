@@ -215,8 +215,17 @@ def cargos_mais_interesse():
               f"{est.get('estimate_mau_upper_bound')}")
 
 
+def pausar(*ids):
+    for i in ids:
+        A._api("POST", i, status="PAUSED")
+        d = A._api("GET", i, fields="name,effective_status")
+        print(f"PAUSA {d['name']}: {d['effective_status']}")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:2] == ["cargos2"]:
+    if sys.argv[1:2] == ["pausar"]:
+        pausar(*sys.argv[2:])
+    elif sys.argv[1:2] == ["cargos2"]:
         cargos_mais_interesse()
     elif sys.argv[1:2] == ["copiar"]:
         copiar(*sys.argv[2:6])
