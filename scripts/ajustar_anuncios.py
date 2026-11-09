@@ -225,6 +225,13 @@ def pausar(*ids):
 if __name__ == "__main__":
     if sys.argv[1:2] == ["pausar"]:
         pausar(*sys.argv[2:])
+    elif sys.argv[1:2] == ["tudo_meme"]:
+        # pedido de 08/11: toda a verba no Reels do meme
+        pausar("120252773273600706",   # campanha de engajamento (teste e conjuntos por profissão)
+               "120252718277960706",   # Lembrança
+               "120252768544770706")   # Apuração no Profissionais formados
+        orcamento("120252753265490706", 2500)   # Profissionais formados: R$25
+        orcamento("120252625057380706", 2000)   # Engajados + semelhante: R$20
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
