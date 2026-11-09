@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,8 +11,11 @@
   "legenda": "Quem trabalha com RH tem nota 45 de 100 de exposição à IA generativa, e a tarefa mais exposta é entrevistar as pessoas e escrever a descrição de cargo (53).\n\nPeguei o índice da OIT e olhei tarefa por tarefa. Classificação de cargos (50) e orientação de carreira (43) vêm depois. Recrutamento, treinamento e remuneração (39) e o apoio à gestão de pessoas como um todo (38) ficam no fim.\n\nNo carrossel tem um pedido pronto para transformar a entrevista em descrição de cargo, para validar com o gestor. E três cuidados: nada de dado pessoal, conferir CLT e convenção, e decisão sobre pessoas continua sua.\n\nExposição não é substituição. É onde a IA já ajuda.\n\nQual descrição de cargo você faria primeiro?\n\nManda pro seu amigo do RH.\n\n#recursoshumanos #rh #gestaodepessoas #inteligenciaartificial #iaempresas",
   "agendado_para": "2026-11-09T12:00:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-11-09T12:00:00-03:00"
+    "status": "publicado",
+    "agendado_para": "2026-11-09T12:00:00-03:00",
+    "urn": "urn:li:ugcPost:7525583778606366720",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525583778606366720/",
+    "publicado_em": "2026-11-09T15:43:11+00:00"
   },
   "anuncio": {
     "status": "rascunho",
@@ -22,5 +25,8 @@
       "lembranca",
       "prof_rh"
     ]
-  }
+  },
+  "media_id": "18105307481324782",
+  "link": "https://www.instagram.com/p/DfhrgnXoOKl/",
+  "publicado_em": "2026-11-09T15:43:09+00:00"
 }
