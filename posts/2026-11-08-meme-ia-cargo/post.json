@@ -1,13 +1,21 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "tipo": "reels",
   "video": "video.mp4",
   "legenda": "A gente sempre acha que a IA é problema do vizinho.\n\nCruzei o índice de exposição à IA da OIT com 233 profissões de escritório. Em média, as atividades que a IA mais alcança (escrever, registrar, mexer com números, atender e pesquisar) somam 31% das tarefas de cada cargo.\n\nIsso não quer dizer que a IA faz o seu trabalho. Quer dizer que 1 a cada 3 tarefas suas já podem sair mais rápido com ela. E quem começa antes sai na frente.\n\nQuer ver a nota da sua profissão? A ferramenta grátis está no link da bio.\n\nSegue o perfil: toda semana tem o Raio-X de uma profissão, com dado e sem enrolação.\n\nMarca aquele amigo que ainda diz que IA é modinha 👇",
   "anuncio": {
-    "status": "aprovado",
+    "status": "criado",
     "conjuntos": [
       "profissionais",
       "engajados"
-    ]
-  }
+    ],
+    "anuncios": {
+      "profissionais": "120252828524660706",
+      "engajados": "120252828535720706"
+    },
+    "criado_em": "2026-11-09T00:23:58+00:00"
+  },
+  "media_id": "18390445693236187",
+  "link": "https://www.instagram.com/reel/DfgCNpdHP3q/",
+  "publicado_em": "2026-11-09T00:23:39+00:00"
 }
