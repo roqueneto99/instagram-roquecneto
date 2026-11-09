@@ -225,6 +225,15 @@ def pausar(*ids):
 if __name__ == "__main__":
     if sys.argv[1:2] == ["pausar"]:
         pausar(*sys.argv[2:])
+    elif sys.argv[1:2] == ["lembranca8"]:
+        # pedido de 08/11 22h: Lembrança de volta com R$8, Engajados cai para R$12
+        orcamento("120252625057380706", 1200)
+        orcamento("120252718277960706", 800)
+        A._api("POST", "120252718277960706", status="ACTIVE")
+        d = A._api("GET", "120252718277960706", fields="name,effective_status,daily_budget")
+        print(f"LIGADO {d['name']}: {d['effective_status']} R${int(d['daily_budget']) / 100:.2f}")
+        for ad in A._lista("120252718277960706/ads", fields="name,effective_status"):
+            print(f"  ANUNCIO {ad['name']}: {ad['effective_status']}")
     elif sys.argv[1:2] == ["tudo_meme"]:
         # pedido de 08/11: toda a verba no Reels do meme
         pausar("120252773273600706",   # campanha de engajamento (teste e conjuntos por profissão)
