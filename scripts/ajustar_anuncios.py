@@ -225,6 +225,11 @@ def pausar(*ids):
 if __name__ == "__main__":
     if sys.argv[1:2] == ["pausar"]:
         pausar(*sys.argv[2:])
+    elif sys.argv[1:2] == ["ativar"]:
+        for i in sys.argv[2:]:
+            A._api("POST", i, status="ACTIVE")
+            d = A._api("GET", i, fields="name,effective_status,adset{name}")
+            print(f"ATIVO {d['adset']['name']} | {d['name']}: {d['effective_status']}")
     elif sys.argv[1:2] == ["cargos2"]:
         cargos_mais_interesse()
     elif sys.argv[1:2] == ["copiar"]:
