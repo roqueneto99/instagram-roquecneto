@@ -31,6 +31,16 @@ def main():
                     str(pasta / "video.mp4")], check=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                 str(pasta / "video.mp4")], capture_output=True, text=True).stdout)
+    # o servidor de arquivos que a Meta usa para baixar o vídeo (jsDelivr) não entrega arquivos acima de 20 MB
+    if (pasta / "video.mp4").stat().st_size > 19_000_000:
+        kbps = int(19_000_000 * 8 / dur / 1000) - 160
+        bruto = pasta / "bruto.mp4"
+        (pasta / "video.mp4").rename(bruto)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(bruto), "-c:v", "libx264", "-profile:v", "high",
+                        "-pix_fmt", "yuv420p", "-b:v", f"{kbps}k", "-maxrate", f"{kbps}k", "-bufsize", f"{2 * kbps}k",
+                        "-c:a", "aac", "-ar", "48000", "-b:a", "128k", "-movflags", "+faststart",
+                        str(pasta / "video.mp4")], check=True)
+        bruto.unlink()
     if tipo == "story" and dur > 60:
         sys.exit(f"story tem até 60 s, o vídeo tem {dur:.1f} s")
     post = {"status": "rascunho", "tipo": tipo, "video": "video.mp4", "legenda": legenda}
