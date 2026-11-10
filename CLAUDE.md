@@ -36,6 +36,7 @@ Todo post também vai para o perfil pessoal do Roque no LinkedIn, salvo se ele d
 - No "publica" desses posts, troque também `anuncio.status` para `aprovado`. Sem isso o post sai e o anúncio não.
 - O script usa o próprio post como criativo, copia botão e link de um anúncio que já existe no conjunto, pausa os anúncios antigos e mantém no máximo 3 automáticos ativos por conjunto (manter_ativos em anuncios.json). Não mexe em orçamento.
 - Token: secret `META_ADS_TOKEN` (token de usuário estendido, app "Publicador roquecneto", ads_management; vence em 60 dias, renovar no Explorador da Graph API + Depurador › Estender). Teste sem gasto: `anuncios.yml` com `teste_media_id`. `gh workflow run anuncios.yml` lista campanhas e conjuntos (só leitura).
+- Lembrança (remarketing) só recebe criativo que serve para qualquer profissão (hoje o carrossel de lançamento da ferramenta). Raio-X de uma profissão não entra lá.
 - O workflow grava o bloco `anuncio` de posts já publicados; isso é permitido. O resto do post publicado continua intocável.
 
 ## Nunca
