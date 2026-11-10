@@ -1,0 +1,13 @@
+{
+  "status": "aprovado",
+  "tipo": "reels",
+  "video": "video.mp4",
+  "legenda": "Pedir pra IA \"melhorar\" um texto é igual pedir pro cabeleireiro \"dar uma ajeitada\". Pode sair qualquer coisa.\n\nA IA não sabe o que estava ruim. Aí ela troca palavra simples por palavra difícil, aumenta o texto e enfia aquelas frases de sempre (\"em um cenário cada vez mais desafiador\").\n\nAntes de pedir a melhora, diz 3 coisas:\n1. Para quem é: \"é um e-mail para um cliente irritado\"\n2. O que está ruim: \"está longo e frio\"\n3. Como você quer: \"no máximo 5 linhas, direto e educado\"\n\nO pedido completo fica assim:\n\"Melhora esse e-mail para um cliente irritado. Está longo e frio. Deixa com no máximo 5 linhas, tom direto e educado, sem palavras difíceis. Não muda prazos nem valores.\"\n\nSalva pra usar no próximo texto e marca quem vive pedindo \"dá uma melhorada\" 👇\n\nSegue o perfil: IA no trabalho, com dado e sem enrolação.",
+  "anuncio": {
+    "status": "aprovado",
+    "conjuntos": [
+      "profissionais",
+      "engajados"
+    ]
+  }
+}
