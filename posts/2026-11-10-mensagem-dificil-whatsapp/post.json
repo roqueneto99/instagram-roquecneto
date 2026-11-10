@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,5 +11,8 @@
     "08.jpg"
   ],
   "legenda": "Mensagem difícil no WhatsApp? A IA te ajuda a achar as palavras.\n\nCliente cobrando um atraso, pedindo desconto, querendo remarcar horário. A gente escreve, apaga, reescreve. Ou deixa para depois e a conversa esfria.\n\nO que eu faço: colo a mensagem no ChatGPT, no Claude ou no Gemini, digo o que quero responder e peço um tom gentil e direto, em poucas linhas, sem prometer nada além do que eu disse. A ideia continua minha. A IA só ajuda com as palavras.\n\nO pedido completo está no card 3. Antes de mandar, leia tudo e não cole CPF, cartão ou dado de saúde do cliente.\n\nSalva para usar amanhã e manda pra quem atende cliente pelo WhatsApp.\n\n#atendimento #whatsapp #empreendedorismo #inteligenciaartificial #autonomo",
-  "agendado_para": "2026-11-10T12:00:00-03:00"
+  "agendado_para": "2026-11-10T12:00:00-03:00",
+  "media_id": "17950113768346055",
+  "link": "https://www.instagram.com/p/DfkQRqqlKOS/",
+  "publicado_em": "2026-11-10T15:42:58+00:00"
 }
