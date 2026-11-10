@@ -18,13 +18,20 @@
     "publicado_em": "2026-11-09T15:43:11+00:00"
   },
   "anuncio": {
-    "status": "aprovado",
+    "status": "criado",
     "conjuntos": [
       "profissionais",
       "engajamento",
       "lembranca",
       "prof_rh"
-    ]
+    ],
+    "anuncios": {
+      "profissionais": "120252888082750706",
+      "engajamento": "120252888084080706",
+      "lembranca": "120252888084770706",
+      "prof_rh": "120252888085750706"
+    },
+    "criado_em": "2026-11-10T11:19:51+00:00"
   },
   "media_id": "18105307481324782",
   "link": "https://www.instagram.com/p/DfhrgnXoOKl/",
