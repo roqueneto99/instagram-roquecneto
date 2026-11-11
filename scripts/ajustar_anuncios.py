@@ -165,7 +165,15 @@ def cargos():
 
 
 def orcamento(adset, centavos):
-    A._api("POST", adset, daily_budget=int(centavos))
+    import time
+    for tentativa in range(4):
+        try:
+            A._api("POST", adset, daily_budget=int(centavos))
+            break
+        except A.ErroAnuncio as e:
+            if "#613" not in str(e) or tentativa == 3:
+                raise
+            time.sleep(35)
     d = A._api("GET", adset, fields="name,daily_budget,effective_status")
     print(f"ORCAMENTO {d['name']}: R${int(d['daily_budget']) / 100:.2f}/dia ({d['effective_status']})")
 
