@@ -276,7 +276,7 @@ if __name__ == "__main__":
         media = sys.argv[2]
         grupos = {  # público: (original = meme cargo, cópia meme melhora, verba de cada um em centavos)
             "120252753265490706": ("120252897828640706", 700),
-            "120252625057380706": ("120252897830090706", 520),
+            "120252625057380706": ("120252897830090706", 550),
         }
         for orig, (m2, verba) in grupos.items():
             nome = A._api("GET", orig, fields="name")["name"]
