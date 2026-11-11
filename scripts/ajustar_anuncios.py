@@ -278,6 +278,16 @@ if __name__ == "__main__":
                 ativos = [x["name"] for x in A._lista(f"{c}/ads", fields="name,effective_status")
                           if x["effective_status"] not in ("PAUSED", "DELETED", "ARCHIVED")]
                 print(f"CONJ {n}: {ativos}")
+    elif sys.argv[1:2] == ["terco_eng"]:
+        # fecha o pedido de 11/11 no Engajados sem listar conjuntos (limite de chamadas da conta)
+        for c in ("120252625057380706", "120252897830090706", "120252919849780706"):
+            orcamento(c, 550)
+        A._api("POST", "120252919849780706", status="ACTIVE")
+        for c in ("120252625057380706", "120252897830090706", "120252919849780706"):
+            n = A._api("GET", c, fields="name,effective_status,daily_budget")
+            ads = [x["name"] + ":" + x["effective_status"] for x in A._lista(f"{c}/ads", fields="name,effective_status")
+                   if x["effective_status"] not in ("PAUSED", "DELETED", "ARCHIVED")]
+            print(f"CONJ {n['name']} {n['effective_status']} R${int(n['daily_budget']) / 100:.2f} {ads}")
     elif sys.argv[1:2] == ["terco"]:
         # pedido de 11/11: terceiro meme (IA grátis) entra com 1/3 da verba dos memes em cada público
         import time
