@@ -241,6 +241,35 @@ if __name__ == "__main__":
                "120252768544770706")   # Apuração no Profissionais formados
         orcamento("120252753265490706", 2500)   # Profissionais formados: R$25
         orcamento("120252625057380706", 2000)   # Engajados + semelhante: R$20
+    elif sys.argv[1:2] == ["meio_a_meio"]:
+        # pedido de 10/11: tira o Raio-X do RH e divide a verba meio a meio entre os dois memes,
+        # um conjunto por meme em cada público (mesmo público, verba igual)
+        pausar("120252888082750706")  # Raio-X RH no Profissionais formados
+        pares = [  # (conjunto original, verba de cada metade em centavos, anúncio meme melhora no original)
+            ("120252753265490706", 1250, "120252896767020706"),
+            ("120252625057380706", 600, "120252896768310706"),
+        ]
+        for orig, verba, ad_m2 in pares:
+            nome = A._api("GET", orig, fields="name")["name"]
+            filhos = A._lista(f"{CONTA}/adsets", fields="id,name",
+                              filtering=[{"field": "name", "operator": "CONTAIN", "value": "meme melhora"}])
+            novo = next((f["id"] for f in filhos if f["name"].startswith(nome)), None)
+            if not novo:
+                novo = A._api("POST", f"{orig}/copies", deep_copy=False, status_option="PAUSED",
+                              rename_options={"rename_suffix": " · meme melhora"})["copied_adset_id"]
+            cr = A._api("GET", ad_m2, fields="creative{id}")["creative"]["id"]
+            if not A._lista(f"{novo}/ads", fields="id"):
+                A._api("POST", f"{CONTA}/ads", name="auto · 2026-11-10-meme-melhora-texto", adset_id=novo,
+                       creative={"creative_id": cr}, status="ACTIVE")
+            A._api("POST", ad_m2, status="PAUSED")
+            orcamento(orig, verba)
+            orcamento(novo, verba)
+            A._api("POST", novo, status="ACTIVE")
+            for c in (orig, novo):
+                n = A._api("GET", c, fields="name")["name"]
+                ativos = [x["name"] for x in A._lista(f"{c}/ads", fields="name,effective_status")
+                          if x["effective_status"] not in ("PAUSED", "DELETED", "ARCHIVED")]
+                print(f"CONJ {n}: {ativos}")
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
