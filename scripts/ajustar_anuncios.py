@@ -270,6 +270,39 @@ if __name__ == "__main__":
                 ativos = [x["name"] for x in A._lista(f"{c}/ads", fields="name,effective_status")
                           if x["effective_status"] not in ("PAUSED", "DELETED", "ARCHIVED")]
                 print(f"CONJ {n}: {ativos}")
+    elif sys.argv[1:2] == ["terco"]:
+        # pedido de 11/11: terceiro meme (IA grátis) entra com 1/3 da verba dos memes em cada público
+        import time
+        media = sys.argv[2]
+        grupos = {  # público: (original = meme cargo, cópia meme melhora, verba de cada um em centavos)
+            "120252753265490706": ("120252897828640706", 700),
+            "120252625057380706": ("120252897830090706", 520),
+        }
+        for orig, (m2, verba) in grupos.items():
+            nome = A._api("GET", orig, fields="name")["name"]
+            filhos = A._lista(f"{CONTA}/adsets", fields="id,name",
+                              filtering=[{"field": "name", "operator": "CONTAIN", "value": "meme grátis"}])
+            novo = next((f["id"] for f in filhos if f["name"].startswith(nome)), None)
+            if not novo:
+                novo = A._api("POST", f"{orig}/copies", deep_copy=False, status_option="PAUSED",
+                              rename_options={"rename_suffix": " · meme grátis"})["copied_adset_id"]
+            if not A._lista(f"{novo}/ads", fields="id"):
+                for tentativa in range(15):
+                    try:
+                        cr = A._api("POST", f"{CONTA}/adcreatives", name="auto · 2026-11-11-meme-ia-gratis",
+                                    object_id=A.CONFIG["page_id"], instagram_user_id=A.CONFIG["instagram_user_id"],
+                                    source_instagram_media_id=media,
+                                    call_to_action={"type": "VIEW_INSTAGRAM_PROFILE",
+                                                    "value": {"link": "https://www.instagram.com/roquecneto/"}})["id"]
+                        break
+                    except A.ErroAnuncio as e:
+                        print(f"  criativo ainda não aceito ({e}); nova tentativa em 60 s")
+                        time.sleep(60)
+                A._api("POST", f"{CONTA}/ads", name="auto · 2026-11-11-meme-ia-gratis", adset_id=novo,
+                       creative={"creative_id": cr}, status="ACTIVE")
+            for c in (orig, m2, novo):
+                orcamento(c, verba)
+            A._api("POST", novo, status="ACTIVE")
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
