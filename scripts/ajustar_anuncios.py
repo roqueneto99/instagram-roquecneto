@@ -354,6 +354,12 @@ if __name__ == "__main__":
                 time.sleep(35)
             d = A._api("GET", conj, fields="name,effective_status,lifetime_budget,end_time")
             print(f"REFORCO {d['name']}: {d['effective_status']} R${int(d['lifetime_budget']) / 100:.2f} até {d['end_time']}")
+    elif sys.argv[1:2] == ["status_reforco"]:
+        camp = A._api("GET", "120252753265490706", fields="campaign_id")["campaign_id"]
+        for c in A._lista(f"{camp}/adsets", fields="id,name,effective_status",
+                          filtering=[{"field": "name", "operator": "CONTAIN", "value": "Reforço 11/11"}]):
+            for ad in A._lista(f"{c['id']}/ads", fields="name,effective_status"):
+                print(f"STATUS {c['name']} | {ad['name']} | {ad['effective_status']}")
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
