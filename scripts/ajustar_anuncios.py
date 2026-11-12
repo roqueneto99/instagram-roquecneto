@@ -325,6 +325,35 @@ if __name__ == "__main__":
                 A._api("POST", novo, status="ACTIVE")
             print(f"PRONTO {nome} · meme grátis: {novo}")
             time.sleep(35)
+    elif sys.argv[1:2] == ["reforco"]:
+        # pedido de 11/11 21h31: R$30 por meme só hoje, até 23h, por cima da verba normal
+        import time
+        from datetime import datetime, timedelta, timezone
+        fim = sys.argv[2]  # ex.: 2026-11-11T23:00:00-0300
+        inicio = (datetime.now(timezone.utc) + timedelta(minutes=3)).strftime("%Y-%m-%dT%H:%M:%S+0000")
+        base = A._api("GET", "120252753265490706", fields="campaign_id,targeting")
+        memes = {  # nome curto: anúncio que já roda no Profissionais formados (para reaproveitar o criativo)
+            "meme cargo": "120252828609670706",
+            "meme melhora": "120252897829010706",
+            "meme grátis": "120252919850120706",
+        }
+        for curto, ad_ref in memes.items():
+            nome = f"Reforço 11/11 até 23h · {curto}"
+            existentes = A._lista(f"{base['campaign_id']}/adsets", fields="id,name")
+            conj = next((e["id"] for e in existentes if e["name"] == nome), None)
+            if not conj:
+                conj = A._api("POST", f"{CONTA}/adsets", name=nome, campaign_id=base["campaign_id"],
+                              lifetime_budget=3000, start_time=inicio, end_time=fim,
+                              billing_event="IMPRESSIONS", optimization_goal="PROFILE_VISIT",
+                              destination_type="INSTAGRAM_PROFILE", bid_strategy="LOWEST_COST_WITHOUT_CAP",
+                              targeting=base["targeting"], status="ACTIVE")["id"]
+                time.sleep(35)
+                cr = A._api("GET", ad_ref, fields="creative{id}")["creative"]["id"]
+                A._api("POST", f"{CONTA}/ads", name=f"reforço · {curto}", adset_id=conj,
+                       creative={"creative_id": cr}, status="ACTIVE")
+                time.sleep(35)
+            d = A._api("GET", conj, fields="name,effective_status,lifetime_budget,end_time")
+            print(f"REFORCO {d['name']}: {d['effective_status']} R${int(d['lifetime_budget']) / 100:.2f} até {d['end_time']}")
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
