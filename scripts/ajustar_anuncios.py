@@ -320,7 +320,11 @@ if __name__ == "__main__":
                        creative={"creative_id": cr}, status="ACTIVE")
             for c in (orig, m2, novo):
                 orcamento(c, verba)
-            A._api("POST", novo, status="ACTIVE")
+            if A._api("GET", novo, fields="effective_status")["effective_status"] != "ACTIVE":
+                time.sleep(35)
+                A._api("POST", novo, status="ACTIVE")
+            print(f"PRONTO {nome} · meme grátis: {novo}")
+            time.sleep(35)
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
