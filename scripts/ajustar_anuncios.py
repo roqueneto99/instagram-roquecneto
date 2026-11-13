@@ -403,6 +403,13 @@ if __name__ == "__main__":
         pausar("120252919850990706")            # Engajados · meme grátis
         time.sleep(35)
         orcamento("120252753265490706", 1250)   # Profissionais formados (meme cargo): R$7 -> R$12,50
+    elif sys.argv[1:2] == ["tudo_cargo"]:
+        # pedido de 13/11 13h48: toda a verba dos memes no que entrega mais (meme do cargo)
+        import time
+        for c in ("120252897828640706", "120252897830090706", "120252939704880706"):  # melhora x2, claro
+            pausar(c); time.sleep(35)
+        orcamento("120252753265490706", 2500); time.sleep(35)   # Profissionais formados · cargo
+        orcamento("120252625057380706", 1250)                   # Engajados · cargo
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
