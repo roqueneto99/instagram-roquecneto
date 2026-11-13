@@ -245,7 +245,7 @@ def desempenho():
     """Resultados por conjunto (dia a dia) e por posicionamento, só leitura."""
     conta = CONFIG["conta"]
     campos = "adset_name,spend,impressions,reach,frequency,clicks,cpm,actions"
-    for periodo in ({"since": "2026-11-03", "until": datetime.now(timezone.utc).date().isoformat()},):
+    for periodo in ({"since": "2026-11-09", "until": datetime.now(timezone.utc).date().isoformat()},):
         for linha in _lista(f"{conta}/insights", level="adset", fields=campos, time_range=periodo,
                             time_increment=1):
             acoes = {a["action_type"]: a["value"] for a in linha.get("actions", [])}
