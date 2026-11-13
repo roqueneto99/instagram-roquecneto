@@ -397,6 +397,12 @@ if __name__ == "__main__":
         time.sleep(35)
         pausar(gratis_prof)
         print(f"NOVO {nome}: {novo}")
+    elif sys.argv[1:2] == ["gratis_para_cargo"]:
+        # pedido de 13/11: verba do meme grátis vai para o meme do cargo
+        import time
+        pausar("120252919850990706")            # Engajados · meme grátis
+        time.sleep(35)
+        orcamento("120252753265490706", 1250)   # Profissionais formados (meme cargo): R$7 -> R$12,50
     elif sys.argv[1:2] == ["ativar"]:
         for i in sys.argv[2:]:
             A._api("POST", i, status="ACTIVE")
