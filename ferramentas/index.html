@@ -82,7 +82,7 @@ h1 .d{color:var(--dim)}
 .btn{font:600 15px var(--sans);border-radius:12px;padding:12px 16px;border:1px solid var(--ln);background:var(--sf2);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
 .btn.p{background:var(--cor);border-color:var(--cor);color:var(--cor-ink)}
 .btn:disabled{opacity:.55;cursor:default}
-.btn:focus-visible,.busca input:focus-visible,nav.abas a:focus-visible{outline:2px solid var(--ia);outline-offset:2px}
+.btn:focus-visible,.atalhos button:focus-visible,.txt:focus-visible,.busca input:focus-visible,nav.abas a:focus-visible{outline:2px solid var(--ia);outline-offset:2px}
 .saida{margin-top:16px;border-top:1px solid var(--ln);padding-top:14px;min-width:0}
 .saida .md h4{font-size:16px;margin:16px 0 6px}
 .saida .md p{color:var(--ink);margin:0 0 10px}
@@ -93,6 +93,29 @@ h1 .d{color:var(--dim)}
 .nota{font-size:13px;color:var(--mut)}
 .pedido{white-space:pre-wrap;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:12px;font-size:14px;color:var(--mut);max-height:150px;overflow:auto;margin:0 0 12px}
 
+/* Monte seu pedido */
+.form-pedido{display:grid;gap:16px}
+.campo{display:grid;gap:6px;min-width:0}
+.campo-t{font-weight:600;font-size:16px;display:flex;gap:9px;align-items:center}
+.campo-t i{font-style:normal;font-size:12px;font-weight:700;width:22px;height:22px;border-radius:99px;display:inline-grid;place-items:center;background:var(--sf2);border:1px solid var(--ln);color:var(--mut);flex:none}
+.campo-d{font-size:14px;color:var(--mut)}
+.txt{width:100%;font:500 16px/1.4 var(--sans);color:var(--ink);background:var(--sf2);border:1px solid var(--ln);border-radius:12px;padding:12px 14px;outline:none;resize:vertical}
+input.txt{font-size:18px;padding:14px 16px;background:var(--bg)}
+.txt:focus{border-color:var(--cor);box-shadow:0 0 0 4px color-mix(in srgb,var(--cor) 18%,transparent)}
+.txt::placeholder{color:var(--dim)}
+.campos{display:grid;gap:16px;border-top:1px solid var(--ln);padding-top:16px}
+.form-pedido .atalhos{margin-top:-4px}
+.partes{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+.parte{border-left:3px solid var(--cor);background:var(--sf2);border-radius:0 12px 12px 0;padding:12px 14px;display:grid;gap:4px;min-width:0}
+.parte.falta{border-left-style:dashed;border-left-color:var(--dim);background:none;border:1px dashed var(--ln);border-left:3px dashed var(--dim)}
+.parte .rot{color:var(--cor);font-size:10px}
+.parte.falta .rot{color:var(--dim)}
+.parte .pt{font-size:16px;overflow-wrap:anywhere}
+.parte.falta .pt{color:var(--mut);font-style:italic}
+.parte .pq{font-size:13px;color:var(--mut)}
+.parte .pq b{color:var(--ink);font-weight:600}
+.placar{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.placar .nota b{color:var(--ink)}
 .breve{display:grid;gap:14px;margin-top:26px}
 .breve .painel h2{font-size:22px;margin:8px 0}
 .breve .painel p{color:var(--mut);margin:0}
@@ -135,7 +158,7 @@ footer p{margin:0;max-width:70ch}
   <nav class="abas" aria-label="Ferramentas">
     <a href="#profissao" data-aba="profissao">Sua profissão e a IA</a>
     <a href="#semana" data-aba="semana">Raio-x da semana</a>
-    <a href="#pedido" data-aba="pedido">Monte seu pedido <small>em breve</small></a>
+    <a href="#pedido" data-aba="pedido">Monte seu pedido</a>
     <a href="#biblioteca" data-aba="biblioteca">Pedidos por profissão <small>em breve</small></a>
   </nav>
 
@@ -168,9 +191,34 @@ footer p{margin:0;max-width:70ch}
     <div class="res" id="res2" aria-live="polite"></div>
   </section>
   <section id="v-pedido" hidden>
-    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Monte seu pedido</h2>
-      <p>Você diz o que precisa, a ferramenta transforma num pedido completo para a IA e explica por que cada parte importa.</p></div>
-      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+    <h1><span class="d">Diga o que precisa.</span><br>A página monta o pedido.</h1>
+    <p class="lead">Escreva em uma frase o que você quer da IA e responda quatro perguntas curtas. O pedido completo aparece embaixo, parte por parte, com o motivo de cada uma.</p>
+
+    <div class="painel form-pedido" style="margin-top:26px">
+      <div class="ocup"><span class="rot">O que você precisa</span><span class="exemplo" id="p-ex">exemplo</span></div>
+      <label class="campo" for="p-frase">
+        <span class="campo-t">Em uma frase</span>
+        <input id="p-frase" class="txt" type="text" autocomplete="off" placeholder="Ex.: quero responder um cliente irritado">
+      </label>
+      <div class="atalhos" id="p-atalhos" aria-label="Exemplos prontos"></div>
+      <div class="campos">
+        <label class="campo" for="p-quem"><span class="campo-t"><i>1</i> Para quem é?</span>
+          <span class="campo-d">Quem vai ler ou usar o resultado. Ex.: um cliente antigo, minha chefe, eu mesmo.</span>
+          <textarea id="p-quem" class="txt" rows="2"></textarea></label>
+        <label class="campo" for="p-entrega"><span class="campo-t"><i>2</i> O que você vai entregar no fim?</span>
+          <span class="campo-d">Formato e tamanho. Ex.: mensagem de WhatsApp curta, tabela, resumo em tópicos.</span>
+          <textarea id="p-entrega" class="txt" rows="2"></textarea></label>
+        <label class="campo" for="p-material"><span class="campo-t"><i>3</i> Que material você tem?</span>
+          <span class="campo-d">O que vai junto no pedido. Ex.: a mensagem do cliente, o PDF, uma planilha.</span>
+          <textarea id="p-material" class="txt" rows="2"></textarea></label>
+        <label class="campo" for="p-cuidado"><span class="campo-t"><i>4</i> Que cuidado a IA deve ter?</span>
+          <span class="campo-d">O que ela não pode fazer. Ex.: não prometer prazo, não inventar número, tom formal.</span>
+          <textarea id="p-cuidado" class="txt" rows="3"></textarea></label>
+      </div>
+      <div class="acoes"><button class="btn" type="button" id="p-limpar">Começar do zero</button></div>
+    </div>
+
+    <div class="res" id="res3" aria-live="polite"></div>
   </section>
   <section id="v-biblioteca" hidden>
     <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Pedidos prontos por profissão</h2>
@@ -233,6 +281,8 @@ function rota(){
   let aba = ABAS.includes(h) ? h : s ? "semana" : "profissao";
   for (const a of ABAS) $("#v-"+a).hidden = a !== aba;
   document.querySelectorAll("nav.abas a").forEach(a => { if (a.dataset.aba !== aba) a.removeAttribute("aria-current"); else a.setAttribute("aria-current","page"); });
+  const nav = $("nav.abas"), atv = nav.querySelector('[aria-current="page"]');
+  if (atv && (atv.offsetLeft + atv.offsetWidth > nav.scrollLeft + nav.clientWidth || atv.offsetLeft < nav.scrollLeft)) nav.scrollLeft = atv.offsetLeft - 16;
   if (m && DADOS) mostrar(m[1], false);
   if (s && DADOS && (!sem || sem.o.c !== s[1])) montarSemana(s[1], false);
 }
@@ -360,7 +410,7 @@ function caixaClaude(cfg){
   const abrir = el("a",{class:"btn",href:urlLink(),target:"_blank",rel:"noopener",onclick:e => { e.currentTarget.href = urlLink(); }},"Abrir no Claude");
   const ver = el("pre",{class:"pedido",hidden:""});
   const copiar = el("button",{class:"btn",type:"button",onclick:async e => {
-    const pedido = cfg.pedido(); ver.textContent = pedido;
+    const pedido = (cfg.copia || cfg.pedido)(); ver.textContent = pedido;
     try { await navigator.clipboard.writeText(pedido); e.target.textContent = "Pedido copiado"; }
     catch { ver.hidden = false; const r = document.createRange(); r.selectNodeContents(ver); getSelection().removeAllRanges(); getSelection().addRange(r); e.target.textContent = "Selecione e copie o texto"; }
   }},"Copiar pedido");
@@ -373,9 +423,11 @@ function caixaClaude(cfg){
       const ctl = CTL[cfg.chave] = new AbortController(); const sinal = ctl.signal;
       saida.hidden = false; saida.innerHTML = ""; const md = el("div",{class:"md"}, el("p",{class:"pensando"}, cfg.pensando));
       saida.append(md); gerar.disabled = true; parar.hidden = false;
+      let ultimo = "";
       try{
-        await sample(pedido, { signal:sinal, onText: ({text}) => { md.innerHTML = markdown(text); } });
+        await sample(pedido, { signal:sinal, onText: ({text}) => { ultimo = text; md.innerHTML = markdown(text); } });
         saida.append(el("p",{class:"nota"},"Gerado pelo Claude na sua conta. Confira antes de usar e adapte ao seu caso."));
+        if (cfg.aoTerminar) cfg.aoTerminar(ultimo, saida);
       } catch(e){
         if (CTL[cfg.chave] !== ctl && e && e.code === "cancelled") return;
         const msgs = { not_granted:"Você não permitiu o uso do Claude nesta página. Use o botão Abrir no Claude.",
@@ -397,6 +449,8 @@ function caixaClaude(cfg){
     acoes.append(abrir, copiar);
     box.append(el("p",{class:"nota",style:"margin:0 0 12px"},"Abre o Claude com o pedido já escrito. Se você não tem conta, dá para criar de graça."));
   }
+  if (cfg.copiarRot) copiar.textContent = cfg.copiarRot;
+  if (cfg.rotulo) box.querySelector(".rot").textContent = cfg.rotulo;
   box.append(acoes, ver, saida);
   return box;
 }
@@ -512,6 +566,143 @@ function pedidoSemanaLink(){
   return base("- " + itens[0].t.slice(0,60));
 }
 
+/* ---------- monte seu pedido ---------- */
+/* Tudo aqui funciona sem IA: as respostas viram frases e o pedido é montado na ordem objetivo, contexto, material, formato, limites. */
+const EXEMPLOS_PEDIDO = [
+  { rot:"Responder cliente irritado",
+    frase:"Quero responder um cliente irritado com o atraso na entrega",
+    quem:"Um cliente antigo, que compra comigo há 2 anos e recebeu o pedido 5 dias atrasado",
+    entrega:"Uma mensagem de WhatsApp de até 6 linhas, educada e sem cara de robô",
+    material:"A mensagem que ele mandou, a data que eu prometi e a nova data de entrega",
+    cuidado:"Não prometer desconto nem reembolso. Não culpar a transportadora. Pedir desculpa uma vez só" },
+  { rot:"Resumir um contrato",
+    frase:"Quero entender um contrato antes de assinar",
+    quem:"Para mim mesmo: vou alugar uma sala comercial e não sou advogado",
+    entrega:"Um resumo em tópicos com prazos, valores, multas e o que me obriga",
+    material:"O PDF do contrato, com 14 páginas",
+    cuidado:"Não dar parecer jurídico. Citar a cláusula de cada ponto. Avisar o que vale levar a um advogado" },
+  { rot:"Pedir aumento",
+    frase:"Quero me preparar para pedir um aumento",
+    quem:"Minha gestora, numa conversa de 30 minutos na semana que vem",
+    entrega:"Um roteiro com abertura, 3 argumentos e respostas para 2 objeções prováveis",
+    material:"A lista das minhas entregas do último ano e a faixa salarial do cargo que eu pesquisei",
+    cuidado:"Tom firme e sem ameaça. Não inventar número que eu não passei" },
+  { rot:"Divulgar meu produto",
+    frase:"Quero divulgar meu bolo de pote no Instagram",
+    quem:"Clientes do meu bairro que seguem a loja",
+    entrega:"3 opções de legenda curta, cada uma terminando com como pedir pelo WhatsApp",
+    material:"Os sabores, o preço e os dias de entrega",
+    cuidado:"Sem exagero e sem promessa que eu não cumpro. No máximo 3 hashtags" }
+];
+const PARTES = [
+  { id:"frase", nome:"Objetivo", falta:"Diga em uma frase o que você precisa.",
+    pq:"Diz o que a IA tem que fazer. Sem ele, ela adivinha a tarefa.",
+    frase:v => `Preciso de ajuda com uma tarefa: ${v}.` },
+  { id:"quem", nome:"Contexto", falta:"Responda: para quem é?",
+    pq:"A mesma resposta muda para um cliente, um chefe ou um amigo. Quem lê define o tom.",
+    frase:v => `Contexto: é para ${v.replace(/^(para|pra)\s+/i,"")}.` },
+  { id:"material", nome:"Material", falta:"Responda: que material você tem?",
+    pq:"A IA só sabe o que você manda. Com material, ela usa os seus fatos em vez de inventar.",
+    frase:v => `Vou te mandar junto: ${v}. Use só o que estiver nesse material e, se faltar alguma informação, me pergunte em vez de inventar.` },
+  { id:"entrega", nome:"Formato da entrega", falta:"Responda: o que você vai entregar no fim?",
+    pq:"Dizer formato e tamanho evita receber um texto enorme quando você queria cinco linhas.",
+    frase:v => `O que eu quero no fim: ${v}.` },
+  { id:"cuidado", nome:"Limites", falta:"Responda: que cuidado a IA deve ter?",
+    pq:"É o que protege você: o que a IA não pode prometer, inventar ou dizer.",
+    frase:v => `Cuidados: ${v}.` }
+];
+const FECHO_PEDIDO = "Se algo estiver ambíguo, me faça até 2 perguntas antes de começar. Responda em português do Brasil.";
+/* Limpa o que a pessoa digitou: tira espaços e ponto final e põe a primeira letra em minúscula (exceto siglas). */
+const limpa = v => {
+  v = (v || "").replace(/\s+/g," ").trim().replace(/[.;,!\s]+$/,"");
+  if (/^[A-ZÀ-Ú](?![A-ZÀ-Ú0-9])/.test(v)) v = v[0].toLowerCase() + v.slice(1);
+  return v;
+};
+let ped = { exemplo:true };
+let resPedido = null;
+
+function camposPedido(){ const r = {}; for (const p of PARTES) r[p.id] = $("#p-"+p.id).value; return r; }
+function textoPedido(cortar){
+  const v = camposPedido();
+  const corta = s => cortar && s.length > cortar ? s.slice(0,cortar).replace(/\s+\S*$/,"") + "..." : s;
+  const linhas = PARTES.filter(p => limpa(v[p.id])).map(p => p.frase(corta(limpa(v[p.id]))));
+  if (!linhas.length) return "";
+  return linhas.join("\n") + "\n\n" + FECHO_PEDIDO;
+}
+/* Para o link: abaixo de ~2.900 caracteres codificados, cortando as respostas longas. */
+function pedidoMontadoLink(){
+  for (const c of [0, 400, 220, 120]){ const t = textoPedido(c); if (encodeURIComponent(t).length <= 2900) return t; }
+  return textoPedido(80);
+}
+function promptMelhorar(){
+  return `Você é especialista em escrever pedidos (prompts) para IA. Abaixo está um pedido que eu montei. Melhore o pedido mantendo a minha intenção e os meus dados: deixe mais claro, específico e completo, sem inventar fatos sobre a minha situação. Onde faltar uma informação que só eu tenho, deixe um espaço entre colchetes, como [prazo].\n\nResponda em duas partes, em português do Brasil, sem travessão longo:\n1. O pedido melhorado, pronto para copiar, com cada linha começando com "> ".\n2. Um título "O que mudou" e até 4 tópicos curtos, um por melhoria.\n\nMeu pedido:\n"""\n${textoPedido() || "(ainda vazio)"}\n"""`;
+}
+
+function preencherPedido(ex, comoExemplo){
+  for (const p of PARTES) $("#p-"+p.id).value = ex ? ex[p.id] : "";
+  ped.exemplo = !!comoExemplo;
+  pintarPedido();
+}
+
+function pintarPedido(){
+  $("#p-ex").hidden = !ped.exemplo;
+  const v = camposPedido();
+  const feitas = PARTES.filter(p => limpa(v[p.id])).length;
+  const ul = el("ul",{class:"partes"});
+  for (const p of PARTES){
+    const t = limpa(v[p.id]);
+    ul.append(el("li",{class:"parte" + (t ? "" : " falta")},
+      el("span",{class:"rot"}, p.nome),
+      el("span",{class:"pt"}, t ? p.frase(t) : p.falta),
+      el("span",{class:"pq"}, el("b",{},"Por que importa: "), p.pq)));
+  }
+  ul.append(el("li",{class:"parte"}, el("span",{class:"rot"},"Fecho"), el("span",{class:"pt"}, FECHO_PEDIDO),
+    el("span",{class:"pq"}, el("b",{},"Por que importa: "), "Abre espaço para a IA perguntar em vez de chutar.")));
+  const painel = el("div",{class:"painel"},
+    el("div",{class:"placar"}, el("span",{class:"rot"},"Seu pedido"), el("span",{class:"nota"}, el("b",{}, `${feitas} de ${PARTES.length}`), " partes preenchidas")),
+    ul,
+    feitas < PARTES.length ? el("p",{class:"nota",style:"margin:12px 0 0"},"Dá para usar assim, mas cada parte que falta é uma coisa que a IA vai ter que adivinhar.") : null);
+  if (!resPedido){
+    resPedido = { painel: el("div"), caixa: null };
+    $("#res3").append(resPedido.painel);
+    montarCaixaPedido();
+  }
+  resPedido.painel.replaceChildren(painel);
+}
+
+function montarCaixaPedido(){
+  if (CTL.pedido) CTL.pedido.abort();
+  const nova = caixaClaude({
+    chave:"pedido", rotulo:"Use o pedido",
+    titulo:"Copie, abra no Claude ou peça uma versão melhor",
+    texto:"Copiar e Abrir no Claude levam o pedido montado acima. Melhorar com o Claude deixa o pedido mais claro e explica o que mudou.",
+    gerar:"Melhorar com o Claude", semSample:"Abrir no Claude", pensando:"Melhorando seu pedido...",
+    copiarRot:"Copiar", pedido:promptMelhorar, copia:() => textoPedido(), link:pedidoMontadoLink,
+    aoTerminar:(texto, saida) => {
+      const melhor = texto.split("\n").filter(l => /^>\s?/.test(l)).map(l => l.replace(/^>\s?/,"")).join("\n").replace(/\u2014/g,",").trim();
+      if (!melhor) return;
+      const usar = el("div",{class:"acoes",style:"margin-top:10px"});
+      usar.append(
+        el("button",{class:"btn",type:"button",onclick:async e => {
+          try { await navigator.clipboard.writeText(melhor); e.currentTarget.textContent = "Versão melhorada copiada"; }
+          catch { e.currentTarget.textContent = "Selecione o texto acima e copie"; }
+        }},"Copiar versão melhorada"),
+        el("a",{class:"btn",target:"_blank",rel:"noopener",href:"https://claude.ai/new?q="+encodeURIComponent(melhor.slice(0,2000))},"Abrir versão melhorada no Claude"));
+      saida.append(usar);
+    }
+  });
+  if (resPedido.caixa) resPedido.caixa.replaceWith(nova); else $("#res3").append(nova);
+  resPedido.caixa = nova;
+}
+
+function iniciarPedido(){
+  const at = $("#p-atalhos");
+  for (const ex of EXEMPLOS_PEDIDO) at.append(el("button",{type:"button",onclick:() => preencherPedido(ex, true)}, ex.rot));
+  for (const p of PARTES) $("#p-"+p.id).addEventListener("input", () => { ped.exemplo = false; pintarPedido(); });
+  $("#p-limpar").addEventListener("click", () => { preencherPedido(null, false); $("#p-frase").focus(); });
+  preencherPedido(EXEMPLOS_PEDIDO[0], true);
+}
+
 /* Markdown mínimo e seguro: só títulos, listas, negrito e citações. */
 function markdown(src){
   const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -533,6 +724,7 @@ function markdown(src){
 
 /* ---------- carga ---------- */
 async function iniciar(){
+  iniciarPedido();
   try{
     const r = await fetch("dados.json"); DADOS = (await r.json()).o;
   } catch(e){
@@ -553,6 +745,7 @@ async function iniciar(){
   try { if (window.claude && claude.use) sample = await claude.use("sample"); } catch { sample = null; }
   if (atual) mostrar(atual.c, !/^#o\d{4}$/.test(location.hash));
   if (sem) pintarSemana();
+  if (resPedido) montarCaixaPedido();
 })();
 iniciar();
 })();
