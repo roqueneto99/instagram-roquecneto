@@ -1,0 +1,20 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ],
+  "legenda": "Assinou o Claude no escritório e ele está lá, parado? Você não está sozinho.\n\nA maior dificuldade não é a ferramenta. É não saber por onde começar. Então começa pequeno:\n\n1. Escolha uma tarefa chata que se repete toda semana.\n2. Anexe o material que você usaria para fazer.\n3. Diga para quem é e como quer receber.\n\nEle entrega a primeira versão e você ajusta conversando: \"mais curto\", \"mais simples\", \"faltou o prazo\".\n\nUma tarefa por semana. Em um mês, são quatro a menos na sua mesa.\n\nMe conta nos comentários: qual tarefa do seu trabalho você queria passar para a IA? As mais pedidas viram os próximos posts.\n\nSalva e manda para quem assinou e ainda não usa.",
+  "agendado_para": "2026-11-14T12:00:00-03:00",
+  "linkedin": {
+    "status": "aprovado",
+    "agendado_para": "2026-11-14T12:00:00-03:00"
+  }
+}
