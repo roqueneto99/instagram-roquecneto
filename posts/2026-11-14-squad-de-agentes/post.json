@@ -1,0 +1,18 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ],
+  "legenda": "Tem tarefa que não cabe em uma pergunta só.\n\nAnálise de vendas, plano para o ano, diagnóstico de um problema: quando você pede tudo de uma vez, a IA entrega a primeira ideia e concorda com ela mesma.\n\nA saída é montar uma squad de agentes no Claude. Cada um com um papel:\n1. Pesquisa: vai atrás dos dados.\n2. Análise: lê os números.\n3. Escrita: monta o relatório.\n4. Crítica: procura furo no trabalho dos outros.\n5. Síntese: junta tudo e diz o que fazer.\n\nVocê não programa nada. Você pede. O pedido pronto está no carrossel.\n\nO mais valioso não é a resposta final. É ver onde os agentes discordaram. É ali que está a decisão de verdade.\n\nQual decisão do seu trabalho você colocaria uma squad para analisar? Me conta nos comentários.\n\nSalva para usar na próxima decisão grande.",
+  "linkedin": {
+    "status": "aprovado"
+  }
+}
