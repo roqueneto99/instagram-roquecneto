@@ -397,6 +397,49 @@ if __name__ == "__main__":
         time.sleep(35)
         pausar(gratis_prof)
         print(f"NOVO {nome}: {novo}")
+    elif sys.argv[1:2] == ["regua_perfil"]:
+        # pedido de 16/11: mais verba na régua. Tira R$10 do meme do cargo e cria um segundo conjunto de
+        # Lembrança (mesmo público que engajou em 14 dias) com o carrossel "Comece pelo Claude" levando ao perfil.
+        import time
+        media = "18030896519698365"   # 2026-11-13-comece-pelo-claude
+        lemb = A._api("GET", "120252718277960706", fields="name,targeting,daily_budget,effective_status")
+        print("LEMBRANCA", json.dumps({k: lemb[k] for k in ("name", "daily_budget", "effective_status")}, ensure_ascii=False))
+        print("PUBLICO", json.dumps({k: v for k, v in lemb["targeting"].items()
+                                     if k in ("custom_audiences", "excluded_custom_audiences", "age_min", "age_max")},
+                                    ensure_ascii=False))
+        camp = A._api("GET", "120252753265490706", fields="campaign_id")["campaign_id"]
+        nome = "Lembrança · engajou 14d · perfil"
+        time.sleep(35)
+        conj = next((e["id"] for e in A._lista(f"{camp}/adsets", fields="id,name") if e["name"] == nome), None)
+        if not conj:
+            conj = A._api("POST", f"{CONTA}/adsets", name=nome, campaign_id=camp, daily_budget=1000,
+                          billing_event="IMPRESSIONS", optimization_goal="PROFILE_VISIT",
+                          destination_type="INSTAGRAM_PROFILE", bid_strategy="LOWEST_COST_WITHOUT_CAP",
+                          targeting=lemb["targeting"], status="PAUSED")["id"]
+            time.sleep(35)
+        if not A._lista(f"{conj}/ads", fields="id"):
+            for tentativa in range(10):
+                try:
+                    cr = A._api("POST", f"{CONTA}/adcreatives", name="régua · 2026-11-13-comece-pelo-claude",
+                                object_id=A.CONFIG["page_id"], instagram_user_id=A.CONFIG["instagram_user_id"],
+                                source_instagram_media_id=media,
+                                call_to_action={"type": "VIEW_INSTAGRAM_PROFILE",
+                                                "value": {"link": "https://www.instagram.com/roquecneto/"}})["id"]
+                    break
+                except A.ErroAnuncio as e:
+                    print(f"  criativo ainda não aceito ({e}); nova tentativa em 60 s")
+                    time.sleep(60)
+            A._api("POST", f"{CONTA}/ads", name="régua · 2026-11-13-comece-pelo-claude", adset_id=conj,
+                   creative={"creative_id": cr}, status="ACTIVE")
+            time.sleep(35)
+        A._api("POST", conj, status="ACTIVE"); time.sleep(35)
+        # só depois de o conjunto novo existir é que a verba sai do meme
+        orcamento("120252753265490706", 1850); time.sleep(35)   # Profissionais formados · cargo: R$25 -> R$18,50
+        orcamento("120252625057380706", 900); time.sleep(35)    # Engajados · cargo: R$12,50 -> R$9
+        d = A._api("GET", conj, fields="name,effective_status,daily_budget")
+        print(f"NOVO {d['name']}: {conj} {d['effective_status']} R${int(d['daily_budget']) / 100:.2f}/dia")
+        for ad in A._lista(f"{conj}/ads", fields="name,effective_status"):
+            print(f"  ANUNCIO {ad['name']}: {ad['effective_status']}")
     elif sys.argv[1:2] == ["gratis_para_cargo"]:
         # pedido de 13/11: verba do meme grátis vai para o meme do cargo
         import time
