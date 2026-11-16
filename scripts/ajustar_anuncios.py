@@ -409,13 +409,16 @@ if __name__ == "__main__":
                                     ensure_ascii=False))
         camp = A._api("GET", "120252753265490706", fields="campaign_id")["campaign_id"]
         nome = "Lembrança · engajou 14d · perfil"
+        alvo = dict(lemb["targeting"])
+        for chave in ("targeting_optimization", "targeting_relaxation_types", "targeting_automation"):
+            alvo.pop(chave, None)
         time.sleep(35)
         conj = next((e["id"] for e in A._lista(f"{camp}/adsets", fields="id,name") if e["name"] == nome), None)
         if not conj:
             conj = A._api("POST", f"{CONTA}/adsets", name=nome, campaign_id=camp, daily_budget=1000,
                           billing_event="IMPRESSIONS", optimization_goal="PROFILE_VISIT",
                           destination_type="INSTAGRAM_PROFILE", bid_strategy="LOWEST_COST_WITHOUT_CAP",
-                          targeting=lemb["targeting"], status="PAUSED")["id"]
+                          targeting=alvo, status="PAUSED")["id"]
             time.sleep(35)
         if not A._lista(f"{conj}/ads", fields="id"):
             for tentativa in range(10):
