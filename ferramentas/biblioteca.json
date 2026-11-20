@@ -1,0 +1,437 @@
+{
+ "fonte": "Pedidos escritos por Roque Neto. Tarefas e notas: índice da OIT (Gmyrek et al. 2025, CC BY 4.0).",
+ "profissoes": [
+  {
+   "id": "advogado",
+   "nome": "Advogado",
+   "codigo": "2611",
+   "ocupacao": "Advogados e juristas",
+   "nota": 36,
+   "pedidos": [
+    {
+     "id": "advogado-1",
+     "titulo": "Revisar uma minuta de contrato",
+     "tarefa": "Redigir documentos jurídicos, como contratos, escrituras de imóveis e testamentos, e preparar pareceres jurídicos",
+     "nota": 46,
+     "texto": "Você é um advogado revisor. Leia a minuta de [tipo de contrato] anexa do ponto de vista do meu cliente, que é o [contratante ou contratado]. Monte uma tabela com: cláusula, risco para o meu cliente (alto, médio ou baixo), por quê e uma sugestão de redação. No fim, liste as cláusulas que costumam aparecer nesse tipo de contrato e estão faltando. Se citar lei, diga o artigo para eu conferir.",
+     "entra": "A minuta, sem nomes, CPF ou CNPJ",
+     "confere": "Cada artigo citado e se a redação sugerida serve ao caso"
+    },
+    {
+     "id": "advogado-2",
+     "titulo": "Achar os pontos fracos da tese",
+     "tarefa": "Avaliar os resultados e desenvolver estratégias e argumentos para apresentar os casos",
+     "nota": 56,
+     "texto": "Vou te passar um resumo dos fatos e a tese que pretendo defender numa [tipo de ação]. Faça o papel do advogado da parte contrária: liste os 5 argumentos mais fortes contra a minha tese, do mais perigoso para o menos, e para cada um diga que prova ou argumento eu preciso ter para rebater. Seja duro, não tente me agradar.",
+     "entra": "Resumo dos fatos e a tese, sem dados das partes",
+     "confere": "Se os argumentos contrários fazem sentido no seu tribunal"
+    },
+    {
+     "id": "advogado-3",
+     "titulo": "Montar a pesquisa de jurisprudência",
+     "tarefa": "Pesquisar princípios jurídicos, leis e decisões anteriores dos tribunais relacionados a casos específicos",
+     "nota": 40,
+     "texto": "Preciso pesquisar jurisprudência sobre [tema] no [tribunal]. Me dê: os termos de busca e sinônimos para usar no site do tribunal, as teses que costumam aparecer dos dois lados e as perguntas que uma decisão precisa responder para servir ao meu caso. Não cite número de processo: eu vou buscar as decisões reais.",
+     "entra": "O tema e o tribunal",
+     "confere": "Toda decisão que você usar, direto na fonte"
+    },
+    {
+     "id": "advogado-4",
+     "titulo": "Explicar ao cliente sem juridiquês",
+     "tarefa": "Dar orientação jurídica a clientes sobre uma ampla variedade de assuntos e tratar de questões legais em nome deles",
+     "nota": 32,
+     "texto": "Reescreva a orientação abaixo para um cliente leigo, numa mensagem de WhatsApp de até 10 linhas: o que aconteceu, o que vamos fazer, qual o próximo prazo e o que ele precisa me mandar. Nenhum termo técnico sem explicação e nenhuma promessa de resultado. Orientação: [cole aqui]",
+     "entra": "A orientação técnica que você escreveria",
+     "confere": "Prazos e o que foi prometido"
+    },
+    {
+     "id": "advogado-5",
+     "titulo": "Preparar uma negociação de acordo",
+     "tarefa": "Negociar acordos em questões que envolvem disputas jurídicas",
+     "nota": 34,
+     "texto": "Vou negociar um acordo numa [tipo de disputa]. Meu cliente aceita no mínimo [valor ou condição] e o ideal é [valor ou condição]. Monte 3 propostas em ordem (abertura, intermediária e limite), o argumento de cada uma e as 4 objeções mais prováveis do outro lado, com resposta. Use só os dados que eu passei.",
+     "entra": "Os limites do cliente e o histórico da disputa",
+     "confere": "Se as propostas respeitam o limite combinado"
+    }
+   ]
+  },
+  {
+   "id": "contador",
+   "nome": "Contador",
+   "codigo": "2411",
+   "ocupacao": "Contadores",
+   "nota": 51,
+   "pedidos": [
+    {
+     "id": "contador-1",
+     "titulo": "Comentar a DRE para o dono",
+     "tarefa": "Preparar e certificar demonstrações financeiras para apresentar à direção, aos acionistas e a órgãos legais ou outros",
+     "nota": 65,
+     "texto": "Anexei o balancete de [mês e ano] e o do mesmo mês do ano passado. Escreva um comentário da DRE para o dono da empresa, que não é contador: as 5 maiores variações, em reais e em %, o que provavelmente explica cada uma e uma pergunta que eu devo fazer a ele sobre cada variação. Mostre as contas numa tabela.",
+     "entra": "Os dois balancetes, sem nome da empresa",
+     "confere": "As contas da tabela, uma por uma"
+    },
+    {
+     "id": "contador-2",
+     "titulo": "Calcular o custo unitário",
+     "tarefa": "Criar e controlar um sistema para calcular o custo unitário de produtos e serviços",
+     "nota": 60,
+     "texto": "Anexei a planilha de custos do mês e a produção de cada produto. Calcule o custo unitário de cada produto, separando matéria-prima, mão de obra e custos indiretos. Rateie os indiretos por [horas de máquina ou volume] e mostre a fórmula de cada coluna. No fim, liste os dados que faltam para fechar a conta.",
+     "entra": "Planilha de custos e produção do mês",
+     "confere": "O critério de rateio e as fórmulas"
+    },
+    {
+     "id": "contador-3",
+     "titulo": "Responder dúvida tributária do cliente",
+     "tarefa": "Preparar declarações de impostos, orientar sobre problemas tributários e contestar cobranças perante o fisco",
+     "nota": 46,
+     "texto": "Meu cliente é [porte e regime, ex.: MEI perto do limite] e perguntou: [pergunta]. Escreva a resposta em linguagem simples, em até 8 linhas, com os próximos passos e prazos. Marque com [CONFERIR] toda alíquota, limite ou data, para eu validar na legislação vigente antes de enviar.",
+     "entra": "A pergunta do cliente e o regime dele",
+     "confere": "Tudo que estiver marcado com [CONFERIR]"
+    },
+    {
+     "id": "contador-4",
+     "titulo": "Montar o orçamento do próximo ano",
+     "tarefa": "Preparar projeções de lucro e orçamentos, ou relatar sobre eles",
+     "nota": 52,
+     "texto": "Com as receitas e despesas dos últimos 12 meses (planilha anexa), monte um orçamento mensal para [ano] em três cenários: conservador (receita [x]% menor), base e otimista (receita [y]% maior). Mantenha as despesas fixas, ajuste as variáveis pela receita e diga em quais meses o caixa fica negativo em cada cenário.",
+     "entra": "Receitas e despesas dos últimos 12 meses",
+     "confere": "Quais despesas a IA tratou como fixas"
+    },
+    {
+     "id": "contador-5",
+     "titulo": "Achar lançamentos para conferir",
+     "tarefa": "Auditar contas e registros contábeis",
+     "nota": 43,
+     "texto": "Anexei o razão da conta [fornecedores, caixa ou outra] de [período]. Aponte os lançamentos que merecem conferência: valores duplicados, lançamentos em fim de semana, valores redondos acima de [valor], históricos vagos e saldos invertidos. Devolva uma tabela com data, valor, motivo da suspeita e o documento que eu devo pedir.",
+     "entra": "O razão da conta no período",
+     "confere": "Cada lançamento direto no documento"
+    }
+   ]
+  },
+  {
+   "id": "vendedor",
+   "nome": "Vendedor",
+   "codigo": "3322",
+   "ocupacao": "Representantes comerciais",
+   "nota": 49,
+   "pedidos": [
+    {
+     "id": "vendedor-1",
+     "titulo": "Comparar com o concorrente",
+     "tarefa": "Obter e manter atualizado o conhecimento sobre as condições do mercado e sobre os produtos e serviços da empresa e dos concorrentes",
+     "nota": 60,
+     "texto": "Monte um quadro comparando meu produto [produto] com o [concorrente] para eu usar na visita: preço, prazo, garantia, diferenciais e pontos fracos de cada um. Use só as informações que eu colar abaixo e marque com [FALTA] o que eu não informei. Feche com 3 frases curtas para quando o cliente disser que o concorrente é mais barato. Informações: [cole aqui]",
+     "entra": "O que você sabe dos dois produtos",
+     "confere": "Preços e prazos do concorrente, que mudam"
+    },
+    {
+     "id": "vendedor-2",
+     "titulo": "Acompanhar o cliente depois da venda",
+     "tarefa": "Acompanhar os clientes para garantir a satisfação com os produtos comprados",
+     "nota": 56,
+     "texto": "Escreva 3 mensagens de WhatsApp para acompanhar um cliente que comprou [produto] em [data]: uma 3 dias depois (chegou tudo certo?), uma 30 dias depois (está usando?) e uma 90 dias depois (abrir espaço para a recompra). Curtas, sem cara de robô, cada uma com uma pergunta fácil de responder.",
+     "entra": "O produto e a data da compra",
+     "confere": "Se o tom combina com a sua relação com o cliente"
+    },
+    {
+     "id": "vendedor-3",
+     "titulo": "Montar uma proposta com condições",
+     "tarefa": "Informar preços e condições de crédito, registrar pedidos e combinar entregas",
+     "nota": 54,
+     "texto": "Monte uma proposta comercial de [produto e quantidade] para [tipo de cliente]. Preço de tabela: [valor]. Desconto máximo: [x]%. Pagamento: [condições]. Entrega: [prazo]. Uma página, com resumo no topo, condições em tópicos e validade da proposta. Não ofereça nada fora dessas condições.",
+     "entra": "Tabela de preço e suas condições",
+     "confere": "Preço, desconto e validade antes de enviar"
+    },
+    {
+     "id": "vendedor-4",
+     "titulo": "Explicar o produto na língua do cliente",
+     "tarefa": "Informar possíveis clientes sobre as características e funções dos produtos e equipamentos à venda e demonstrar seu uso ou qualidades",
+     "nota": 47,
+     "texto": "Transforme a ficha técnica abaixo numa explicação para [tipo de cliente, ex.: dono de padaria]: 5 benefícios ligados ao dia a dia dele, cada um com a característica técnica que sustenta. Depois, um roteiro de demonstração de 5 minutos. Ficha: [cole aqui]",
+     "entra": "A ficha técnica do produto",
+     "confere": "Se todo benefício tem base na ficha"
+    },
+    {
+     "id": "vendedor-5",
+     "titulo": "Preparar a visita de amanhã",
+     "tarefa": "Buscar pedidos e vender produtos a estabelecimentos varejistas, industriais, atacadistas e outros",
+     "nota": 48,
+     "texto": "Vou visitar [tipo de empresa e cidade] amanhã para oferecer [produto]. Me dê: 5 perguntas para descobrir a necessidade real do cliente, as 3 objeções mais prováveis com resposta e um jeito de terminar a conversa com o próximo passo marcado.",
+     "entra": "O tipo de cliente e o produto",
+     "confere": "Se as objeções batem com o que você ouve na rua"
+    }
+   ]
+  },
+  {
+   "id": "gestor",
+   "nome": "Gestor",
+   "codigo": "1219",
+   "ocupacao": "Gerentes de serviços administrativos e empresariais não classificados anteriormente",
+   "nota": 42,
+   "pedidos": [
+    {
+     "id": "gestor-1",
+     "titulo": "Transformar anotações em procedimento",
+     "tarefa": "Elaborar e implantar normas e orientações administrativas e de procedimentos para uso da equipe",
+     "nota": 56,
+     "texto": "Abaixo estão minhas anotações soltas sobre como funciona [processo, ex.: reembolso de despesas]. Transforme num procedimento para a equipe: objetivo, quem faz o quê, passo a passo numerado, prazos e exceções. No fim, liste as dúvidas que ficaram em aberto para eu decidir antes de publicar. Anotações: [cole aqui]",
+     "entra": "Suas anotações, do jeito que estão",
+     "confere": "As dúvidas em aberto, com quem executa"
+    },
+    {
+     "id": "gestor-2",
+     "titulo": "Relatório de uma página para a diretoria",
+     "tarefa": "Analisar questões e iniciativas complexas de gestão de recursos que afetam a organização e preparar relatórios, correspondências e propostas relacionados",
+     "nota": 56,
+     "texto": "Monte um relatório de uma página para a diretoria sobre [tema, ex.: troca do fornecedor de limpeza], com base no material anexo: situação atual, 2 ou 3 opções com custo e risco, minha recomendação e o que preciso que aprovem. Tom objetivo, números em tabela, sem adjetivo.",
+     "entra": "Orçamentos, e-mails e números do tema",
+     "confere": "Os números da tabela e a recomendação"
+    },
+    {
+     "id": "gestor-3",
+     "titulo": "Explicar o desvio do orçamento",
+     "tarefa": "Fornecer informações e apoio para a elaboração de relatórios financeiros e orçamentos",
+     "nota": 56,
+     "texto": "Anexei o orçado e o realizado de [área] em [período]. Encontre as linhas com desvio acima de [x]% e escreva, para cada uma, o tamanho do desvio e as perguntas que eu devo fazer ao responsável. Depois, um parágrafo de resumo para eu mandar ao financeiro.",
+     "entra": "Planilha de orçado e realizado",
+     "confere": "Os desvios calculados"
+    },
+    {
+     "id": "gestor-4",
+     "titulo": "Organizar a reunião da semana",
+     "tarefa": "Planejar e dirigir as operações do dia a dia",
+     "nota": 36,
+     "texto": "Organize a pauta da reunião semanal da minha equipe de [n] pessoas, em 30 minutos, a partir dos assuntos abaixo. Ordene por urgência, dê um tempo para cada item, diga quem precisa falar e o que tem que sair decidido. Assuntos: [cole aqui]",
+     "entra": "A lista de assuntos da semana",
+     "confere": "Se a ordem reflete o que é mais urgente"
+    },
+    {
+     "id": "gestor-5",
+     "titulo": "Preparar um feedback difícil",
+     "tarefa": "Liderar, gerir e desenvolver a equipe administrativa para garantir o bom funcionamento do negócio e informações corretas e no prazo",
+     "nota": 37,
+     "texto": "Preciso dar um feedback para uma pessoa da equipe sobre [comportamento, ex.: atrasos nas entregas]. Fatos: [2 ou 3 exemplos com data]. Monte um roteiro de conversa de 15 minutos: abertura, fatos, impacto, uma pergunta para ouvir a pessoa e um combinado final com prazo. Tom respeitoso e direto, sem rótulo sobre a pessoa.",
+     "entra": "Os fatos, sem o nome da pessoa",
+     "confere": "Se o roteiro soa como você fala"
+    }
+   ]
+  },
+  {
+   "id": "rh",
+   "nome": "RH",
+   "codigo": "2423",
+   "ocupacao": "Profissionais de pessoal e carreiras",
+   "nota": 45,
+   "pedidos": [
+    {
+     "id": "rh-1",
+     "titulo": "Escrever a descrição de cargo",
+     "tarefa": "Estudar e analisar as funções exercidas na empresa por diversos meios, como entrevistas com trabalhadores, supervisores e gestores, e escrever descrições detalhadas de cargos, funções ou ocupações com base nas informações obtidas",
+     "nota": 53,
+     "texto": "Abaixo estão as anotações da entrevista com quem ocupa o cargo de [cargo] e com o gestor. Escreva a descrição do cargo: missão em 2 linhas, de 6 a 8 responsabilidades começando com verbo, requisitos obrigatórios e desejáveis e indicadores de desempenho. Marque com [VALIDAR] o que veio de só uma das partes.",
+     "entra": "Anotações das duas entrevistas, sem nomes",
+     "confere": "Tudo marcado com [VALIDAR], com o gestor"
+    },
+    {
+     "id": "rh-2",
+     "titulo": "Anúncio de vaga sem exigência à toa",
+     "tarefa": "Orientar e executar funções de pessoal ligadas a recrutamento, alocação, treinamento, promoção, remuneração e relação entre empregados e direção, ou outras áreas da política de pessoal",
+     "nota": 39,
+     "texto": "Escreva o anúncio da vaga de [cargo] a partir da descrição abaixo. Até 250 palavras, linguagem neutra em gênero, sem exigência que não seja necessária para o trabalho e com a faixa salarial [faixa]. Depois, aponte trechos da descrição original que podem afastar bons candidatos sem motivo. Descrição: [cole aqui]",
+     "entra": "A descrição do cargo e a faixa",
+     "confere": "Se os requisitos cortados eram mesmo dispensáveis"
+    },
+    {
+     "id": "rh-3",
+     "titulo": "Roteiro de entrevista por competência",
+     "tarefa": "Orientar e executar funções de pessoal ligadas a recrutamento, alocação, treinamento, promoção, remuneração e relação entre empregados e direção, ou outras áreas da política de pessoal",
+     "nota": 39,
+     "texto": "Monte um roteiro de entrevista para [cargo] que avalie 4 competências: [liste]. Para cada uma, 2 perguntas sobre situações que a pessoa já viveu, o que seria uma boa resposta e um sinal de alerta. Inclua uma escala de 1 a 4 para eu pontuar cada competência.",
+     "entra": "O cargo e as competências",
+     "confere": "Se as perguntas cabem no tempo da entrevista"
+    },
+    {
+     "id": "rh-4",
+     "titulo": "Organizar a tabela de cargos",
+     "tarefa": "Preparar informações sobre ocupações ou trabalhar em sistemas de classificação de ocupações",
+     "nota": 50,
+     "texto": "Anexei a lista de cargos da empresa com as principais atividades de cada um, sem nome de ninguém. Agrupe os cargos que fazem praticamente a mesma coisa, sugira um nome padrão para cada grupo e proponha níveis (júnior, pleno e sênior) com o critério que diferencia cada nível.",
+     "entra": "Lista de cargos e atividades",
+     "confere": "Os agrupamentos, com os gestores"
+    },
+    {
+     "id": "rh-5",
+     "titulo": "Plano de desenvolvimento de carreira",
+     "tarefa": "Estudar e orientar pessoas sobre oportunidades de emprego, escolhas de carreira e estudos ou treinamentos que possam ser úteis",
+     "nota": 43,
+     "texto": "Uma pessoa que hoje é [cargo atual] quer chegar a [cargo desejado] em [prazo]. Compare as duas descrições de cargo abaixo, liste as 5 lacunas mais importantes e monte um plano de 6 meses com uma ação prática por mês e um jeito de medir o progresso. Descrições: [cole aqui]",
+     "entra": "As duas descrições de cargo",
+     "confere": "Se as ações cabem na rotina da pessoa"
+    }
+   ]
+  },
+  {
+   "id": "professor",
+   "nome": "Professor",
+   "codigo": "2330",
+   "ocupacao": "Professores do ensino médio",
+   "nota": 30,
+   "pedidos": [
+    {
+     "id": "professor-1",
+     "titulo": "Plano de aulas da semana",
+     "tarefa": "Elaborar e ajustar currículos e preparar planos de estudo conforme as diretrizes curriculares",
+     "nota": 46,
+     "texto": "Monte o plano de [n] aulas de [disciplina] para o [ano] do ensino médio sobre [conteúdo]. Para cada aula: objetivo, abertura de 5 minutos, atividade principal, como vou checar se aprenderam e tarefa de casa. Indique a habilidade da BNCC de cada aula.",
+     "entra": "Disciplina, ano, conteúdo e número de aulas",
+     "confere": "O código de cada habilidade da BNCC"
+    },
+    {
+     "id": "professor-2",
+     "titulo": "Prova com gabarito comentado",
+     "tarefa": "Preparar, aplicar e corrigir testes, trabalhos e provas para avaliar o progresso dos alunos",
+     "nota": 35,
+     "texto": "Crie uma prova de [disciplina] sobre [conteúdo] para o [ano]: 8 questões de múltipla escolha e 2 discursivas, da mais fácil para a mais difícil. Depois, o gabarito comentado, explicando o erro de raciocínio por trás de cada alternativa errada, e um critério de correção para as discursivas.",
+     "entra": "O conteúdo dado em sala",
+     "confere": "Cada resposta do gabarito, antes de aplicar"
+    },
+    {
+     "id": "professor-3",
+     "titulo": "Adaptar um texto para a turma",
+     "tarefa": "Adaptar métodos de ensino e materiais didáticos às diferentes necessidades e interesses dos alunos",
+     "nota": 26,
+     "texto": "Adapte o texto abaixo para dois grupos: alunos com dificuldade de leitura (frases curtas e vocabulário simples, com as mesmas ideias) e alunos avançados (com uma pergunta de aprofundamento no fim). Mantenha todos os conceitos do original. Texto: [cole aqui]",
+     "entra": "O texto original",
+     "confere": "Se nenhum conceito se perdeu na versão simples"
+    },
+    {
+     "id": "professor-4",
+     "titulo": "Mensagem para os responsáveis",
+     "tarefa": "Preparar relatórios sobre o trabalho dos alunos e conversar com outros professores e com os pais",
+     "nota": 34,
+     "texto": "Escreva uma mensagem para os responsáveis de um aluno sobre [situação, ex.: queda nas notas e faltas no bimestre]. Tom acolhedor e objetivo: o que eu observei, um ponto positivo do aluno, o que eu proponho e um convite para conversar. Até 8 linhas, sem julgamento sobre a família.",
+     "entra": "A situação, sem o nome do aluno",
+     "confere": "Se o tom combina com a sua escola"
+    },
+    {
+     "id": "professor-5",
+     "titulo": "Objetivos e rubrica de um projeto",
+     "tarefa": "Definir objetivos claros para todas as aulas, unidades e projetos e comunicá-los aos alunos",
+     "nota": 32,
+     "texto": "Vou fazer um projeto de [duração] sobre [tema] com o [ano]. Escreva 3 objetivos de aprendizagem que um aluno entenda, uma rubrica de avaliação com 4 níveis para cada objetivo e um texto curto para eu apresentar o projeto à turma no primeiro dia.",
+     "entra": "Tema, ano e duração do projeto",
+     "confere": "Se a rubrica é justa para a sua turma"
+    }
+   ]
+  },
+  {
+   "id": "marketing",
+   "nome": "Marketing",
+   "codigo": "2431",
+   "ocupacao": "Profissionais de publicidade e marketing",
+   "nota": 55,
+   "pedidos": [
+    {
+     "id": "marketing-1",
+     "titulo": "Dez variações de anúncio",
+     "tarefa": "Escrever textos publicitários e roteiros para mídia e organizar a produção de TV e vídeo e a veiculação nos meios de comunicação",
+     "nota": 66,
+     "texto": "Escreva 10 variações de anúncio para [produto] voltado a [público]. Cada uma com título de até 40 caracteres e texto de até 125, em 5 ângulos (dor, ganho, prova, urgência e curiosidade), 2 por ângulo. Indique o ângulo de cada uma. Não invente número, depoimento ou promessa que eu não passei.",
+     "entra": "Produto, público e o que é verdade sobre ele",
+     "confere": "Toda promessa, antes de subir o anúncio"
+    },
+    {
+     "id": "marketing-2",
+     "titulo": "Ler o resultado da campanha",
+     "tarefa": "Coletar e analisar dados sobre hábitos e preferências dos consumidores",
+     "nota": 65,
+     "texto": "Anexei o relatório da campanha de [período] com investimento, cliques, leads e vendas por anúncio. Calcule o custo por lead e por venda de cada anúncio, ordene do melhor para o pior e diga onde eu cortaria verba e onde aumentaria, com o motivo. Mostre as contas numa tabela.",
+     "entra": "O relatório exportado da plataforma",
+     "confere": "As contas e se o período é comparável"
+    },
+    {
+     "id": "marketing-3",
+     "titulo": "Roteiro de conversa com clientes",
+     "tarefa": "Contratar e realizar pesquisas de mercado para identificar oportunidades para produtos e serviços novos e já existentes",
+     "nota": 60,
+     "texto": "Quero entender por que clientes de [produto] compram de nós e não do concorrente. Monte um roteiro de entrevista de 20 minutos com 10 perguntas abertas, na ordem certa e sem induzir a resposta, e um modelo de planilha para eu juntar as respostas.",
+     "entra": "O produto e quem são os clientes",
+     "confere": "Se alguma pergunta entrega a resposta"
+    },
+    {
+     "id": "marketing-4",
+     "titulo": "Testar a demanda antes de lançar",
+     "tarefa": "Pesquisar a demanda potencial e as características do mercado para novos produtos e serviços",
+     "nota": 61,
+     "texto": "Penso em lançar [produto ou serviço novo] para [público]. Liste as hipóteses que precisam ser verdade para dar certo, da mais arriscada para a menos, e para cada uma um teste barato que eu consiga fazer em até 2 semanas, com o resultado que me faria desistir.",
+     "entra": "A ideia e o público",
+     "confere": "Se os testes cabem no seu orçamento"
+    },
+    {
+     "id": "marketing-5",
+     "titulo": "Calendário de uma campanha",
+     "tarefa": "Planejar, desenvolver e organizar políticas e campanhas de publicidade que apoiem as metas de vendas",
+     "nota": 51,
+     "texto": "Monte um calendário de 4 semanas para a campanha de [objetivo] da [marca], com orçamento de [valor]. Para cada semana: mensagem principal, canais, formato das peças e meta. Inclua a divisão do orçamento por canal e o que medir na semana 2 para decidir se mantenho ou mudo.",
+     "entra": "Objetivo, marca e orçamento",
+     "confere": "A divisão do orçamento e as metas"
+    }
+   ]
+  },
+  {
+   "id": "atendimento",
+   "nome": "Atendimento",
+   "codigo": "4222",
+   "ocupacao": "Atendentes de central de atendimento",
+   "nota": 58,
+   "pedidos": [
+    {
+     "id": "atendimento-1",
+     "titulo": "Responder uma reclamação",
+     "tarefa": "Atender ligações e mensagens de clientes, seja para tirar dúvidas, encaminhar pedidos de serviço ou resolver reclamações",
+     "nota": 56,
+     "texto": "Um cliente mandou a reclamação abaixo. Escreva uma resposta que reconheça o problema sem culpar ninguém, explique o que vai acontecer agora e em quanto tempo, e termine com um canal direto. Até 6 linhas. Não prometa reembolso nem desconto. Reclamação: [cole aqui]",
+     "entra": "A reclamação, sem nome e CPF",
+     "confere": "Prazos que você consegue cumprir"
+    },
+    {
+     "id": "atendimento-2",
+     "titulo": "Registrar o atendimento no sistema",
+     "tarefa": "Identificar o que o cliente precisa e registrar as ocorrências no sistema",
+     "nota": 62,
+     "texto": "Transforme a conversa abaixo num registro para o sistema: motivo do contato (uma destas categorias: [liste]), resumo em 3 linhas, o que foi feito, o que ficou pendente e com quem. Conversa: [cole aqui]",
+     "entra": "A conversa, sem dados pessoais",
+     "confere": "Se a categoria escolhida está certa"
+    },
+    {
+     "id": "atendimento-3",
+     "titulo": "Encaminhar o caso para outra área",
+     "tarefa": "Encaminhar tarefas a outras áreas, quando for o caso",
+     "nota": 52,
+     "texto": "Escreva a mensagem para encaminhar o caso abaixo para a área de [área]. Tem que caber numa tela: o que o cliente quer, o que já foi tentado, o prazo que prometemos ao cliente e a pergunta exata que a área precisa responder. Caso: [cole aqui]",
+     "entra": "O histórico do caso",
+     "confere": "O prazo prometido ao cliente"
+    },
+    {
+     "id": "atendimento-4",
+     "titulo": "Sequência de cobrança educada",
+     "tarefa": "Emitir cobranças ou cuidar de pagamentos, quando necessário",
+     "nota": 61,
+     "texto": "Escreva 3 mensagens de cobrança para um cliente com boleto de [valor] vencido há [n] dias: um primeiro lembrete, uma segunda com a proposta de [condição de parcelamento] e um último aviso antes de [consequência prevista no contrato]. Tom respeitoso, sem ameaça, cada uma com o link [link de pagamento].",
+     "entra": "Valor, atraso e as condições permitidas",
+     "confere": "Se a consequência citada está no contrato"
+    },
+    {
+     "id": "atendimento-5",
+     "titulo": "Respostas prontas para as dúvidas da semana",
+     "tarefa": "Enviar cartas, folhetos informativos e outros documentos aos clientes",
+     "nota": 66,
+     "texto": "Abaixo estão as perguntas que mais recebi nesta semana e as respostas oficiais da empresa. Transforme em respostas curtas para WhatsApp, uma por pergunta, com o mesmo conteúdo da resposta oficial e linguagem simples. Marque com [CONFERIR] onde a resposta oficial não deixa claro. Perguntas e respostas: [cole aqui]",
+     "entra": "Perguntas frequentes e respostas oficiais",
+     "confere": "Tudo marcado com [CONFERIR]"
+    }
+   ]
+  }
+ ]
+}

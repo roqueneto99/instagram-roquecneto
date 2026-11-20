@@ -116,9 +116,25 @@ input.txt{font-size:18px;padding:14px 16px;background:var(--bg)}
 .parte .pq b{color:var(--ink);font-weight:600}
 .placar{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .placar .nota b{color:var(--ink)}
-.breve{display:grid;gap:14px;margin-top:26px}
-.breve .painel h2{font-size:22px;margin:8px 0}
-.breve .painel p{color:var(--mut);margin:0}
+/* Pedidos por profissão */
+[hidden]{display:none!important}
+.filtro{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 0}
+.filtro button{font:600 15px var(--sans);color:var(--mut);background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:9px 15px;cursor:pointer}
+.filtro button:hover{color:var(--ink);border-color:var(--mut)}
+.filtro button[aria-pressed="true"]{color:var(--cor-ink);background:var(--cor);border-color:var(--cor)}
+.filtro button:focus-visible{outline:2px solid var(--ia);outline-offset:2px}
+.prof-l{margin:8px 0 0;color:var(--mut);font-size:15px}
+.prof-l b{color:var(--ink);font-weight:600}
+.ped h3{font-size:21px;line-height:1.2;letter-spacing:-.02em;margin:8px 0 12px;text-wrap:balance}
+.ped-txt{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--sf2);border-left:3px solid var(--cor);border-radius:0 12px 12px 0;padding:14px 16px;margin:0 0 14px;font-size:16px;line-height:1.5}
+.ped-txt .lac{color:var(--cor);font-weight:600}
+.ped-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.ped-meta div{border-top:1px solid var(--ln);padding-top:8px;min-width:0;font-size:14px}
+.ped-meta .rot{display:block;font-size:10px;margin-bottom:3px}
+.ped-tarefa{font-size:13px;color:var(--mut);margin:0 0 14px}
+.ped-tarefa b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.adaptar{display:grid;gap:10px;margin-top:14px;border-top:1px solid var(--ln);padding-top:14px;min-width:0}
+@media (max-width:520px){.ped-meta{grid-template-columns:1fr}}
 /* Raio-x da semana */
 .semana{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--ln)}
 .semana li{display:grid;grid-template-columns:24px minmax(0,1fr) 68px;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--ln)}
@@ -159,7 +175,7 @@ footer p{margin:0;max-width:70ch}
     <a href="#profissao" data-aba="profissao">Sua profissão e a IA</a>
     <a href="#semana" data-aba="semana">Raio-x da semana</a>
     <a href="#pedido" data-aba="pedido">Monte seu pedido</a>
-    <a href="#biblioteca" data-aba="biblioteca">Pedidos por profissão <small>em breve</small></a>
+    <a href="#biblioteca" data-aba="biblioteca">Pedidos por profissão</a>
   </nav>
 
   <!-- FERRAMENTA 1: profissão -->
@@ -221,9 +237,10 @@ footer p{margin:0;max-width:70ch}
     <div class="res" id="res3" aria-live="polite"></div>
   </section>
   <section id="v-biblioteca" hidden>
-    <div class="breve"><div class="painel"><span class="rot">Em breve</span><h2>Pedidos prontos por profissão</h2>
-      <p>Advogado, contador, vendedor, gestor, RH: os pedidos que eu usaria no lugar de cada um, para copiar e colar.</p></div>
-      <p class="nota">Enquanto isso, comece pela <a href="#profissao">sua profissão e a IA</a>.</p></div>
+    <h1><span class="d">Pedidos prontos</span><br>para a sua profissão.</h1>
+    <p class="lead">Escolha sua profissão e veja 5 pedidos que eu usaria no seu lugar, cada um ligado a uma tarefa do índice da OIT. Copie, troque o que está entre colchetes e cole no Claude.</p>
+    <div class="filtro" id="b-filtro" role="group" aria-label="Escolha a profissão"></div>
+    <div class="res" id="res4" aria-live="polite"></div>
   </section>
 
   <footer>
@@ -261,7 +278,7 @@ const EXEMPLO = "2411";
 const $ = s => document.querySelector(s);
 const norm = s => (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 const fmt = n => String(Math.round(n*100));
-let DADOS = null, ORD = [], atual = null, sample = null, sem = null;
+let DADOS = null, ORD = [], atual = null, sample = null, sem = null, BIB = null, bibAtual = null;
 
 function el(tag, attrs, ...kids){
   const e = document.createElement(tag);
@@ -275,16 +292,18 @@ function el(tag, attrs, ...kids){
 
 /* ---------- abas ---------- */
 const ABAS = ["profissao","semana","pedido","biblioteca"];
+const RX_BIB = /^b-([a-z]+)$/;
 function rota(){
   const h = location.hash.slice(1);
-  const m = /^o(\d{4})$/.exec(h), s = /^s(\d{4})$/.exec(h);
-  let aba = ABAS.includes(h) ? h : s ? "semana" : "profissao";
+  const m = /^o(\d{4})$/.exec(h), s = /^s(\d{4})$/.exec(h), b = RX_BIB.exec(h);
+  let aba = ABAS.includes(h) ? h : s ? "semana" : b ? "biblioteca" : "profissao";
   for (const a of ABAS) $("#v-"+a).hidden = a !== aba;
   document.querySelectorAll("nav.abas a").forEach(a => { if (a.dataset.aba !== aba) a.removeAttribute("aria-current"); else a.setAttribute("aria-current","page"); });
   const nav = $("nav.abas"), atv = nav.querySelector('[aria-current="page"]');
   if (atv && (atv.offsetLeft + atv.offsetWidth > nav.scrollLeft + nav.clientWidth || atv.offsetLeft < nav.scrollLeft)) nav.scrollLeft = atv.offsetLeft - 16;
   if (m && DADOS) mostrar(m[1], false);
   if (s && DADOS && (!sem || sem.o.c !== s[1])) montarSemana(s[1], false);
+  if (b && BIB && b[1] !== bibAtual && BIB.some(p => p.id === b[1])) { bibAtual = b[1]; pintarBiblioteca(); }
 }
 window.addEventListener("hashchange", rota);
 
@@ -703,6 +722,119 @@ function iniciarPedido(){
   preencherPedido(EXEMPLOS_PEDIDO[0], true);
 }
 
+/* ---------- pedidos por profissão ---------- */
+/* Os pedidos ficam em biblioteca.json: 8 profissões, 5 pedidos cada, ligados a uma tarefa da OIT (nota da tarefa). */
+const MSGS_SAMPLE = { not_granted:"Você não permitiu o uso do Claude nesta página. Use Copiar ou Abrir no Claude.",
+  sampling_disabled:"O Claude não está disponível na sua conta aqui. Use Copiar ou Abrir no Claude.",
+  rate_limited:"Muitos pedidos agora. Tente de novo em alguns minutos ou use Abrir no Claude.",
+  session_expired:"Sua sessão do Claude expirou. Entre de novo e tente outra vez." };
+/* Mostra o pedido com os [espaços para preencher] destacados. */
+function comLacunas(txt){
+  return txt.split(/(\[[^\]]+\])/).filter(Boolean).map(p => /^\[/.test(p) ? el("span",{class:"lac"}, p) : p);
+}
+async function copiarTexto(txt, botao, ok){
+  try { await navigator.clipboard.writeText(txt); botao.textContent = ok; }
+  catch { botao.textContent = "Selecione o texto e copie"; }
+}
+function promptAdaptar(prof, ped, caso){
+  return `Sou ${prof.nome.toLowerCase()} no Brasil. Tenho este pedido modelo para usar numa IA:\n"""\n${ped.texto}\n"""\n\nMeu caso: ${caso}\n\nReescreva o pedido para o meu caso: preencha os colchetes com o que eu contei e deixe entre colchetes só o que eu ainda não disse. Mantenha a estrutura e os cuidados do pedido e não invente dados sobre a minha situação.\n\nResponda em duas partes, em português do Brasil, sem travessão longo:\n1. O pedido adaptado, pronto para copiar, com cada linha começando com "> ".\n2. Até 2 linhas dizendo o que eu ainda preciso preencher ou mandar junto.`;
+}
+
+function blocoAdaptar(prof, ped){
+  const chave = "b-" + ped.id;
+  const caixa = el("div",{class:"adaptar",hidden:""});
+  const id = "caso-" + ped.id;
+  const caso = el("textarea",{id,class:"txt",rows:"2",placeholder:"Ex.: é para um cliente pequeno de São Paulo, o prazo é sexta e o valor é R$ 5 mil"});
+  const ir = el("button",{class:"btn p",type:"button"},"Adaptar");
+  const parar = el("button",{class:"btn",type:"button",hidden:""},"Parar");
+  const saida = el("div",{class:"saida",hidden:"",style:"margin-top:4px"});
+  caixa.append(el("label",{class:"campo",for:id}, el("span",{class:"campo-t"},"Conte seu caso em uma ou duas frases"),
+      el("span",{class:"campo-d"},"Sem nome, CPF ou dado de cliente. O Claude preenche os colchetes com o que você contar."), caso),
+    el("div",{class:"acoes"}, ir, parar), saida);
+  ir.onclick = async () => {
+    const c = caso.value.trim();
+    if (!c){ caso.focus(); return; }
+    if (CTL[chave]) CTL[chave].abort();
+    const ctl = CTL[chave] = new AbortController();
+    saida.hidden = false; saida.innerHTML = "";
+    const md = el("div",{class:"md"}, el("p",{class:"pensando"},"Adaptando o pedido ao seu caso..."));
+    saida.append(md); ir.disabled = true; parar.hidden = false;
+    let ultimo = "";
+    try{
+      await sample(promptAdaptar(prof, ped, c), { signal:ctl.signal, onText: ({text}) => { ultimo = text; md.innerHTML = markdown(text); } });
+      saida.append(el("p",{class:"nota"},"Gerado pelo Claude na sua conta. Confira antes de usar."));
+      const pronto = ultimo.split("\n").filter(l => /^>\s?/.test(l)).map(l => l.replace(/^>\s?/,"")).join("\n").replace(/\u2014/g,",").trim();
+      if (pronto){
+        const cp = el("button",{class:"btn",type:"button",onclick:e => copiarTexto(pronto, e.currentTarget, "Versão adaptada copiada")},"Copiar versão adaptada");
+        saida.append(el("div",{class:"acoes",style:"margin-top:10px"}, cp,
+          el("a",{class:"btn",target:"_blank",rel:"noopener",href:"https://claude.ai/new?q="+encodeURIComponent(pronto.slice(0,2000))},"Abrir versão adaptada no Claude")));
+      }
+    } catch(e){
+      if (CTL[chave] !== ctl && e && e.code === "cancelled") return;
+      if (e && e.code === "cancelled"){ if (!e.text) saida.hidden = true; }
+      else {
+        if (e && e.text && e.code !== "refused") md.innerHTML = markdown(e.text); else md.innerHTML = "";
+        saida.append(el("p",{class:"nota"}, MSGS_SAMPLE[e && e.code] || "Não deu certo desta vez. Tente de novo ou use Abrir no Claude."));
+        if (e && ["not_granted","sampling_disabled","not_declared","capability_disabled"].includes(e.code)) ir.remove();
+      }
+    } finally { ir.disabled = false; parar.hidden = true; }
+  };
+  parar.onclick = () => CTL[chave] && CTL[chave].abort();
+  return caixa;
+}
+
+function cartaoPedido(prof, ped, n){
+  const copiar = el("button",{class:"btn p",type:"button",onclick:e => copiarTexto(ped.texto, e.currentTarget, "Pedido copiado")},"Copiar");
+  const abrir = el("a",{class:"btn",href:"https://claude.ai/new?q="+encodeURIComponent(ped.texto),target:"_blank",rel:"noopener"},"Abrir no Claude");
+  const acoes = el("div",{class:"acoes"}, copiar, abrir);
+  const card = el("div",{class:"painel ped"},
+    el("span",{class:"rot"}, "Pedido " + String(n).padStart(2,"0")),
+    el("h3",{}, ped.titulo),
+    el("p",{class:"ped-txt"}, ...comLacunas(ped.texto)),
+    el("div",{class:"ped-meta"},
+      el("div",{}, el("span",{class:"rot"},"Mande junto"), ped.entra),
+      el("div",{}, el("span",{class:"rot"},"Confira"), ped.confere)),
+    el("p",{class:"ped-tarefa"}, "Tarefa da OIT, nota ", el("b",{}, ped.nota + "/100"), ": " + ped.tarefa + "."),
+    acoes);
+  if (sample){
+    const adaptar = blocoAdaptar(prof, ped);
+    const abre = el("button",{class:"btn",type:"button","aria-expanded":"false",onclick:e => {
+      adaptar.hidden = !adaptar.hidden; e.currentTarget.setAttribute("aria-expanded", String(!adaptar.hidden));
+      if (!adaptar.hidden) adaptar.querySelector("textarea").focus();
+    }},"Adaptar ao meu caso");
+    acoes.append(abre); card.append(adaptar);
+  }
+  return card;
+}
+
+function pintarBiblioteca(){
+  for (const b of $("#b-filtro").children) b.setAttribute("aria-pressed", String(b.dataset.id === bibAtual));
+  for (const k of Object.keys(CTL)) if (k.startsWith("b-")) CTL[k].abort();
+  const prof = BIB.find(p => p.id === bibAtual) || BIB[0];
+  const res = $("#res4"); res.innerHTML = "";
+  res.append(el("div",{class:"painel"},
+    el("div",{class:"ocup"}, el("h2",{}, prof.nome), el("span",{class:"exemplo"}, "5 pedidos")),
+    el("p",{class:"prof-l"}, "Ocupação no índice da OIT: ", el("b",{}, prof.ocupacao), ", nota ", el("b",{}, prof.nota + "/100"), ". ",
+      el("a",{href:"#o"+prof.codigo},"Ver tarefa por tarefa")),
+    el("p",{class:"nota",style:"margin:10px 0 0"}, "Troque o que está entre colchetes pelos seus dados. Nada de nome, CPF ou dado de cliente no pedido.")));
+  prof.pedidos.forEach((ped, i) => res.append(cartaoPedido(prof, ped, i+1)));
+}
+
+async function iniciarBiblioteca(){
+  try{
+    const r = await fetch("biblioteca.json"); BIB = (await r.json()).profissoes;
+  } catch(e){
+    $("#res4").innerHTML = '<div class="painel">Não consegui carregar os pedidos. Recarregue a página.</div>'; return;
+  }
+  const f = $("#b-filtro");
+  for (const p of BIB) f.append(el("button",{type:"button","data-id":p.id,"aria-pressed":"false",onclick:() => {
+    bibAtual = p.id; history.replaceState(null, "", "#b-" + p.id); pintarBiblioteca();
+  }}, p.nome));
+  const b = RX_BIB.exec(location.hash.slice(1));
+  bibAtual = b && BIB.some(p => p.id === b[1]) ? b[1] : BIB[0].id;
+  pintarBiblioteca();
+}
+
 /* Markdown mínimo e seguro: só títulos, listas, negrito e citações. */
 function markdown(src){
   const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -725,6 +857,7 @@ function markdown(src){
 /* ---------- carga ---------- */
 async function iniciar(){
   iniciarPedido();
+  iniciarBiblioteca();
   try{
     const r = await fetch("dados.json"); DADOS = (await r.json()).o;
   } catch(e){
@@ -746,6 +879,7 @@ async function iniciar(){
   if (atual) mostrar(atual.c, !/^#o\d{4}$/.test(location.hash));
   if (sem) pintarSemana();
   if (resPedido) montarCaixaPedido();
+  if (BIB) pintarBiblioteca();
 })();
 iniciar();
 })();
