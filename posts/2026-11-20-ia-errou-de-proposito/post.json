@@ -1,0 +1,18 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg",
+    "09.jpg"
+  ],
+  "legenda": "E se a IA errar de propósito? Pesquisadores da Wharton testaram, e 80% das respostas erradas foram aceitas.\n\nO teste: 1.372 pessoas, 7 problemas de lógica e um ChatGPT do lado para consultar. Com uma instrução escondida, a IA foi programada para errar em parte das vezes.\n\nQuem consultou aceitou a resposta certa em 93% das vezes. E a errada em 80%. Com a IA errando, a pessoa acertou menos do que quem fez sozinho (31% contra 46%) e ainda saiu mais confiante.\n\nOs autores deram nome para isso: rendição cognitiva. É aceitar a resposta que vem de fora sem conferir.\n\nO que ajudou foi ter retorno. Quando a pessoa ficava sabendo na hora se acertou ou errou, a recusa ao erro subiu de 20% para 42%.\n\nFonte: Shaw e Nave, \"Thinking Fast, Slow, and Artificial\", Wharton, 2026.\n\nVocê confere o que a IA te entrega, ou confia e segue?\n\n#inteligenciaartificial #ia #chatgpt #produtividade #pensamentocritico #futurodotrabalho",
+  "linkedin": {
+    "status": "aprovado"
+  }
+}
