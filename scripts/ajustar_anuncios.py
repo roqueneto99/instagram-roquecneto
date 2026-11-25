@@ -397,6 +397,38 @@ if __name__ == "__main__":
         time.sleep(35)
         pausar(gratis_prof)
         print(f"NOVO {nome}: {novo}")
+    elif sys.argv[1:2] == ["post_unico"]:
+        # uso: post_unico <conjunto> <media_id> <orcamento_centavos> <nome>
+        # pausa os anúncios do conjunto, cria um anúncio com o post (botão: ver perfil), ajusta a verba e liga o conjunto.
+        import time
+        conj, media, cent, nome = sys.argv[2], sys.argv[3], int(sys.argv[4]), sys.argv[5]
+        existentes = A._lista(f"{conj}/ads", fields="id,name,effective_status")
+        ja = next((a for a in existentes if a["name"] == nome), None)
+        for a in existentes:
+            if a["name"] != nome and a["effective_status"] not in ("PAUSED", "ADSET_PAUSED_X"):
+                A._api("POST", a["id"], status="PAUSED"); print(f"  PAUSADO {a['name']}"); time.sleep(35)
+        if not ja:
+            for tentativa in range(10):
+                try:
+                    cr = A._api("POST", f"{CONTA}/adcreatives", name=nome,
+                                object_id=A.CONFIG["page_id"], instagram_user_id=A.CONFIG["instagram_user_id"],
+                                source_instagram_media_id=media,
+                                call_to_action={"type": "VIEW_INSTAGRAM_PROFILE",
+                                                "value": {"link": "https://www.instagram.com/roquecneto/"}})["id"]
+                    break
+                except A.ErroAnuncio as e:
+                    print(f"  criativo ainda não aceito ({e}); nova tentativa em 60 s")
+                    time.sleep(60)
+            A._api("POST", f"{CONTA}/ads", name=nome, adset_id=conj, creative={"creative_id": cr}, status="ACTIVE")
+            time.sleep(35)
+        else:
+            A._api("POST", ja["id"], status="ACTIVE"); time.sleep(35)
+        orcamento(conj, cent); time.sleep(35)
+        A._api("POST", conj, status="ACTIVE"); time.sleep(35)
+        d = A._api("GET", conj, fields="name,effective_status,daily_budget")
+        print(f"CONJUNTO {d['name']}: {d['effective_status']} R${int(d['daily_budget']) / 100:.2f}/dia")
+        for ad in A._lista(f"{conj}/ads", fields="name,effective_status"):
+            print(f"  ANUNCIO {ad['name']}: {ad['effective_status']}")
     elif sys.argv[1:2] == ["regua_perfil"]:
         # pedido de 16/11: mais verba na régua. Tira R$10 do meme do cargo e cria um segundo conjunto de
         # Lembrança (mesmo público que engajou em 14 dias) com o carrossel "Comece pelo Claude" levando ao perfil.
