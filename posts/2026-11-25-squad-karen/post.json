@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "Quem responde seu cliente quando você não pode?\n\nNo AprovaMais, quem cuida disso é a Karen, uma das cinco agentes de IA que trabalham comigo. Ela pega o aluno do cadastro em diante: mensagens, avisos, suporte e depoimentos.\n\nEla lê tudo, separa e deixa a resposta escrita. Mas não envia nada em meu nome. Tudo que fala com gente de verdade passa por mim.\n\nResponder leva um minuto. O que some com o dia é ler, separar e lembrar de voltar. É isso que eu entreguei para ela.\n\nEsse é o segundo post da série. O próximo é a Sexta-Feira.\n\nQuantas mensagens você deixou sem resposta esta semana?\n\n#inteligenciaartificial #agentesdeia #ia #atendimento #produtividade #claude",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7531500421564157953",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7531500421564157953/",
+    "publicado_em": "2026-11-25T23:33:49+00:00"
+  },
+  "media_id": "18100431965399417",
+  "link": "https://www.instagram.com/p/DgLuFF6DlFT/",
+  "publicado_em": "2026-11-25T23:33:48+00:00"
 }
