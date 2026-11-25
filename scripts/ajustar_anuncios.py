@@ -397,6 +397,16 @@ if __name__ == "__main__":
         time.sleep(35)
         pausar(gratis_prof)
         print(f"NOVO {nome}: {novo}")
+    elif sys.argv[1:2] == ["publico"]:
+        # só leitura: quem viu e clicou nos anúncios de um conjunto, por idade+gênero, estado e posição
+        conj = sys.argv[2]
+        for quebra in ("age,gender", "region", "publisher_platform,platform_position"):
+            for l in A._lista(f"{conj}/insights", level="ad", fields="ad_name,spend,impressions,reach,actions",
+                              date_preset="maximum", breakdowns=quebra):
+                ac = {a["action_type"]: a["value"] for a in l.get("actions", [])}
+                chave = " ".join(str(l.get(k, "")) for k in quebra.split(","))
+                print("PUB", quebra.split(",")[0], "|", l["ad_name"], "|", chave, "|", l["spend"], "|", l["impressions"],
+                      "|", ac.get("link_click", 0), "|", ac.get("post_reaction", 0), "|", ac.get("comment", 0))
     elif sys.argv[1:2] == ["post_unico"]:
         # uso: post_unico <conjunto> <media_id> <orcamento_centavos> <nome>
         # pausa os anúncios do conjunto, cria um anúncio com o post (botão: ver perfil), ajusta a verba e liga o conjunto.
