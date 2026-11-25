@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "Conheça o Jarvis. Ele cuida do que quebra.\n\nNo AprovaMais eu trabalho com cinco agentes de IA, cada um com uma área. O Jarvis é o da operação: sistema no ar, erro, lentidão e versão nova.\n\nO que faz ele funcionar não é a tecnologia. É a divisão: o que dá para desfazer ele faz sozinho e me conta. O que não dá para desfazer passa por mim.\n\nE uma regra: ele só diz \"feito\" depois de conferir.\n\nEsse é o primeiro post da série. O próximo é a Karen.\n\nQue parte do seu trabalho você entregaria primeiro?\n\n#inteligenciaartificial #agentesdeia #ia #automacao #produtividade #claude",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7531161898269110272",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7531161898269110272/",
+    "publicado_em": "2026-11-25T01:08:39+00:00"
+  },
+  "media_id": "18132769423849359",
+  "link": "https://www.instagram.com/p/DgJUJD2Dh95/",
+  "publicado_em": "2026-11-25T01:08:37+00:00"
 }
