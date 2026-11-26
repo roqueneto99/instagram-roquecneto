@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "A IA escreve. Quem garante que está certo?\n\nNo AprovaMais, quem cuida do conteúdo de estudo e do produto é o Visão, um dos cinco agentes de IA que trabalham comigo.\n\nEle revisa o que já existe, escreve o rascunho do que falta e mostra a fonte de cada coisa. Mas não coloca nada na frente do aluno. Tudo que o aluno estuda passa por mim.\n\nA regra dele é simples: sem fonte, não entra. Texto bonito não é texto certo.\n\nEsse é o quarto post da série. O próximo e último é a Edith.\n\nVocê confere o que a IA escreve antes de usar?\n\n#inteligenciaartificial #agentesdeia #ia #educacao #produtividade #claude",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7531858234186526722",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7531858234186526722/",
+    "publicado_em": "2026-11-26T23:15:38+00:00"
+  },
+  "media_id": "18097712333167110",
+  "link": "https://www.instagram.com/p/DgOQyfcI2XK/",
+  "publicado_em": "2026-11-26T23:15:37+00:00"
 }
