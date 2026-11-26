@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "publicado",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -12,6 +12,12 @@
   ],
   "legenda": "Você sabe de onde vem o seu cliente?\n\nNo AprovaMais, quem cuida disso é a Sexta-Feira, uma das cinco agentes de IA que trabalham comigo. Ela olha os anúncios e os números de quem chega: de onde veio e quanto custou.\n\nEla lê tudo, aponta o que mudou e deixa a sugestão pronta. Mas não mexe em verba nem liga anúncio. Tudo que gasta dinheiro passa por mim.\n\nE uma regra: ela nunca chuta número. Sem dado, diz \"não conferi\".\n\nEsse é o terceiro post da série. O próximo é a Visão.\n\nQual número do seu negócio você olha todo dia?\n\n#inteligenciaartificial #agentesdeia #ia #marketingdigital #produtividade #claude",
   "linkedin": {
-    "status": "aprovado"
-  }
+    "status": "publicado",
+    "urn": "urn:li:ugcPost:7531718686991147008",
+    "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7531718686991147008/",
+    "publicado_em": "2026-11-26T14:01:07+00:00"
+  },
+  "media_id": "18121042493469730",
+  "link": "https://www.instagram.com/p/DgNRVtFILuZ/",
+  "publicado_em": "2026-11-26T14:01:05+00:00"
 }
