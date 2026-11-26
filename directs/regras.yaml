@@ -44,6 +44,9 @@ categorias:
 
 # Comentou, recebeu: quem comenta a palavra recebe a mensagem no direct.
 # A palavra vale em qualquer post, a não ser que "posts" liste ids de mídia específicos.
+# comentou_recebeu_ligado: false -> não manda direct nem responde comentário (desligado em 25/11/2026
+# a pedido do Roque). Para voltar, troque para true.
+comentou_recebeu_ligado: false
 palavras_chave:
   - palavra: MBA
     direct: |

@@ -134,7 +134,16 @@ def test_eco_do_app_tira_rascunho(cli, monkeypatch):
     assert not [r for r in db.pendentes() if r["igsid"] == "666"]
 
 
-def test_comentou_recebeu(cli):
+def test_comentou_recebeu_desligado(cli, monkeypatch):
+    r = ia.regras()
+    monkeypatch.setattr(ia, "regras", lambda: {**r, "comentou_recebeu_ligado": False})
+    comentario(cli, "k0", "Quero saber do mba!")
+    assert not ENVIADOS
+
+
+def test_comentou_recebeu(cli, monkeypatch):
+    r = ia.regras()
+    monkeypatch.setattr(ia, "regras", lambda: {**r, "comentou_recebeu_ligado": True})
     comentario(cli, "k1", "Quero saber do mba!")
     privados = [e for e in ENVIADOS if e[1].endswith("/messages")]
     assert privados[0][2]["json"]["recipient"] == {"comment_id": "k1"}

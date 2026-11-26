@@ -198,6 +198,8 @@ def tratar_comentario(conta, v):
     de = v.get("from", {}) or {}
     if not cid or str(de.get("id")) == conta or db.comentario_existe(cid):
         return
+    if not ia.regras().get("comentou_recebeu_ligado", True):
+        return  # comentou, recebeu desligado em regras.yaml
     texto = v.get("text", "")
     midia = (v.get("media") or {}).get("id")
     palavras = _normal(texto).split()
