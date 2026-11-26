@@ -1,0 +1,19 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg"
+  ],
+  "legenda": "Como nasce um agente de IA?\n\nMe perguntaram como a Karen nasceu. A Karen é a agente que cuida do relacionamento com os alunos do AprovaMais. Foi assim:\n\n1. Listei as áreas da empresa.\n2. Dei um agente para cada área, com nome.\n3. Escrevi num documento simples o que cada um cuida e o que estava pendente.\n4. Levei o documento ao Claude Code, que transformou cada agente numa instrução fixa: papel, limites e o que pode fazer sozinho.\n5. Cada agente ganhou a sua lista do que está aberto, dizendo de quem depende.\n6. Todos seguem o mesmo método: só dizem \"feito\" depois de conferir e nunca chutam número.\n7. E cada um tem a sua trava. A da Karen: ela prepara a resposta, mas não envia nada em meu nome.\n\nO difícil não foi a tecnologia. Foi decidir onde cada agente para.\n\nSe você montasse um agente hoje, qual área seria a primeira?\n\n#inteligenciaartificial #agentesdeia #ia #automacao #produtividade #claude",
+  "agendado_para": "2026-11-27T18:30:00-03:00",
+  "linkedin": {
+    "status": "aprovado",
+    "agendado_para": "2026-11-27T18:30:00-03:00"
+  }
+}
