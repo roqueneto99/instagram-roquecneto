@@ -1,5 +1,5 @@
 {
-  "status": "aprovado",
+  "status": "rascunho",
   "imagens": [
     "01.jpg",
     "02.jpg",
@@ -11,9 +11,7 @@
     "08.jpg"
   ],
   "legenda": "Ela vê todo o dinheiro. E não move um centavo.\n\nNo AprovaMais, quem cuida do financeiro é a Edith, um dos cinco agentes de IA que trabalham comigo. Ela confere o que entrou, o que saiu e o que falhou, e me entrega a conta fechada.\n\nSó que ela não paga, não devolve e não muda preço. Nem com pedido. Dinheiro só se mexe pela minha mão.\n\nA lógica é antiga: quem confere a conta não pode ser quem paga. Vale para gente. Vale para IA também.\n\nEsse é o último post da série. Jarvis, Karen, Sexta-Feira, Visão e Edith estão todos no perfil.\n\nVocê deixaria uma IA mexer no seu dinheiro?\n\n#inteligenciaartificial #agentesdeia #ia #financeiro #produtividade #claude",
-  "agendado_para": "2026-11-27T08:30:00-03:00",
   "linkedin": {
-    "status": "aprovado",
-    "agendado_para": "2026-11-27T08:30:00-03:00"
+    "status": "rascunho"
   }
 }
