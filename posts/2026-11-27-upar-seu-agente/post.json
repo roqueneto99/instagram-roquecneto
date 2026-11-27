@@ -1,0 +1,19 @@
+{
+  "status": "aprovado",
+  "imagens": [
+    "01.jpg",
+    "02.jpg",
+    "03.jpg",
+    "04.jpg",
+    "05.jpg",
+    "06.jpg",
+    "07.jpg",
+    "08.jpg"
+  ],
+  "legenda": "Seu agente de IA começa no nível 1. Dá para upar.\n\nFunciona igual em jogo. Todo personagem novo é igual ao de todo mundo. O que muda é o que você entrega para ele.\n\nOs 5 upgrades, do mais simples ao mais forte:\n\n1. Instrução: diga quem ele é, os limites e o que pode fazer sozinho.\n2. Livro: dê um livro, um manual ou o seu método para ele usar de base.\n3. Memória: um arquivo com o que está aberto e o que já foi testado.\n4. Dados: uma planilha ou base para ele conferir em vez de supor.\n5. Ferramentas: acesso aos seus sistemas, para ele deixar de só falar e passar a fazer.\n\nUm aviso sobre o último: quanto mais poder, mais trava. O que não dá para desfazer passa por você.\n\nEm que nível está o seu agente hoje?\n\n#inteligenciaartificial #agentesdeia #ia #automacao #produtividade #claude",
+  "agendado_para": "2026-11-28T08:30:00-03:00",
+  "linkedin": {
+    "status": "aprovado",
+    "agendado_para": "2026-11-28T08:30:00-03:00"
+  }
+}
